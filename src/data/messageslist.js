@@ -1,0 +1,13 @@
+const messageslist = [
+    { id: 1, user: '636584797bb5410ba49936fb', sender: '636586805eb2445eea62a5c1', message: 'Contrary to popular belief, Lorem Ipsum is not simply random text', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 2, user: '636586805eb2445eea62a5c1', sender: '636584797bb5410ba49936fb', message: 'when an unknown printer took a galley of type and scrambled', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 3, user: '636584797bb5410ba49936fb', sender: '636586805eb2445eea62a5c1', message: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 4, user: '636586805eb2445eea62a5c1', sender: '636584797bb5410ba49936fb', message: 'Contrary to popular belief', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 5, user: '636584797bb5410ba49936fb', sender: '636586805eb2445eea62a5c1', message: 'Latin professor at Hampden-Sydney College in Virginia', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 6, user: '636586805eb2445eea62a5c1', sender: '636584797bb5410ba49936fb', message: 'Contrary to popular belief, Lorem Ipsum is not simply random text', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 7, user: '636584797bb5410ba49936fb', sender: '636586805eb2445eea62a5c1', message: 'when an unknown printer took a galley of type and scrambled', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 8, user: '636586805eb2445eea62a5c1', sender: '636584797bb5410ba49936fb', message: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 9, user: '636584797bb5410ba49936fb', sender: '636586805eb2445eea62a5c1', message: 'Contrary to popular belief', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+    { id: 10, user: '636586805eb2445eea62a5c1', sender: '636584797bb5410ba49936fb', message: 'Latin professor at Hampden-Sydney College in Virginia', image: require('./../../assets/images/profile-image.png'), isDeleted: false, createdAt: '2023-06-17T80:30:00' },
+]
+export default messageslist;

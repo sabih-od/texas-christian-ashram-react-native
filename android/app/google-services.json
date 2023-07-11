@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1031081615742",
+    "project_id": "texas-christan-app",
+    "storage_bucket": "texas-christan-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031081615742:android:510ae8d853525378dc532f",
+        "android_client_info": {
+          "package_name": "com.texaschrsitianashram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031081615742-qt0k593h4k8j36c506677un0984te9m1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbcNVQEGdXTaDdCrzQ1yGJf8ddrq_sKJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031081615742-qt0k593h4k8j36c506677un0984te9m1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
