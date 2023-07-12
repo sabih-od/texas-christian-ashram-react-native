@@ -15,10 +15,10 @@ const RequestedPrayersItem = (props) => {
             <Text style={styles.reqhead}>Pray For</Text>
             <Text style={styles.reqdata} numberOfLines={1}>{props.item.name}</Text>
         </View>
-        <View style={styles.reqcolmn}>
+        {/* <View style={styles.reqcolmn}>
             <Text style={styles.reqhead}>Date</Text>
             <Text style={styles.reqdata}>{props.item.start_date}</Text>
-        </View>
+        </View> */}
         <View style={styles.reqcolmn}>
             <Text style={styles.reqhead}>Prayer Request</Text>
             <Text style={styles.reqdata} numberOfLines={1}>{props.item.description}</Text>
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     borderLeftColor: '#ddd', borderLeftWidth: 2, 
     // borderTopLeftRadius: 0, borderBottomLeftRadius: 0 
 },
-    reqcolmn: { flex: 0.33 },
+    // reqcolmn: { flex: 0.33 },
+    reqcolmn: { flex: 0.5 },
     reqhead: { fontFamily: fonts.latoRegular, fontSize: 11, marginBottom: 4, color: colors.grey },
     reqdata: { fontFamily: fonts.latoBold, fontSize: 13, color: colors.black },
     moreicon: {color: colors.orange, fontSize: 14},

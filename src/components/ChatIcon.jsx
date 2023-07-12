@@ -8,6 +8,11 @@ import { connect } from 'react-redux';
 import { getSocket } from '../helpers/socket-manager';
 
 const ChatIcon = (props) => {
+
+  useEffect(() => { 
+    console.log('props.messageBadge => ', props.messageBadge);
+  }, [])
+
   const handleIconPress = () => {
     props.UpdateMessageBadge(0)
     props.navigation.navigate('ChatGroups')

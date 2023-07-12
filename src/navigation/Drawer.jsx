@@ -38,8 +38,19 @@ const DrawerContent = (props) => {
       }
     }
 
+    const testtopic = 'test';
+    messaging().subscribeToTopic(testtopic).then(() => console.log("Subscribed to topic:", testtopic)).catch((e) => {
+      console.log(e);
+    });
+
     const topic = 'test';
+    // const topic = 'new-firebase-notification';
     messaging().subscribeToTopic(topic).then(() => console.log("Subscribed to topic:", topic)).catch((e) => {
+      console.log(e);
+    });
+
+    const newtopic = 'newFirebaseNotification';
+    messaging().subscribeToTopic(newtopic).then(() => console.log("Subscribed to topic:", newtopic)).catch((e) => {
       console.log(e);
     });
 
@@ -122,8 +133,7 @@ const DrawerContent = (props) => {
     { title: 'Our Speakers', nav: 'OurSpeakers', icon: 'home', isActive: false },
     { title: 'Our Staff', nav: 'OurStaff', icon: 'home', isActive: false },
     { title: 'Messages', nav: 'Sermons', icon: 'home', isActive: false },
-    { title: 'Donation', nav: 'Donation', icon: 'home', isActive: false },
-    { title: 'Chat Groups', nav: 'ChatGroups', icon: 'home', isActive: false },
+    // { title: 'Donation', nav: 'Donation', icon: 'home', isActive: false },
     { title: 'Profile', nav: 'Profile', icon: 'home', isActive: false },
     { title: 'Announcements', nav: 'Announcements', icon: 'home', isActive: false },
     { title: 'Prayer Request', nav: 'PrayerRequest', icon: 'home', isActive: false },

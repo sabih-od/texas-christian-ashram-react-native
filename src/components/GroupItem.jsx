@@ -13,6 +13,7 @@ const GroupItem = ({ item, width, navigation }) => {
             }}>
                 {/* {item?.badge && <View style={{position:'absolute', top: -5, right: -5, width: 12, height: 12, backgroundColor: colors.green, borderRadius: 20}} />} */}
             <Image source={
+                // { uri: item.default_icon}
                 item.default_icon ? { uri: item.default_icon} : require('./../../assets/images/default_icon.png') 
                 // item.image
                 // { uri: item?.image }

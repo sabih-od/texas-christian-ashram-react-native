@@ -21,7 +21,14 @@ const SermonsDetail = (props) => {
     const [isStarted, setStarted] = useState(true);
 
     useEffect(() => {
-        if (props.getSermonDetailResponse.status && props.getSermonDetailResponse.data) {
+        if (props.route.params.refresh) {
+            setRefreshing(true);
+            props.GetSermonsDetailApiCall(props.route.params.id)
+        }
+    }, [props.route.params.refresh])
+
+    useEffect(() => {
+        if (props.getSermonDetailResponse.success && props.getSermonDetailResponse.data) {
             setItem(props.getSermonDetailResponse.data);
         }
         setRefreshing(false);
@@ -46,14 +53,15 @@ const SermonsDetail = (props) => {
             {isStarted && <View style={{ height: width / 1.8, justifyContent: 'center', backgroundColor: colors.black, position: 'absolute', zIndex: 1, width: width, left: 0, top: 0 }}>
                 <ActivityIndicator color={colors.green} />
             </View>}
-            <YoutubePlayer
+            {item?.youtube_video_id && <YoutubePlayer
                 height={width / 1.8}
                 play={playing}
-                videoId={"Gxb8BKoMASc"}
+                videoId={item?.youtube_video_id}
                 onChangeState={_handleStateChanged}
                 onReady={() => console.log('onReady')}
                 onError={() => console.log('onError')}
-            />
+            />}
+
             {/* <YouTube
                 videoId="Gxb8BKoMASc"
                 apiKey="AIzaSyDPSZ0cWHpLdZll6bugk-1XANGuQPaQHNs" // Sam Garcia

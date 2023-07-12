@@ -116,7 +116,7 @@ const PrayerRequest = props => {
     }
   };
 
-  function _handleSetVisible(data){
+  function _handleSetVisible(data) {
     setShowStartDate(false);
     setShowEndDate(false);
     setShowTime(false);
@@ -143,7 +143,7 @@ const PrayerRequest = props => {
               <View
                 style={[globalstyle.authLogoContainer, { alignItems: 'flex-start' }]}>
                 <Text style={[globalstyle.authheading, { fontSize: 30, marginTop: 10 }]}>Prayer Request </Text>
-                <Text style={[globalstyle.authdescription, { fontSize: 15, marginBottom: 10 },]}> Lorem Ipsum is simply dummy text of the printing </Text>
+                <Text style={[globalstyle.authdescription, { fontSize: 15, marginBottom: 10 },]}> Invoking collective prayers in the ashram, seeking divine blessings </Text>
               </View>
 
               {/* {Platform.OS === 'ios' && <DateTimeModal showDate={showStartDate || showEndDate} showTime={showTime} maxDate={startDate} isStartDate={showStartDate} setVisible={_handleSetVisible} _handleChangeDate={_handleChangeDate} _handleChangeTime={_handleChangeTime} />}
@@ -355,7 +355,7 @@ const PrayerRequest = props => {
                       style={{ marginTop: 15 }}
                     />
                     <TextInput
-                      style={[ globalstyle.inputfield, { flex: 0.8, textAlignVertical: 'top', paddingTop: 17 }, ]}
+                      style={[globalstyle.inputfield, { flex: 0.8, textAlignVertical: 'top', paddingTop: 17 },]}
                       placeholder="Prayer Request"
                       placeholderTextColor={colors.placeholdercolor}
                       {...register('description', {

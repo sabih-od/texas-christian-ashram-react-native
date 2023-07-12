@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, TouchableOpacity, BackHandler, Alert, RefreshControl } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, Image, StyleSheet, TouchableOpacity, BackHandler, Alert, RefreshControl } from "react-native";
 import { colors, fonts, height, width } from "./../theme";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -151,7 +151,10 @@ const Home = (props) => {
                     keyExtractor={(item, index) => String(index)}
                     renderItem={({ item, index }) => <HomeSlideBox key={index} item={item} navigation={props.navigation} />}
                 />
-                {(homeBannerList.length == 0) && <HomeSliderSkeleton />}
+                {(homeBannerList.length == 0) &&
+                    // <Image source={require('./../../assets/images/home-slider-placeholder.png')} style={{ height: 250, borderRadius: 10, overflow: 'hidden', width: width - 30, marginBottom: 15 }} />
+                    <HomeSliderSkeleton />
+                }
 
                 {/* <Seperator /> */}
 
@@ -209,33 +212,37 @@ const Home = (props) => {
 
                 {/* <Seperator /> */}
 
-                <SectionHeading title="Upcoming Events" />
+                {/* <SectionHeading title="Upcoming Events" />
                 {(upcomingEventList.length == 0) && <View style={[styles.flexrow, { marginBottom: 20 }]}>
                     <EventsSkeleton />
                     <EventsSkeleton />
-                </View>}
-                <FlatList
-                    // style={{ padding: 15 }}
-                    horizontal
-                    // snapToInterval={width / 2}
-                    // scrollEnabled
-                    // scrollEventThrottle={16}
-                    // columnWrapperStyle={{ justifyContent: 'space-between' }}
-                    // numColumns={2}
-                    showsHorizontalScrollIndicator={false}
-                    // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                    //     { useNativeDriver: false }
-                    // )}
-                    // refreshing={refreshing}
-                    // onRefresh={_handleRefresh}
-                    data={upcomingEventList}
-                    // data={eventlist}
-                    keyExtractor={(item, index) => String(index)}
-                    ItemSeparatorComponent={() => <View style={{ height: "100%", width: 10, }} />}
-                    renderItem={({ item, index }) => {
-                        return (<UpComingEventBox key={index} item={item} width={(width / 2) - 20} navigation={props.navigation} />)
-                    }}
-                />
+                </View>} */}
+
+                {(upcomingEventList.length != 0) &&
+                    <><SectionHeading title="Upcoming Events" />
+                        <FlatList
+                            // style={{ padding: 15 }}
+                            horizontal
+                            // snapToInterval={width / 2}
+                            // scrollEnabled
+                            // scrollEventThrottle={16}
+                            // columnWrapperStyle={{ justifyContent: 'space-between' }}
+                            // numColumns={2}
+                            showsHorizontalScrollIndicator={false}
+                            // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                            //     { useNativeDriver: false }
+                            // )}
+                            // refreshing={refreshing}
+                            // onRefresh={_handleRefresh}
+                            data={upcomingEventList}
+                            // data={eventlist}
+                            keyExtractor={(item, index) => String(index)}
+                            ItemSeparatorComponent={() => <View style={{ height: "100%", width: 10, }} />}
+                            renderItem={({ item, index }) => {
+                                return (<UpComingEventBox key={index} item={item} width={(width / 2) - 20} navigation={props.navigation} />)
+                            }}
+                        />
+                    </>}
 
                 {ourSpeakersList.length > 0 && <>
                     <SectionHeading title="Our Speakers" />
@@ -266,9 +273,9 @@ const Home = (props) => {
                 {/* <Seperator /> */}
 
                 {ourStaffList.length > 0 && <><SectionHeading title="Our Staff" />
-                {ourStaffList.map((item, index) =>
-                    <OurStaffBox key={index} item={item} navigation={props.navigation} />
-                )}
+                    {ourStaffList.map((item, index) =>
+                        <OurStaffBox key={index} item={item} navigation={props.navigation} />
+                    )}
                 </>}
 
                 {/* <Seperator /> */}

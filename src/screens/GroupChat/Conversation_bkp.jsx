@@ -23,26 +23,22 @@ function delayanimate(toexecute) {
     }, 200)
 }
 
+const KeyboardAvoidingWrapper = (props) => {
+    return <SafeAreaView style={[styles.fullview]}>
+        <KeyboardAvoidingView behavior="padding"
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+            style={[styles.fullview]}
+        >
+            {props?.children}
+        </KeyboardAvoidingView>
+    </SafeAreaView>
+}
+
 const ITEMS_LIMIT = 50;
 const Conversation = (props) => {
 
-
-    // const [keyboardHeight, setKeyboardHeight] = useState(0);
-    // useEffect(() => {
-    //     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', handleKeyboardShow);
-    //     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', handleKeyboardHide);
-    //     return () => {
-    //         keyboardDidShowListener.remove();
-    //         keyboardDidHideListener.remove();
-    //     };
-    // }, []);
-    // const handleKeyboardShow = (event) => {
-    //     const { height } = event.endCoordinates;
-    //     setKeyboardHeight(height);
-    // };
-    // const handleKeyboardHide = () => {
-    //     setKeyboardHeight(0);
-    // };
+    // const userid = "636584797bb5410ba49936fb";
+    // const receiverid = "636586805eb2445eea62a5c1";
 
     const [refresh, setRefresh] = useState(false);
     const [loadmore, setLoadmore] = useState(false);
@@ -178,10 +174,7 @@ const Conversation = (props) => {
 
     return (
         <SafeAreaView style={[styles.fullview]}>
-            <KeyboardAvoidingView
-                // behavior={'padding'}
-                // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                behavior={Platform.OS === 'ios' ? 'padding' : null}
+            <KeyboardAvoidingView behavior="padding"
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
                 style={[styles.fullview]}
             >

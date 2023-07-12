@@ -15,7 +15,7 @@ const OurStaffDetail = (props) => {
     const [item, setItem] = useState(props.route.params.item);
 
     useEffect(() => {
-        if (props.getOurStaffDetailResponse.status && props.getOurStaffDetailResponse.data) {
+        if (props.getOurStaffDetailResponse.success && props.getOurStaffDetailResponse.data) {
             setItem(props.getOurStaffDetailResponse.data);
         }
         setRefreshing(false);

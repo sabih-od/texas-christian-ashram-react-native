@@ -15,7 +15,7 @@ const OurSpeakerDetail = (props) => {
     const [item, setItem] = useState(props.route.params.item);
 
     useEffect(() => {
-        if (props.getOurSpeakerDetailResponse.status && props.getOurSpeakerDetailResponse.data) {
+        if (props.getOurSpeakerDetailResponse.success && props.getOurSpeakerDetailResponse.data) {
             setItem(props.getOurSpeakerDetailResponse.data);
         }
         setRefreshing(false);

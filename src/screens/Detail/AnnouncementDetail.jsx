@@ -13,7 +13,14 @@ const AnnouncementDetail = (props) => {
     const [item, setItem] = useState(props.route.params.item);
 
     useEffect(() => {
-        if (props.getAnnouncementDetailResponse.status && props.getAnnouncementDetailResponse.data) {
+        if (props.route.params.refresh) {
+            setRefreshing(true);
+            props.GetAnnouncementDetailApiCall(props.route.params.id)
+        }
+    }, [props.route.params.refresh])
+
+    useEffect(() => {
+        if (props.getAnnouncementDetailResponse.success && props.getAnnouncementDetailResponse.data) {
             setItem(props.getAnnouncementDetailResponse.data);
         }
         setRefreshing(false);

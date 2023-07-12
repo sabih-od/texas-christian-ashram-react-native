@@ -15,7 +15,14 @@ const PostDetail = (props) => {
     const [item, setItem] = useState(props.route.params.item);
 
     useEffect(() => {
-        if (props.getPostDetailResponse.status && props.getPostDetailResponse.data) {
+        if (props.route.params.refresh) {
+            setRefreshing(true);
+            props.GetPostDetailApiCall(props.route.params.id)
+        }
+    }, [props.route.params.refresh])
+
+    useEffect(() => {
+        if (props.getPostDetailResponse.success && props.getPostDetailResponse.data) {
             setItem(props.getPostDetailResponse.data);
         }
         setRefreshing(false);
@@ -45,7 +52,7 @@ const PostDetail = (props) => {
                     borderTopRightRadius: BORDER_RADIUS,
                 }}
             >
-                <Text style={styles.date}>{moment(parseInt(item.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+                <Text style={styles.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
                 <Text style={styles.title}>{item?.title}</Text>
                 <Text style={styles.description}>{item?.content}</Text>
             </ScrollView>

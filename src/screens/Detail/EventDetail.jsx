@@ -16,7 +16,14 @@ const EventDetail = (props) => {
     const [item, setItem] = useState(props.route.params.item);
 
     useEffect(() => {
-        if (props.getEventDetailResponse.status && props.getEventDetailResponse.data) {
+        if (props.route.params.refresh) {
+            setRefreshing(true);
+            props.GetEventsDetailApiCall(props.route.params.id)
+        }
+    }, [props.route.params.refresh])
+
+    useEffect(() => {
+        if (props.getEventDetailResponse.success && props.getEventDetailResponse.data) {
             setItem(props.getEventDetailResponse.data);
         }
         setRefreshing(false);
@@ -91,7 +98,7 @@ export default connect(setStateToProps, mapDispatchToProps)(EventDetail);
 const styles = StyleSheet.create({
     date: { fontFamily: fonts.latoRegular, color: colors.orange },
     title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: 28, marginBottom: 5 },
-    subheading: { fontFamily: fonts.headingFont, marginBottom: 3, fontSize: 18 },
+    subheading: { fontFamily: fonts.headingFont, marginBottom: 3, fontSize: 18, color: colors.black },
     description: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 15 },
     eventlocation: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 13, },
     eventpinicon: { color: colors.orange, marginRight: 15, marginTop: 2, fontSize: 20 }

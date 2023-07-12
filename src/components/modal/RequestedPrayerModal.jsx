@@ -30,7 +30,7 @@ const RequestedPrayerModal = ({ visible, setVisible, item }) => {
                         <Text style={styles.rowheading}>Prayer For</Text>
                         <Text style={styles.rowdetail}>{item?.name}</Text>
                     </View>
-                    <View style={styles.itemrow}>
+                    {/* <View style={styles.itemrow}>
                         <Text style={styles.rowheading}>Start Date</Text>
                         <Text style={styles.rowdetail}>{moment.parseZone(item?.start_date, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
                     </View>
@@ -41,9 +41,9 @@ const RequestedPrayerModal = ({ visible, setVisible, item }) => {
                     <View style={styles.itemrow}>
                         <Text style={styles.rowheading}>Time</Text>
                         <Text style={styles.rowdetail}>{item?.time}</Text>
-                    </View>
+                    </View> */}
                     <View style={styles.itemrow}>
-                        <Text style={styles.rowheading}>Description</Text>
+                        <Text style={styles.rowheading}>Prayer Request</Text>
                         <Text style={styles.rowdetail}>{item?.description}</Text>
                     </View>
                     <View style={styles.itemrow}>
@@ -68,6 +68,6 @@ export default RequestedPrayerModal;
 
 const styles = StyleSheet.create({
     itemrow: { flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 15 },
-    rowheading: { fontFamily: fonts.latoBold, minWidth: 100, color: colors.green },
-    rowdetail: { fontFamily: fonts.latoRegular, color: colors.grey, maxWidth: width - 170, }
+    rowheading: { fontFamily: fonts.latoBold, minWidth: 110, color: colors.green },
+    rowdetail: { fontFamily: fonts.latoRegular, color: colors.grey, maxWidth: width - 180, }
 })
