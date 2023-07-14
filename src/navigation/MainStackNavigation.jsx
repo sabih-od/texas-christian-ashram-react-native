@@ -27,7 +27,7 @@ import Sermons from "../screens/Sermons";
 // import NotificationIcon from "../components/header/NotificationIcon";
 import RequestedPrayers from "../screens/RequestedPrayers";
 import PrayerRequest from "../screens/PrayerRequest";
-import Profile from "../screens/Profile";
+import Profile from "../screens/Profile/Profile";
 import Donation from "../screens/Donation";
 import OurSpeakers from "../screens/OurSpeakers";
 import OurStaff from "../screens/OurStaff";
@@ -44,6 +44,7 @@ import OurStaffDetail from "../screens/Detail/OurStaffDetail";
 import SermonsDetail from "../screens/Detail/SermonsDetail";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import EditProfile from "../screens/Profile/EditProfile";
 
 const Stack = createStackNavigator();
 
@@ -64,8 +65,8 @@ const GoBackIcon = (props) => {
     return (<TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-            props.navigation.navigate(props.screen ? props.screen : 'Home')
-            // props.navigation.goBack()
+            // props.navigation.navigate(props.screen ? props.screen : 'Home')
+            props.navigation.goBack()
         }}
         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
         <Icon name={'chevron-left'} size={22} color={props.color ? props.color : colors.white} />
@@ -147,7 +148,22 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="Profile"
                 component={Profile}
                 options={{
-                    headerTitle: 'Profile',
+                    headerTitle: '',
+                    headerTransparent: true,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,                    
+                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                }}
+            />
+            <Stack.Screen
+                name="EditProfile"
+                component={EditProfile}
+                options={{
+                    headerTitle: '',
+                    headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
@@ -156,6 +172,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
                 }}
             />
+            
             <Stack.Screen
                 name="PdfView"
                 component={PdfView}
@@ -229,7 +246,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'OurSpeaker'} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
                 }}
             />
@@ -254,7 +271,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'OurStaff'} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
                 }}
             />
@@ -398,7 +415,8 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
-                    headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Announcements'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
                 }}
             />

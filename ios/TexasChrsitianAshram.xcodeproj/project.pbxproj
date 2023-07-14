@@ -571,7 +571,7 @@
 				CODE_SIGN_ENTITLEMENTS = TexasChrsitianAshram/TexasChrsitianAshram.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9D2LRDBU94;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TexasChrsitianAshram/Info.plist;
@@ -589,8 +589,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.texaschristianapp;
 				PRODUCT_NAME = TexasChrsitianAshram;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -605,7 +609,7 @@
 				CODE_SIGN_ENTITLEMENTS = TexasChrsitianAshram/TexasChrsitianAshram.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9D2LRDBU94;
 				INFOPLIST_FILE = TexasChrsitianAshram/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Texas Chrsitian Ashram";
@@ -622,7 +626,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.texaschristianapp;
 				PRODUCT_NAME = TexasChrsitianAshram;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

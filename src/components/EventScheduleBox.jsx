@@ -1,5 +1,5 @@
 import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
-import { colors, fonts } from '../theme';
+import { colors, fonts, isIPad } from '../theme';
 import Icon from 'react-native-vector-icons/Feather';
 
 const EventScheduleBox = ({ navigation, item, width }) => {
@@ -17,10 +17,10 @@ const EventScheduleBox = ({ navigation, item, width }) => {
             <View
                 style={{ paddingVertical: 10 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <Text style={{ fontFamily: fonts.headingFont, color: colors.black, fontSize: 16, }}>{item?.title}</Text>
+                    <Text style={{ fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 20 : 16, }}>{item?.title}</Text>
                     {/* <Icon name={'arrow-right'} style={{ color: colors.orange, fontSize: 15 }} /> */}
                 </View>
-                <Text style={{ fontFamily: fonts.latoRegular, color: colors.black, fontSize: 13, }} numberOfLines={1}>{item?.description}</Text>
+                <Text style={{ fontFamily: fonts.latoRegular, color: colors.black, fontSize: isIPad ? 15 :13, }} numberOfLines={1}>{item?.description}</Text>
             </View>
         </TouchableOpacity>
     )

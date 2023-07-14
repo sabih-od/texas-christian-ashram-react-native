@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { colors } from '../theme';
+import { colors, isIPad } from '../theme';
 import { UpdateMessageBadge } from '../redux/reducers/AppStateReducer';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -36,7 +36,7 @@ const ChatIcon = (props) => {
     <View style={styles.container}>
       {props.messageBadge > 0 && <View style={styles.notifbadge} />}
       <TouchableOpacity activeOpacity={0.9} style={styles.iconContainer} onPress={handleIconPress}>
-        <Icon name="message-circle" size={32} color="white" />
+        <Icon name="message-circle" size={isIPad ? 40 : 32} color="white" />
       </TouchableOpacity>
     </View>
   );
@@ -44,7 +44,7 @@ const ChatIcon = (props) => {
 
 const styles = StyleSheet.create({
   container: { position: 'absolute', bottom: Platform.OS === 'ios' ? 40 : 20, right: 20, zIndex: 999, },
-  iconContainer: { backgroundColor: colors.green, borderRadius: 20, width: 55, height: 55, justifyContent: 'center', alignItems: 'center', },
+  iconContainer: { backgroundColor: colors.green, borderRadius: 20, width: isIPad ? 65 : 55, height: isIPad ? 65 : 55, justifyContent: 'center', alignItems: 'center', },
   notifbadge: { width: 17, height: 17, backgroundColor: colors.orange, borderRadius: 10, right: 0, position: 'absolute', zIndex: 1, top: -7 }
 });
 

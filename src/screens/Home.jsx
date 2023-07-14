@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, Image, StyleSheet, TouchableOpacity, BackHandler, Alert, RefreshControl } from "react-native";
-import { colors, fonts, height, width } from "./../theme";
+import { colors, fonts, height, isIPad, width } from "./../theme";
 
 import Icon from 'react-native-vector-icons/Feather';
 import HomeSlideBox from "../components/HomeSlideBox";
@@ -128,6 +128,7 @@ const Home = (props) => {
         <SafeAreaView>
             <ChatIcon navigation={props.navigation} />
             <ScrollView style={{ padding: 15 }}
+                showsVerticalScrollIndicator={false}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
@@ -149,7 +150,7 @@ const Home = (props) => {
                     // onRefresh={_handleRefresh}
                     data={homeBannerList}
                     keyExtractor={(item, index) => String(index)}
-                    renderItem={({ item, index }) => <HomeSlideBox key={index} item={item} navigation={props.navigation} />}
+                    renderItem={({ item, index }) => <HomeSlideBox key={index} item={item} width={(width / 2) - 20} navigation={props.navigation} />}
                 />
                 {(homeBannerList.length == 0) &&
                     // <Image source={require('./../../assets/images/home-slider-placeholder.png')} style={{ height: 250, borderRadius: 10, overflow: 'hidden', width: width - 30, marginBottom: 15 }} />
@@ -180,7 +181,7 @@ const Home = (props) => {
                             keyExtractor={(item, index) => String(index)}
                             ItemSeparatorComponent={() => <View style={{ height: "100%", width: 10, }} />}
                             renderItem={({ item, index }) =>
-                                <EventScheduleBox key={index} item={item} width={(width / 2) - 20} navigation={props.navigation} />
+                                <EventScheduleBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />
                             }
                         />
                     </>
@@ -239,7 +240,7 @@ const Home = (props) => {
                             keyExtractor={(item, index) => String(index)}
                             ItemSeparatorComponent={() => <View style={{ height: "100%", width: 10, }} />}
                             renderItem={({ item, index }) => {
-                                return (<UpComingEventBox key={index} item={item} width={(width / 2) - 20} navigation={props.navigation} />)
+                                return (<UpComingEventBox key={index} item={item} width={isIPad ? (width / 4) - 20 : (width / 2) - 20} navigation={props.navigation} />)
                             }}
                         />
                     </>}
@@ -252,6 +253,7 @@ const Home = (props) => {
                 </>}
 
                 {/* <Seperator /> */}
+                {/* <View style={{ height: 1, width: '100%', backgroundColor: '#ddd', marginTop: 10 }} /> */}
 
                 <SectionHeading title="Posts" />
                 {(postList.length == 0) && <View style={[styles.flexrow, { marginBottom: 20 }]}>
@@ -264,7 +266,7 @@ const Home = (props) => {
                     {postList.map((item, index) =>
                         index < 4 &&
                         <Fragment key={index}>
-                            <PostBox item={item} width={(width / 2) - 20} navigation={props.navigation} />
+                            <PostBox item={item} width={isIPad ? (width / 4) - 20 : (width / 2) - 20} navigation={props.navigation} marginfalse={true} />
                             <View style={{ width: 10, }} />
                         </Fragment>
                     )}
@@ -303,11 +305,13 @@ const Home = (props) => {
                     keyExtractor={(item, index) => String(index)}
                     ItemSeparatorComponent={() => <View style={{ height: "100%", width: 10, }} />}
                     renderItem={({ item, index }) => {
-                        return (<SermonsBox key={index} item={item} width={(width / 2) - 20} navigation={props.navigation} />)
+                        return (<SermonsBox key={index} item={item} width={isIPad ? (width / 4) - 24 : (width / 2) - 20} navigation={props.navigation} />)
                     }}
                 />
 
                 {/* <Seperator /> */}
+
+                <View style={{ height: 20 }} />
 
                 <RequestAdditionalInformation navigation={props.navigation} />
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator } from "react-native";
-import { colors, fonts, height, width } from "../theme";
+import { colors, fonts, height, isIPad, width } from "../theme";
 import globalstyle from "../theme/style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -11,9 +11,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { GetSermonsList } from "../redux/reducers/ListingApiStateReducer";
 
+const itemslimit = 50;
 const Sermons = (props) => {
     const [pageno, setPageno] = useState(1);
-    const [limit, setLimit] = useState(50);
+    const [limit, setLimit] = useState(itemslimit);
     const [refreshing, setRefreshing] = useState(false);
     const [loadmore, setLoadmore] = useState(false);
 
@@ -34,21 +35,22 @@ const Sermons = (props) => {
     useEffect(() => {
         if (props.getSermonsListResponse !== prevSermonsListResponseRef.current && props.getSermonsListResponse.success && props.getSermonsListResponse.data.length) {
             prevSermonsListResponseRef.current = props.getSermonsListResponse;
-            setSermonslist(prevState => [...prevState, ...props.getSermonsListResponse.data])
-            console.log('sermonslist => ', sermonslist)
-            setRefreshing(false)
-            // setLoadmore(false)
+            console.log('props.getSermonsListResponse => ', props.getSermonsListResponse)
+            if (refreshing) setSermonslist(props.getSermonsListResponse.data)
+            else setSermonslist(prevState => [...prevState, ...props.getSermonsListResponse.data])
         }
+        setRefreshing(false)
+        setLoadmore(false)
     }, [props.getSermonsListResponse])
 
     const _handleRefresh = () => {
-        setSermonslist([])
         setRefreshing(true)
         setPageno(1);
-        setLimit(16);
+        // setLimit(itemslimit);
         props.GetSermonsList({ pageno, limit });
-        console.log('_handleLoadMore ');
+        console.log('_handleRefresh ');
     }
+
 
     const _handleLoadMore = () => {
         setLoadmore(true)
@@ -66,9 +68,8 @@ const Sermons = (props) => {
             style={{ padding: 15, marginBottom: 0 }}
             // scrollEnabled
             // scrollEventThrottle={16}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            contentContainerStyle={{ paddingBottom: 20 }}
-            numColumns={2}
+            columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
+            numColumns={isIPad ? 4 : 2}
             showsVerticleScrollIndicator={false}
             refreshing={refreshing}
             onRefresh={_handleRefresh}
@@ -81,7 +82,7 @@ const Sermons = (props) => {
             data={sermonslist}
             keyExtractor={item => String(item.id)}
             renderItem={({ item, index }) => {
-                return (<SermonsBox key={index} item={item} navigation={props.navigation} />)
+                return (<SermonsBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />)
             }}
         />
     </SafeAreaView>

@@ -47,6 +47,7 @@ export function RegisterApiCall(params) {
     });
 }
 
+
 // Forget Password Api Call
 export function ForgetPasswordApiCall(params) {
     return apiAction({
@@ -151,6 +152,10 @@ const AuthStateReducer = (state = initialState, action) => {
         case GET_PROFILE_API_SUCCESS:
             return Object.assign({}, state, {
                 getUserProfileResponse: action.payload,
+            });
+        case SET_ERROR:
+            return Object.assign({}, state, {
+                loginError: action.payload,
             });
         case LOGOUT_USER:
             return initialState

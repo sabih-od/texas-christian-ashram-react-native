@@ -48,15 +48,24 @@ const SermonsDetail = (props) => {
         // else setStarted(false);
     }
 
+    function findvideoid(url){
+        var regex = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|v\/|embed\/|shorts\/)?([^\/\?\s&]+)/;
+        
+        var match = url.match(regex);
+        var videoId = match ? match[1] : null;
+        console.log('videoId => ', videoId);
+        return videoId;  // Output: dQw4w9WgXcQ
+    }
+
     return (
         <SafeAreaView style={globalstyle.fullview}>
             {isStarted && <View style={{ height: width / 1.8, justifyContent: 'center', backgroundColor: colors.black, position: 'absolute', zIndex: 1, width: width, left: 0, top: 0 }}>
                 <ActivityIndicator color={colors.green} />
             </View>}
-            {item?.youtube_video_id && <YoutubePlayer
+            {item?.url && <YoutubePlayer
                 height={width / 1.8}
                 play={playing}
-                videoId={item?.youtube_video_id}
+                videoId={findvideoid(item?.url)} // youtube_video_id
                 onChangeState={_handleStateChanged}
                 onReady={() => console.log('onReady')}
                 onError={() => console.log('onError')}
@@ -80,7 +89,7 @@ const SermonsDetail = (props) => {
                 <Text style={styles.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
                 <Text style={styles.title}>{item?.title}</Text>
                 {/* <Text style={styles.description}>{item?.description}</Text> */}
-                <Text style={styles.description}>{`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\n\nIt was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. `}</Text>
+                <Text style={styles.description}>{item?.description}</Text>
                 {/* <YouTube
                     videoId="VI9yRXbNyn8"
                     // apiKey="YOUR_YOUTUBE_API_KEY"

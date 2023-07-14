@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Platform } from "react-native";
-import { colors, fonts, height, width } from "../theme";
+import { colors, fonts, height, isIPad, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -70,8 +70,8 @@ const Events = (props) => {
             // snapToInterval={width / 2}
             // scrollEnabled
             // scrollEventThrottle={16}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            numColumns={2}
+            columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
+            numColumns={isIPad ? 4 : 2}
             showsVerticleScrollIndicator={false}
             refreshing={refreshing}
             onRefresh={_handleRefresh}
@@ -84,7 +84,7 @@ const Events = (props) => {
             data={eventList}
             keyExtractor={item => String(item.id)}
             renderItem={({ item, index }) => {
-                return (<UpComingEventBox key={index} item={item} navigation={props.navigation} />)
+                return (<UpComingEventBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />)
             }}
         />
     </SafeAreaView>

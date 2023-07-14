@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 
-import { colors, fonts } from '../theme';
+import { IOS, colors, fonts, isIPad } from '../theme';
 import { Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerContentScrollView, useDrawerProgress } from '@react-navigation/drawer';
@@ -43,18 +43,11 @@ const DrawerContent = (props) => {
       console.log(e);
     });
 
-    const topic = 'test';
-    // const topic = 'new-firebase-notification';
-    messaging().subscribeToTopic(topic).then(() => console.log("Subscribed to topic:", topic)).catch((e) => {
-      console.log(e);
-    });
-
     const newtopic = 'newFirebaseNotification';
     messaging().subscribeToTopic(newtopic).then(() => console.log("Subscribed to topic:", newtopic)).catch((e) => {
       console.log(e);
     });
-
-
+    
     function onNotification(notify) {
       console.log('onNotification => ', notify);
       const options = { soundName: 'default', };
@@ -141,24 +134,24 @@ const DrawerContent = (props) => {
     { title: 'Posts', nav: 'Posts', icon: 'home', isActive: false },
     { title: 'Contact Us', nav: 'Contact', icon: 'home', isActive: false },
   ]
-
+  
   return (
     <>
       {user &&
-        <View style={{ backgroundColor: colors.black, paddingBottom: 30, paddingTop: Platform.OS === 'ios' ? 60 : 30, }}>
+        <View style={{ backgroundColor: colors.black, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 60 : 30, }}>
           {/* <TouchableOpacity onPress={() => { props.navigation.closeDrawer() }} activeOpacity={0.8}>
           <Icon name={'x'} color={colors.white} size={16} />
         </TouchableOpacity> */}
           <TouchableOpacity activeOpacity={0.8} onPress={() => {
             props.navigation.navigate('Profile')
           }} style={{
-            width: 90, height: 90, borderRadius: 90, overflow: 'hidden', marginLeft: 'auto', marginRight: 'auto', marginBottom: 10,
+            width: isIPad ? 120 : 90, height: isIPad ? 120 : 90, borderRadius: isIPad ? 120 : 90, overflow: 'hidden', marginLeft: 'auto', marginRight: 'auto', marginBottom: 10,
             // borderColor: colors.white, borderWidth: 1, 
           }}>
-            <Image source={user?.profile_picture ? { uri: user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={{ width: 90, height: 90, resizeMode: 'cover', }} />
+            <Image source={user?.profile_picture ? { uri: user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={{ width: isIPad ? 120 : 90, height: isIPad ? 120 : 90, resizeMode: 'cover', }} />
           </TouchableOpacity>
-          <Text style={{ fontFamily: fonts.latoBold, color: colors.white, textAlign: 'center', fontSize: 20, marginBottom: 8 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}><Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 10, marginBottom: -4 }} /><Text style={{ fontFamily: fonts.latoRegular, color: colors.white, textAlign: 'center', fontSize: 13 }}>{user?.email}</Text></View>
+          <Text style={{ fontFamily: fonts.latoBold, color: colors.white, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 8 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}><Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 10, marginBottom: -4 }} /><Text style={{ fontFamily: fonts.latoRegular, color: colors.white, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text></View>
           {/* <Text style={{ fontFamily: fonts.latoRegular, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
         </View>
       }

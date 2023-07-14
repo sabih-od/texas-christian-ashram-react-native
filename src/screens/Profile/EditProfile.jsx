@@ -10,27 +10,28 @@ import {
   Image,
   TextInput,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Feather';
-import CameraModal from './../components/modal/CameraModal';
+import CameraModal from './../../components/modal/CameraModal';
 
 // import auth from '@react-native-firebase/auth';
 // import analytics from '@react-native-firebase/analytics';
 // import database from '@react-native-firebase/database';
 
 import { useForm } from 'react-hook-form';
-import globalstyle from '../theme/style';
-import { colors, fonts } from '../theme';
+import globalstyle from '../../theme/style';
+import { colors, fonts, isIPad } from '../../theme';
 import { useRef } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { EditProfileApiCall, UpdateProfilePicApiCall } from '../redux/reducers/UserStateReducer';
-import { SetUserInfo } from '../redux/reducers/AppStateReducer';
-import { showToast } from '../helpers/toastConfig';
-import Loader from "../components/Loader";
+import { EditProfileApiCall, UpdateProfilePicApiCall } from '../../redux/reducers/UserStateReducer';
+import { SetUserInfo } from '../../redux/reducers/AppStateReducer';
+import { showToast } from '../../helpers/toastConfig';
+import Loader from "../../components/Loader";
 
-const Profile = props => {
+const EditProfile = props => {
   const [showModal, setShowModal] = useState(false);
   const [filePath, setFilePath] = useState(null);
 
@@ -97,7 +98,7 @@ const Profile = props => {
     }
   };
 
-  const [isEditable, setIsEditable] = useState(false);
+  const [isEditable, setIsEditable] = useState(true);
   const [user, setUser] = useState(props.userInfo);
 
   useEffect(() => {
@@ -203,20 +204,23 @@ const Profile = props => {
       />
       <Loader isLoading={loading} />
       <SafeAreaView style={styles.fullview}>
+      <ImageBackground source={require('./../../../assets/images/background-with-img.png')}
+          style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
         <ScrollView style={styles.container}>
           {/* <View style={{ backgroundColor: colors.green, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
-          <View style={{ paddingVertical: 20, paddingHorizontal: 15 }}>
-            <View style={{ width: 120, height: 120, borderRadius: 120, marginLeft: 'auto', marginRight: 'auto', marginVertical: 40, position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2, }}>
+          <View style={[{ paddingVertical: 20, paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer]}>
+            <View style={{ width: 140, height: 140, borderRadius: 140, marginLeft: 'auto', marginRight: 'auto', marginVertical: 20, position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2,marginTop: 100 }}>
               <Image
                 source={
                   filePath?.uri
                     ? { uri: filePath?.uri }
                     : user?.profile_picture
                       ? { uri: user?.profile_picture }
-                      : require('./../../assets/images/dummy-profile-image.png')
+                      : require('./../../../assets/images/dummy-profile-image.png')
                   // { uri: user?.profilepic }
                   // require('./../../assets/images/profile-image.jpg')
                 }
+                defaultSource={require('./../../../assets/images/speaker-placeholder.png')}
                 style={{ width: '100%', height: '100%', borderRadius: 120, resizeMode: 'cover', }}
               />
               {isEditable && (
@@ -231,13 +235,13 @@ const Profile = props => {
               )}
             </View>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 setIsEditable(!isEditable);
               }}
               style={{ marginLeft: 'auto', marginTop: -60, marginBottom: 15, width: 40, height: 40, borderRadius: 40, backgroundColor: colors.green, alignItems: 'center', justifyContent: 'center', }}>
               <Icon name={!isEditable ? 'edit-3' : 'x'} size={20} color={colors.white} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <View style={globalstyle.inputbox}>
               <Icon color={colors.green} name={'user'} size={18} />
@@ -290,7 +294,7 @@ const Profile = props => {
             <View style={globalstyle.inputbox}>
               <Icon color={colors.green} name={'mail'} size={18} />
               <TextInput
-                style={globalstyle.inputfield}
+                style={[globalstyle.inputfield,{opacity: 0.6}]}
                 defaultValue={user?.email}
                 editable={false}
                 placeholder="Email Address"
@@ -456,6 +460,7 @@ const Profile = props => {
             )}
           </View>
         </ScrollView>
+        </ImageBackground>
       </SafeAreaView>
     </>
   );
@@ -483,4 +488,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(setStateToProps, mapDispatchToProps)(Profile);
+export default connect(setStateToProps, mapDispatchToProps)(EditProfile);

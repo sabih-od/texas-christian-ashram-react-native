@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Image } from "react-native";
-import { colors, fonts, height, width } from "../theme";
+import { colors, fonts, height, isIPad, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -31,7 +31,7 @@ const About = (props) => {
         <ScrollView style={{ padding: 15 }}>
             {Object.values(body).map((item, index) => {
                 console.log('item => ', item);
-                if(item.key == 'h1') return <Text key={index} style={[styles.heading, {fontSize: 23}]}>{item.value}</Text>;
+                if(item.key == 'h1') return <Text key={index} style={[styles.heading, {fontSize: isIPad ? 28 : 23}]}>{item.value}</Text>;
                 else if(item.key == 'image') return <Image key={index} source={{uri: item.value}} style={styles.image} />;
                 else if(item.key == 'h2') return <Text key={index} style={styles.heading}>{item.value}</Text>;
                 else if(item.key == 'p') return <Text key={index} style={styles.paragraph}>{item.value}</Text>;
@@ -72,9 +72,9 @@ export default connect(setStateToProps, mapDispatchToProps)(About);
 
 
 const styles = StyleSheet.create({
-    heading: { fontSize: 20, fontFamily: fonts.headingFont, color: colors.black, marginBottom: 10 },
-    paragraph: { fontSize: 14, marginBottom: 0, fontFamily: fonts.latoRegular, color: colors.grey },
-    strong: { fontSize: 14, marginBottom: 5, fontFamily: fonts.latoBold, color: colors.black },
+    heading: { fontSize: isIPad ? 26 : 20, fontFamily: fonts.headingFont, color: colors.black, marginBottom: 10 },
+    paragraph: { fontSize: isIPad ? 17 : 14, marginBottom: 0, fontFamily: fonts.latoRegular, color: colors.grey },
+    strong: { fontSize: isIPad ? 17 : 14, marginBottom: 5, fontFamily: fonts.latoBold, color: colors.black },
     parabold: { fontSize: 14, fontFamily: fonts.latoBold, color: colors.black },
     image: { width: width - 30, height: width / 2, resizeMode: 'cover', borderRadius: 10, marginBottom: 20 },
 

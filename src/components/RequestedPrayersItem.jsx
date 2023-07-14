@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Icon from "react-native-vector-icons/Feather"
-import { colors, fonts } from "../theme";
+import { colors, fonts, isIPad } from "../theme";
 
 const RequestedPrayersItem = (props) => {
     return (<TouchableOpacity 
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
 },
     // reqcolmn: { flex: 0.33 },
     reqcolmn: { flex: 0.5 },
-    reqhead: { fontFamily: fonts.latoRegular, fontSize: 11, marginBottom: 4, color: colors.grey },
-    reqdata: { fontFamily: fonts.latoBold, fontSize: 13, color: colors.black },
+    reqhead: { fontFamily: fonts.latoRegular, fontSize: isIPad ? 16 :  14, marginBottom: 4, color: colors.grey },
+    reqdata: { fontFamily: fonts.latoBold, fontSize: isIPad ? 18 : 13, color: colors.black },
     moreicon: {color: colors.orange, fontSize: 14},
 
     notiInnerRow: { flexDirection: 'row', alignItems: 'center', flex: 0.78 },

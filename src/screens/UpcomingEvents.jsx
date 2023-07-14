@@ -6,7 +6,7 @@ import UpComingEventBox from "../components/UpComingEventBox";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { GetUpcomingEventsList } from "../redux/reducers/ListingApiStateReducer";
-import { colors } from "../theme";
+import { colors, isIPad } from "../theme";
 import globalstyle from "../theme/style";
 
 const itemslimit = 50;
@@ -67,8 +67,8 @@ const UpcomingEvents = (props) => {
             // snapToInterval={width / 2}
             // scrollEnabled
             // scrollEventThrottle={16}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            numColumns={2}
+            columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
+            numColumns={isIPad ? 4 : 2}
             showsVerticleScrollIndicator={false}
             refreshing={refreshing}
             onRefresh={_handleRefresh}
@@ -81,7 +81,7 @@ const UpcomingEvents = (props) => {
             data={upcomingEventList}
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => {
-                return (<UpComingEventBox key={index} item={item} navigation={props.navigation} />)
+                return (<UpComingEventBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />)
             }}
         />
     </SafeAreaView>

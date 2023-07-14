@@ -1,5 +1,5 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { colors, fonts } from '../theme';
+import { colors, fonts, isIPad } from '../theme';
 import Icon from 'react-native-vector-icons/Entypo';
 import moment from 'moment';
 
@@ -18,7 +18,7 @@ const GroupItem = ({ item, width, navigation }) => {
                 // item.image
                 // { uri: item?.image }
             }
-                style={{ height: 40, borderRadius: 40, overflow: 'hidden', width: 40, marginRight: 10 }}
+                style={styles.groupicon}
             />
             <View style={{ flex: 0.95, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <View style={{flex: 0.9}}>
@@ -36,7 +36,8 @@ const GroupItem = ({ item, width, navigation }) => {
 export default GroupItem;
 
 const styles = StyleSheet.create({
-    grouptitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: 16, marginBottom: 3, textTransform: 'capitalize' },
-    lastmsgtime: { fontFamily: fonts.latoRegular, color: colors.orange, fontSize: 10 },
-    lastmsg: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: 12, }
+    grouptitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 18 : 16, marginBottom: 3, textTransform: 'capitalize' },
+    lastmsgtime: { fontFamily: fonts.latoRegular, color: colors.orange, fontSize: isIPad ? 13: 10 },
+    lastmsg: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 16 : 12, },
+    groupicon: { height: isIPad ? 50 : 40, borderRadius: isIPad ? 50 : 40, overflow: 'hidden', width: isIPad ? 50 : 40, marginRight: isIPad ? 15 : 10 }
 })

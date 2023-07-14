@@ -4,14 +4,8 @@ let socket = null;
 
 export function connectSocket() {
     console.log('SOCKET_URL => ', process.env.SOCKET_URL);
-    // socket = io(process.env.SOCKET_URL ? process.env.SOCKET_URL : 'http://service.demowebsitelinks.com:3022', {
-    //     'reconnection': true,
-    //     'reconnectionDelay': 500,
-    //     'reconnectionAttempts': Infinity,
-    //     'transports': ['websocket'],
-    // });
 
-    socket = io(process.env.SOCKET_URL ? process.env.SOCKET_URL : 'http://service.demowebsitelinks.com:3022');
+    socket = io(process.env.SOCKET_URL ? process.env.SOCKET_URL : 'https://texaschristianashram.org:3022');
     // socket = io('ws://172.16.104.225:8028');
 
     socket.on('connect', () => {

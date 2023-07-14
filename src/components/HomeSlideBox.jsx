@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { colors, fonts, width } from '../theme';
+import { colors, fonts, isIPad, width } from '../theme';
 
 const HomeSlideBox = (props) => {
     return (
@@ -11,9 +11,11 @@ const HomeSlideBox = (props) => {
                 // source={require('./../../assets/images/home-image.png')}
                 source={{ uri: props.item.image }}
                 defaultSource={require('./../../assets/images/home-slider-placeholder.png')}
-                style={styles.sliderimage}
+                style={[styles.sliderimage, //isIPad && { width: props.width }
+                ]}
             >
-                <View style={{ position: 'absolute', bottom: 15, left: 15, width: width - 50 }}>
+                <View style={[styles.contentwidth, // isIPad && { width: props.width - 20 }
+                ]}>
                     <Text style={styles.slidertitle}>{props.item.title}</Text>
                     <Text style={styles.sliderdescription}>{props.item.description}</Text>
                 </View>
@@ -25,7 +27,8 @@ const HomeSlideBox = (props) => {
 export default HomeSlideBox;
 
 const styles = StyleSheet.create({
-    slidertitle: { fontFamily: fonts.headingFont, color: colors.white, fontSize: 22, },
-    sliderdescription: { fontFamily: fonts.latoRegular, color: colors.white, fontSize: 14, },
-    sliderimage: { height: 250, borderRadius: 10, overflow: 'hidden', width: width - 30, marginHorizontal: 5 }
+    contentwidth: { position: 'absolute', bottom: isIPad ? 25 : 15, left: isIPad ? 25 : 15, width: width - 50 },
+    slidertitle: { fontFamily: fonts.headingFont, color: colors.white, fontSize: isIPad ? 36 : 22, marginBottom: 4 },
+    sliderdescription: { fontFamily: fonts.latoRegular, color: colors.white, fontSize: isIPad ? 20 : 14, },
+    sliderimage: { height: isIPad ? 400 : 250, borderRadius: 10, overflow: 'hidden', width: width - 30, marginHorizontal: 5 }
 })

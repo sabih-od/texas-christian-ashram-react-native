@@ -32,23 +32,23 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>service.demowebsitelinks.com</key>
+			<key>texaschristianashram.org</key>
 			<dict>
-			<key>NSIncludesSubdomains</key>
-			<true/>
-			<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-			<key>NSTemporaryExceptionMinimumTLSVersion</key>
-			<string>TLSv1.1</string>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
 			</dict>
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This app requires access to the camera.</string>
+	<string>Please grant permission for Texas to access your camera in order to capture a profile picture.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo library.</string>
+	<string>Please grant permission for Texas to access your photo library, allowing the selection and upload of a desired image as your profile picture.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.ttf</string>
@@ -76,14 +76,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>

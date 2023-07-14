@@ -47,7 +47,7 @@ const OurStaffDetail = (props) => {
                 <View style={{ width: width - 140 }}>
                     <Text style={{ fontFamily: fonts.headingFont, color: colors.black, fontSize: 21 }}>{item.name}</Text>
                     {/* <Text style={{fontFamily: fonts.latoBold, color: colors.green, fontSize: 14}}>{item.designation}</Text> */}
-                    <Text style={[styles.paragraph, { marginTop: 7 }]} numberOfLines={3}>{item.description}</Text>
+                    {/* <Text style={[styles.paragraph, { marginTop: 7 }]} numberOfLines={3}>{item.description}</Text> */}
                 </View>
             </View>
             <Text style={styles.paragraph}>{item.description.replace(/\\n/g, '\n')}</Text>

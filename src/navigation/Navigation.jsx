@@ -14,7 +14,7 @@ import AuthStackNavigation from "./AuthStackNavigation";
 
 const Navigation = (props) => {
 
-    console.log('props => ', props);
+    console.log('Navigation props => ', props);
 
     // const routeNameRef = useRef();
     // const navigationRef = useRef();

@@ -1,6 +1,6 @@
 import { Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import globalstyle from "../../theme/style";
-import { colors, fonts, width } from "../../theme";
+import { colors, fonts, isIPad, width } from "../../theme";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Feather";
 import { useCallback, useEffect, useState } from "react";
@@ -38,7 +38,7 @@ const PostDetail = (props) => {
 
     return (
         <SafeAreaView style={globalstyle.fullview}>
-            <Image source={{ uri: item?.media }} style={{ height: 250, overflow: 'hidden', width: '100%', }} />
+            <Image source={{ uri: item?.media }} style={{ height: isIPad ? (width / 2) : 250, overflow: 'hidden', width: '100%', }} />
             <ScrollView showsVerticalScrollIndicator={false}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

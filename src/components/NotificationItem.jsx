@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Icon } from "react-native-vector-icons/Feather"
-import { colors, fonts, width } from "../theme";
+import { colors, fonts, isIPad, width } from "../theme";
 import moment from "moment";
 
 const NotificationItem = ({ item, navigation }) => {
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     notiInnerRow: { flexDirection: 'row', alignItems: 'center', flex: 0.78 },
     image: { width: 45, height: 45, resizeMode: 'cover', borderRadius: 40, marginRight: 10 },
     notiTime: { fontFamily: fonts.latoBold, fontSize: 10, color: colors.orange },
-    notititle: { fontFamily: fonts.latoBold, fontSize: 16, color: colors.black, marginBottom: 3, width: width - 120, textTransform: 'capitalize' },
-    notimessage: { fontFamily: fonts.latoRegular, fontSize: 13, color: colors.grey, width: width - 220 },
+    notititle: { fontFamily: fonts.latoBold, fontSize: isIPad ? 17 : 15, color: colors.black, marginBottom: 3, width: width - 120, textTransform: 'capitalize' },
+    notimessage: { fontFamily: fonts.latoRegular, fontSize: isIPad ? 15 : 13, color: colors.grey, width: width - 220 },
     notirowmsg: {},
     datetime: { fontFamily: fonts.latoRegular, color: colors.orange, fontSize: 10 }
 })

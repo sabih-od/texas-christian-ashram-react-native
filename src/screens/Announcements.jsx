@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { GetAnnouncementList } from "../redux/reducers/ListingApiStateReducer";
 import globalstyle from "../theme/style";
-import { colors } from "../theme";
+import { colors, isIPad, width } from "../theme";
 
 const itemslimit = 50;
 const Announcements = (props) => {
@@ -67,8 +67,8 @@ const Announcements = (props) => {
             // snapToInterval={width / 2}
             // scrollEnabled
             // scrollEventThrottle={16}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            numColumns={2}
+            columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
+            numColumns={isIPad ? 3 : 2}
             showsVerticleScrollIndicator={false}
             refreshing={refreshing}
             onRefresh={_handleRefresh}
@@ -84,7 +84,7 @@ const Announcements = (props) => {
             data={announcementList}
             keyExtractor={(item) => String(item.id)}
             renderItem={({ item, index }) => {
-                return (<AnnouncementBox key={index} item={item} navigation={props.navigation} />)
+                return (<AnnouncementBox key={index} item={item} width={isIPad ? (width / 3) - 17 : (width / 2) - 20} navigation={props.navigation} />)
             }}
         />
     </SafeAreaView>

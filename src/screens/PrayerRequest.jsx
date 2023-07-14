@@ -16,7 +16,7 @@ import {
 
 import { useForm } from 'react-hook-form';
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fonts, height, width } from '../theme';
+import { colors, fonts, height, isIPad, width } from '../theme';
 import globalstyle from '../theme/style';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -134,6 +134,7 @@ const PrayerRequest = props => {
             <ScrollView
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingTop: 60 }}
+              style={isIPad && globalstyle.authscreencontainer}
             // style={[globalstyle.authContainer, { paddingHorizontal: 15 }]}
             // contentContainerStyle={{justifyContent: 'center',}}
             >

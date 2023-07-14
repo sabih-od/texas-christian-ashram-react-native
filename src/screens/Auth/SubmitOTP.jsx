@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from "react-native";
 
 import { useForm } from 'react-hook-form';
-import { colors, fonts, width } from "../../theme";
+import { colors, fonts, isIPad, width } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -96,7 +96,7 @@ const SubmitOTP = (props) => {
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View>
+                    <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}
                         <View style={globalstyle.authLogoContainer}>
                             <Image

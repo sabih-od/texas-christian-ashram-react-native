@@ -10,6 +10,7 @@ export const GetProfileAPI = '/auth/me';
 // export const EditProfileAPI = '/users';
 export const EditProfileAPI = '/auth/update-profile';
 export const GetUserByIdAPI = '/getuser';
+export const DeleteUserAPI = '/users';
 
 
 export const GetSermonsAPI = '/sermons';

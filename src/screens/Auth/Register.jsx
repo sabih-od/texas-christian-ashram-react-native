@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from "react-native";
 
 import { useForm } from 'react-hook-form';
-import { colors, fonts } from "../../theme";
+import { colors, fonts, isIPad } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -26,7 +26,7 @@ const Register = (props) => {
             props.SetUserInfo(props.registerResponse.data);
             console.log('props.registerResponse => ', props.registerResponse);
             props.SetIsLogin(true);
-            props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })
+            // props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })
         }
         isLoading(false);
     }, [props.registerResponse])
@@ -49,7 +49,7 @@ const Register = (props) => {
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <ScrollView showsVerticalScrollIndicator={false} style={{}}>
+                    <ScrollView showsVerticalScrollIndicator={false} style={isIPad && globalstyle.authscreencontainer}>
                         {/*  <View> */}
                         <View style={globalstyle.authLogoContainer}>
                             <Image

@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableO
 
 import { useForm } from 'react-hook-form';
 import Icon from "react-native-vector-icons/Feather";
-import { colors, fonts } from "../theme";
+import { colors, fonts, isIPad } from "../theme";
 import globalstyle from "../theme/style";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -50,7 +50,10 @@ const Contact = (props) => {
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <ScrollView // style={[globalstyle.authContainer, { paddingHorizontal: 15 }]}
+                    <ScrollView
+
+                        style={isIPad && globalstyle.authscreencontainer}
+                    // style={[globalstyle.authContainer, { paddingHorizontal: 15 }]}
                     // contentContainerStyle={{justifyContent: 'center',}}
                     >
                         {/* <ImageBackground source={require('./../../assets/images/background-with-img.png')}

@@ -1,10 +1,9 @@
+import { NativeModules, Platform } from 'react-native';
 import { store } from '../redux/store';
 // import { LoadingStart, LoadingEnd } from './../state';
 // inspired by https://leanpub.com/redux-book
 import axios from 'axios';
-
-const FETCH_ARTICLE_DETAILS = "FETCH_ARTICLE_DETAILS";
-const SET_ARTICLE_DETAILS = "SET_ARTICLE_DETAILS";
+// import { showToast } from '../helpers/toastConfig';
 
 export const API_REQUEST = "API_REQUEST";
 const API_START = "API_START";
@@ -53,16 +52,37 @@ const apiMiddleware = ({ dispatch }) => next => action => {
   const state = store.getState();
   // console.log('state => ', state);
 
-  // console.log('process.env.API_BASE_URL => ', process.env.API_BASE_URL);
+  console.log('process.env.API_BASE_URL => ', process.env.API_BASE_URL);
   // console.log(`Bearer ${state?.appstate?.userInfo?.access_token}`);
 
   // axios default configs
-  axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'http://service.demowebsitelinks.com:3023';
-  axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;
+  axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://texaschristianashram.org:3023' // 'http://service.demowebsitelinks.com:3023';
+  if(state?.appstate?.isLogin) axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;
+
+  // if (Platform.OS === 'android') {
+
+  //   // Disable SSL verification only for Android
+  //   const { XMLHttpRequest } = require('react-native');
+  //   XMLHttpRequest.prototype.open = function () {
+  //     if (arguments[1].startsWith('https')) {
+  //       arguments[1] = arguments[1].replace('https', 'http');
+  //     }
+  //     return this.origOpen.apply(this, arguments);
+  //   };
+
+  //   // const { SSLPinning } = NativeModules;
+  //   // SSLPinning.disableSSLPinning();
+
+  //   // axios.defaults.httpsAgent = new https.Agent({
+  //   //   rejectUnauthorized: false
+  //   // });
+  // }
+
+  console.log(' axios.defaults.baseURL => ',  axios.defaults.baseURL)
 
   if (headersOverride) {
     axios.defaults.headers.common["Content-Type"] = 'multipart/form-data';
-  }else{
+  } else {
     axios.defaults.headers.common["Content-Type"] = 'application/json';
   }
 
@@ -90,7 +110,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
       console.log('API Error message_to_show => ', error?.response)
 
       // dispatch(apiError(error));
-
+      // showToast('error', props.loginError?.message)
       dispatch(onFailure(error));
       if (error.response && error.response.status === 403) {
         dispatch(accessDenied(window.location.pathname));

@@ -8,9 +8,10 @@ import { bindActionCreators } from "redux";
 import Icon from "react-native-vector-icons/Feather";
 import { GetGroupsApiCall } from "../../redux/reducers/ChatStateReducer";
 import { getSocket } from "../../helpers/socket-manager";
+import Loader from "../../components/Loader";
 
 const itemslimit = 50;
-const testobj = [ 
+const testobj = [
     { "id": 2, "name": "Group 2", "default_icon": null, "last_message": "hello cxzczxc", "last_updated": "1689025934080", "created_at": "1688596794473", "members": null },
     { "id": 1, "name": "Group 1", "default_icon": null, "last_message": "hello cxzczxc", "last_updated": "1689025929067", "created_at": "1688596787348", "members": null }
 ];
@@ -20,12 +21,29 @@ const ChatGroups = (props) => {
     const [refreshing, setRefreshing] = useState(false);
     const [pageno, setPageno] = useState(1);
     const [limit, setLimit] = useState(itemslimit);
+    const [loading, isLoading] = useState(false);
+
+    const [arrivalMessage, setArrivalMessage] = useState(null);
+
+    useEffect(() => {
+        if (arrivalMessage) {
+            if (groupList.length != 0) {
+                const updatedgroup = moveObjectToTop([...groupList], arrivalMessage?.group_id, arrivalMessage?.message);
+                setGroupList(updatedgroup);
+            }
+        }
+    }, [arrivalMessage]);
     // _handleRefresh = () => {
     //     // setRefreshing(true)
     // };
 
     useEffect(() => {
+        // console.log('isLoading');
         props.GetGroupsApiCall({ pageno, limit });
+        // isLoading(true);
+        // return () => {
+        //     setGroupList([]);
+        // }
     }, []);
 
     const getGroupsResponseRef = useRef(props.getGroupsResponse);
@@ -33,33 +51,25 @@ const ChatGroups = (props) => {
     const socket = getSocket();
     useEffect(() => {
         console.log('socketId => ', socket?.id)
-        
+
     }, [socket]);
 
     useEffect(() => {
         socket?.on('group-message', (res) => {
             console.log('on arrival group message => ', res);
-            console.log('groupList => ', groupList);
-            if (groupList.length != 0) {
-                const updatedgroup = moveObjectToTop([...groupList], res?.group_id, res?.message);
-                setGroupList(updatedgroup);
-                // console.log('updatedgroup => ', updatedgroup);
-                // const newgroup = updateObjectValue(...updatedgroup, res?.group_id, res?.message)
-                // console.log('newgroup => ', newgroup);
-                // if (newgroup) {
-                //     setGroupList(prevState => newgroup);
-                // }
-            }
-            // console.log('groupList => ', groupList);
+            setArrivalMessage(res)
+
             // if (groupList.length != 0) {
-            //     const updatedgroup = moveObjectToTop([...groupList], res?.group_id);
-            //     console.log('updatedgroup => ', updatedgroup);
-            //     const newgroup = updateObjectValue(...updatedgroup, res?.group_id, res?.message)
-            //     console.log('newgroup => ', newgroup);
-            //     if (newgroup) {
-            //         setGroupList(prevState => newgroup);
-            //     }
+            //     const updatedgroup = moveObjectToTop([...groupList], res?.group_id, res?.message);
+            //     setGroupList(updatedgroup);
+            //     // console.log('updatedgroup => ', updatedgroup);
+            //     // const newgroup = updateObjectValue(...updatedgroup, res?.group_id, res?.message)
+            //     // console.log('newgroup => ', newgroup);
+            //     // if (newgroup) {
+            //     //     setGroupList(prevState => newgroup);
+            //     // }
             // }
+
         });
         return () => {
             // Clean up socket event listeners if needed
@@ -67,7 +77,7 @@ const ChatGroups = (props) => {
                 console.log('off arrival group message => ', res);
             });
         };
-    },[])
+    }, [])
 
 
     useEffect(() => {
@@ -79,6 +89,7 @@ const ChatGroups = (props) => {
             else setGroupList(prevState => [...prevState, ...props.getGroupsResponse.data])
         }
         setRefreshing(false)
+        // isLoading(false);
         // if (props.getGroupsResponse !== getGroupsResponseRef.current && !props.getGroupsResponse.success) {
         //     showToast('error', 'Email Id or password incorrect')
         // }
@@ -104,7 +115,7 @@ const ChatGroups = (props) => {
                 const object = array.splice(index, 1)[0];
                 // object = { ...object, last_message: message, last_updated: Date.now(), badge : true }
                 object.last_message = message;
-                object.last_updated= Date.now();
+                object.last_updated = Date.now();
                 object.badge = true;
                 array.unshift(object);
             }
@@ -125,7 +136,7 @@ const ChatGroups = (props) => {
     // }
 
     return <SafeAreaView style={{ flex: 1 }}>
-
+        {/* <Loader isLoading={loading} /> */}
         <FlatList
             // style={{ padding: 15 }}
             // horizontal

@@ -21,18 +21,20 @@ import ResetPassword from "../screens/Auth/ResetPassword";
 
 const Stack = createStackNavigator();
 
-const GoBackIcon = (props) => {
+const GoBackIcon = ({navigation}) => {
     return (<TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-            props.navigation.goBack()
+            navigation.goBack();
         }}
         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
         <Icon name={'chevron-left'} size={22} color={colors.white} />
     </TouchableOpacity >)
 }
 
-const AuthStackNavigation = ({ navigation, style }) => {
+const AuthStackNavigation = (props) => {
+
+    console.log('AuthStackNavigation props => ', props);
 
     // const drawerProgress = useDrawerProgress();
     // const animatedStyle = useAnimatedStyle(() => {
@@ -53,56 +55,55 @@ const AuthStackNavigation = ({ navigation, style }) => {
         <Stack.Screen
             name="Login"
             component={Login}
-            options={{
-                // headerTransparent: true, headerTitle: '',
-                headerShown: false,
-                swipeEnabled: false,
-                gestureEnabled: false,                
-                // headerLeft: () => <GoBackIcon navigation={navigation} />,
+            options={({ navigation }) => {
+                return {
+                    // headerTransparent: true, headerTitle: '',
+                    headerShown: false,
+                    swipeEnabled: false,
+                    gestureEnabled: false,
+                    // headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                }
             }}
         />
         <Stack.Screen
             name="Register"
             component={Register}
-            options={{
-                headerTransparent: true, headerTitle: '',
-                // headerShown: false,
-                // swipeEnabled: false,
-                // gestureEnabled: false,                
-                headerLeft: () => <GoBackIcon navigation={navigation} />,
+            options={({ navigation }) => {
+                return {
+                    headerTransparent: true,
+                    headerTitle: '',
+                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                }
             }}
         />
         <Stack.Screen
             name="ForgetPassword"
             component={ForgetPassword}
-            options={{
-                headerTransparent: true, headerTitle: '',
-                // headerShown: false,
-                // swipeEnabled: false,
-                // gestureEnabled: false,                
-                headerLeft: () => <GoBackIcon navigation={navigation} />,
+            options={({ navigation }) => {
+                return {
+                    headerTransparent: true, headerTitle: '',
+                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                }
             }}
         />
         <Stack.Screen
             name="SubmitOTP"
             component={SubmitOTP}
-            options={{
-                headerTransparent: true, headerTitle: '',
-                // headerShown: false,
-                // swipeEnabled: false,
-                // gestureEnabled: false,                
-                headerLeft: () => <GoBackIcon navigation={navigation} />,
+            options={({ navigation }) => {
+                return {
+                    headerTransparent: true, headerTitle: '',
+                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                }
             }}
         />
         <Stack.Screen
             name="ResetPassword"
             component={ResetPassword}
-            options={{
-                headerTransparent: true, headerTitle: '',
-                // headerShown: false,
-                // swipeEnabled: false,
-                // gestureEnabled: false,                
-                headerLeft: () => <GoBackIcon navigation={navigation} />,
+            options={({ navigation }) => {
+                return {
+                    headerTransparent: true, headerTitle: '',
+                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                }
             }}
         />
     </Stack.Navigator>

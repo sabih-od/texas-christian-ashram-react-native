@@ -1,12 +1,12 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { colors, fonts, width } from '../theme';
+import { colors, fonts, isIPad, width } from '../theme';
 import Icon from 'react-native-vector-icons/Feather';
 
 const UpComingEventBox = (props) => {
     // console.log('props?.item?.image => ', props?.item?.image);
     return (
         <TouchableOpacity
-            style={{ marginBottom: 10, width: props.width ? props.width : '48%' }}
+            style={[{ marginBottom: 10, width: props.width ? props.width : '48%', }, isIPad && { marginRight: 10 }]}
             activeOpacity={0.8}
             onPress={() => {
                 props.navigation.navigate('EventDetail', { item: props.item });
@@ -14,7 +14,7 @@ const UpComingEventBox = (props) => {
             <Image
                 source={{ uri: props?.item?.image }}
                 defaultSource={require('./../../assets/images/event-placeholder.png')}
-                style={{ height: width / 3, borderRadius: 10, overflow: 'hidden', width: '100%' }}
+                style={{ height: isIPad ? ((width / 5)) : width / 3, borderRadius: 10, overflow: 'hidden', width: '100%' }}
             />
             <View style={styles.eventtitlerow}>
                 <View

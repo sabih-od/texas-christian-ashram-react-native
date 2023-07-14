@@ -1,6 +1,6 @@
 import { Image, Modal, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { colors, fonts, width } from '../../theme';
+import { colors, fonts, isIPad, width } from '../../theme';
 import Icon from 'react-native-vector-icons/Feather';
 import moment from 'moment';
 
@@ -23,7 +23,7 @@ const RequestedPrayerModal = ({ visible, setVisible, item }) => {
             <View style={{ ...StyleSheet.absoluteFillObject, zIndex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => { setVisible(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></TouchableOpacity>
                 <View style={{ backgroundColor: '#fff', borderRadius: 7, width: '90%', paddingBottom: 15 }}>
-                    <Text style={{ fontFamily: fonts.latoBlack, color: colors.black, textAlign: 'left', paddingVertical: 15, paddingHorizontal: 15, fontSize: 24, color: colors.black }}>Requested Prayer</Text>
+                    <Text style={{ fontFamily: fonts.headingFont, color: colors.black, textAlign: 'left', paddingVertical: 15, paddingHorizontal: 15, fontSize: 24, color: colors.black }}>Requested Prayer</Text>
                     {/* <Text style={{ fontFamily: fonts.latoRegular, color: colors.black, textAlign: 'center', fontSize: 13, paddingHorizontal: 15, paddingBottom: 15, color: '#444' }}>Please make sure your photo clearly shows your face</Text> */}
 
                     <View style={styles.itemrow}>
@@ -68,6 +68,6 @@ export default RequestedPrayerModal;
 
 const styles = StyleSheet.create({
     itemrow: { flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 15 },
-    rowheading: { fontFamily: fonts.latoBold, minWidth: 110, color: colors.green },
-    rowdetail: { fontFamily: fonts.latoRegular, color: colors.grey, maxWidth: width - 180, }
+    rowheading: { fontFamily: fonts.latoBold, minWidth: isIPad ? 170 : 110, color: colors.green, fontSize: isIPad ? 17 : 14 },
+    rowdetail: { fontFamily: fonts.latoRegular, color: colors.grey, maxWidth: width - 180, fontSize: isIPad ? 17 : 14}
 })

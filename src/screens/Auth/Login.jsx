@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView } from "react-native";
 
 import { useForm } from 'react-hook-form';
-import { colors, fonts, width } from "../../theme";
+import { colors, fonts, isIPad, width } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -15,6 +15,7 @@ import { CommonActions, DrawerActions, StackActions } from "@react-navigation/na
 import Toast from "react-native-toast-message";
 import Loader from "../../components/Loader";
 import { showToast } from "../../helpers/toastConfig";
+import axios from "axios";
 
 
 const Login = (props) => {
@@ -23,6 +24,33 @@ const Login = (props) => {
     const [loading, isLoading] = useState(false);
     const { handleSubmit, formState: { errors }, register, setValue } = useForm();
     const prevLoginResponseRef = useRef(props.loginResponse);
+    const prevLoginErrorRef = useRef(props.loginError);
+
+    useEffect(() => {
+
+        // fetch('https://texaschristianashram.org:3023/auth/login', {
+        //     method: 'POST',
+        //     headers: {
+        //         Accept: 'application/json',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         email: 'yourValue',
+        //         secondParam: 'yourOtherValue',
+        //     }),
+        // });
+
+        // axios.post('https://reqres.in/api/users', {
+        //     "name": "morpheus",
+        //     "job": "leader"
+        // })
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+    }, [])
 
     useEffect(() => {
         // console.log('props.loginResponse => ', props.loginResponse);
@@ -35,11 +63,21 @@ const Login = (props) => {
             // props.navigation.navigate('Screens', { screen: 'Home' })
             // props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })
         }
+
         if (props.loginResponse !== prevLoginResponseRef.current && !props.loginResponse.success) {
-            showToast('error', 'Email Id or password incorrect')
+            showToast('error', props.loginResponse.message.replaceAll(' ','-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse.message)
         }
         isLoading(false);
     }, [props.loginResponse])
+
+    useEffect(() => {
+        console.log('props.loginError => ', props.loginError);
+        if (props.loginError && props.loginError !== prevLoginErrorRef.current && props.loginError?.message) {
+            console.log('props.loginError => ', props.loginError);
+            showToast('error', props.loginError?.message)
+        }
+        isLoading(false);
+    }, [props.loginError])
 
     // const showToast = () => {
     //     Toast.show({
@@ -81,7 +119,7 @@ const Login = (props) => {
         <ImageBackground source={require('./../../../assets/images/background-with-img.png')} style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View>
+                    <View style={isIPad && globalstyle.authscreencontainer}>
                         <View style={globalstyle.authLogoContainer}>
                             <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} />
                             <Text style={globalstyle.authheading}>Hello!</Text>
@@ -95,7 +133,6 @@ const Login = (props) => {
                                 // value=''
                                 {...register('email', {
                                     // value: 'johnmartin@mailinator.com',
-                                    // value: 'testuser06@mailinator.com',
                                     required: 'Email Address is required',
                                     pattern: {
                                         value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
@@ -103,7 +140,6 @@ const Login = (props) => {
                                     },
                                 })}
                                 // defaultValue={'johnmartin@mailinator.com'}
-                                // defaultValue={'testuser06@mailinator.com'}
                                 placeholderTextColor={colors.placeholdercolor}
                                 autoCapitalize='none'
                                 onChangeText={(value) => setValue('email', value)}
@@ -129,12 +165,10 @@ const Login = (props) => {
                                     // value=''
                                     {...register('password', {
                                         // value: 'password123',
-                                        // value: '123456789',
                                         required: 'Password is required',
                                         // minLength: { value: 8, message: 'Password length must be greater then 8' }
                                     })}
                                     // defaultValue={'password123'}
-                                    // defaultValue={'123456789'}
                                     // inputRef={password.ref}
                                     onChangeText={(value) => setValue('password', value)}
                                     secureTextEntry={!showPassword ? true : false}
@@ -175,6 +209,7 @@ const Login = (props) => {
 
 const setStateToProps = (state) => ({
     loginResponse: state.authstate.loginResponse,
+    loginError: state.authstate.loginError,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -190,7 +225,7 @@ export default connect(setStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: colors.black, fontFamily: fonts.latoRegular, fontSize: 13 },
+    forgetpasstext: { color: colors.black, fontFamily: fonts.latoRegular, fontSize: isIPad ? 16 : 13 },
 })
 
 
