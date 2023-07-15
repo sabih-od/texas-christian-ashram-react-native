@@ -7,10 +7,12 @@ import { colors, fonts, height, width } from "../../theme";
 import { API_PATH } from "@env"
 import messageslist from "../../data/messageslist";
 import MessageItem from "../../components/MessageItem";
-import { GetMessagesApiCall, SendMessageApiCall } from "../../redux/reducers/ChatStateReducer";
+import { DeleteMessageApiCall, GetMessagesApiCall, SendMessageApiCall } from "../../redux/reducers/ChatStateReducer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { getSocket } from "../../helpers/socket-manager";
+import ReportDeleteModal from "../../components/modal/ReportDeleteModal";
+import { showToast } from "../../helpers/toastConfig";
 
 // import { io } from 'socket.io-client';
 // // const websocketurl = 'ws://10.10.8.113:8029';
@@ -125,6 +127,15 @@ const Conversation = (props) => {
         console.log('messages => ', messages);
     }, [messages]);
 
+    const prevDeleteMessagesResRef = useRef(props.deleteMessagesResponse);
+    useEffect(() => {
+        if (props.deleteMessagesResponse !== prevDeleteMessagesResRef.current && props.deleteMessagesResponse.success) {
+            prevDeleteMessagesResRef.current = props.deleteMessagesResponse;
+            console.log('props.deleteMessagesResponse => ', props.deleteMessagesResponse);
+            showToast('success', 'Message deleted successfully');
+        }
+    }, [props.deleteMessagesResponse])
+
     const scrollToBottom = (animated) => {
         setTimeout(() => {
             // messagesRef.current.scrollToEnd({ animated });
@@ -156,8 +167,12 @@ const Conversation = (props) => {
         scrollToBottom(true)
     }
 
-    const handleDelete = (msgid) => {
-        console.log('msgid => ', msgid);
+    const handleDelete = (item) => {
+        // console.log('msgid => ', msgid);
+        showDeleteModal(false)
+        const updatedMessages = messages.filter((message) => message.id !== item.id);
+        setMessages(updatedMessages);
+        props.DeleteMessageApiCall({ msgid: item.id })
     }
 
     function onRefresh() { setRefresh(true) }
@@ -176,6 +191,14 @@ const Conversation = (props) => {
 
     }
 
+    const [deleteModal, showDeleteModal] = useState(false);
+    const [selectedDeleteItem, showSelectedDeleteItem] = useState(false);
+    function _showDeleteModal(value, item) {
+        console.log('data => ', value);
+        showDeleteModal(true)
+        showSelectedDeleteItem(item)
+    }
+
     return (
         <SafeAreaView style={[styles.fullview]}>
             <KeyboardAvoidingView
@@ -185,8 +208,7 @@ const Conversation = (props) => {
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
                 style={[styles.fullview]}
             >
-                {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
-                {/* <View style={{ flex: 1 }}> */}
+                {deleteModal && <ReportDeleteModal item={selectedDeleteItem} handleDelete={handleDelete} userid={userid} showDeleteModal={showDeleteModal} />}
                 <FlatList
                     style={styles.flatliststyle}
                     contentContainerStyle={{ paddingBottom: 20, flexGrow: 1 }}
@@ -209,9 +231,8 @@ const Conversation = (props) => {
                     keyExtractor={item => String(item.id)}
                     renderItem={({ item, index }) => {
                         // console.log('item => ', item);
-                        return <MessageItem item={item} userid={userid} handleDelete={handleDelete} />
-                    }
-                    }
+                        return <MessageItem item={item} userid={userid} showDeleteModal={_showDeleteModal} />
+                    }}
                 />
                 <View style={styles.textmsgbox}>
                     <TextInput
@@ -236,8 +257,6 @@ const Conversation = (props) => {
                         <Icon name="send" size={22} color={colors.white} />
                     </TouchableOpacity>
                 </View>
-                {/* </View> */}
-                {/* </TouchableWithoutFeedback> */}
             </KeyboardAvoidingView >
         </SafeAreaView>
     );
@@ -253,7 +272,7 @@ const styles = StyleSheet.create({
         height: 45
 
     },
-    textmsgbox: { width: width - 20, margin: 10, borderRadius: 5, backgroundColor: colors.white, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 5, paddingVertical: 5 },
+    textmsgbox: { width: width - 20, margin: 10, borderRadius: 10, backgroundColor: colors.white, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 5, paddingVertical: 5 },
     flatliststyle: { paddingHorizontal: 15, backgroundColor: colors.white, },
 
     container: { position: 'absolute', bottom: 40, right: 20, zIndex: 999, },
@@ -267,11 +286,13 @@ const setStateToProps = (state) => ({
     userInfo: state.appstate.userInfo,
     getMessagesResponse: state.chatstate.getMessagesResponse,
     sendMessagesResponse: state.chatstate.sendMessagesResponse,
+    deleteMessagesResponse: state.chatstate.deleteMessagesResponse
 })
 const mapDispatchToProps = (dispatch) => {
     return {
         GetMessagesApiCall: bindActionCreators(GetMessagesApiCall, dispatch),
         SendMessageApiCall: bindActionCreators(SendMessageApiCall, dispatch),
+        DeleteMessageApiCall: bindActionCreators(DeleteMessageApiCall, dispatch),
     }
 }
 

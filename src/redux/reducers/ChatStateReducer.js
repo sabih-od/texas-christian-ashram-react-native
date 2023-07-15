@@ -1,11 +1,12 @@
 import apiAction from "../../api/apiAction";
-import { GetGroupsAPI, GetMessagesAPI, SendMessageAPI } from "../../api/routes";
-import { GET_GROUPS_API_SUCCESS, SET_ERROR, SEND_MESSAGES_API_SUCCESS, GET_MESSAGES_API_SUCCESS } from "../actiontypes";
+import { DeleteMessageAPI, GetGroupsAPI, GetMessagesAPI, SendMessageAPI } from "../../api/routes";
+import { GET_GROUPS_API_SUCCESS, SET_ERROR, SEND_MESSAGES_API_SUCCESS, GET_MESSAGES_API_SUCCESS, DELETE_MESSAGES_API_SUCCESS } from "../actiontypes";
 
 const initialState = {
     getGroupsResponse: {},
     getMessagesResponse: {},
-    sendMessagesResponse: {}
+    sendMessagesResponse: {},
+    deleteMessagesResponse: {},
 }
 
 
@@ -58,6 +59,21 @@ export function SendMessageApiCall(params) {
     });
 }
 
+// Delete Message Api Call
+export function DeleteMessageApiCall(params) {
+    return apiAction({
+        url: DeleteMessageAPI + '/' + params.msgid,
+        method: 'DELETE',
+        // data: params,
+        onSuccess: (response) => {
+            return { type: DELETE_MESSAGES_API_SUCCESS, payload: response };
+        },
+        onFailure: (response) => {
+            return { type: SET_ERROR, payload: response };
+        },
+    });
+}
+
 const ChatStateReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_GROUPS_API_SUCCESS:
@@ -71,6 +87,10 @@ const ChatStateReducer = (state = initialState, action) => {
         case SEND_MESSAGES_API_SUCCESS:
             return Object.assign({}, state, {
                 sendMessagesResponse: action.payload,
+            });
+        case DELETE_MESSAGES_API_SUCCESS:
+            return Object.assign({}, state, {
+                deleteMessagesResponse: action.payload,
             });
         default:
             return state;

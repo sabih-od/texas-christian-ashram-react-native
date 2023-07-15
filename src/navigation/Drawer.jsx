@@ -6,7 +6,6 @@ import { IOS, colors, fonts, isIPad } from '../theme';
 import { Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerContentScrollView, useDrawerProgress } from '@react-navigation/drawer';
-import Animated, { interpolateNode } from 'react-native-reanimated';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LogOut, SetUserInfo, UpdateFcmToken, UpdateNotificationBadge } from '../redux/reducers/AppStateReducer';

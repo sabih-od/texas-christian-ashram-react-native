@@ -9,6 +9,7 @@ const colorScheme = {
   green: 'rgba(103, 146, 141, 1.0)',
   red: 'rgba(255, 0, 0, 0.7)',
   lightgreen: 'rgba(175, 191, 181, 1.0)',
+  placeholdercolor: 'rgba(0, 0, 0, 0.6)',
 };
 
 

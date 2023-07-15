@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView } from "react-native";
 
 import { useForm } from 'react-hook-form';
-import { colors, fonts, isIPad, width } from "../../theme";
+import { IOS, colors, fonts, isIPad, width } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -16,6 +16,7 @@ import Toast from "react-native-toast-message";
 import Loader from "../../components/Loader";
 import { showToast } from "../../helpers/toastConfig";
 import axios from "axios";
+import AnimatedFloatingPlaceholder from "../../components/AnimatedPlaceholder";
 
 
 const Login = (props) => {
@@ -30,26 +31,37 @@ const Login = (props) => {
 
         // fetch('https://texaschristianashram.org:3023/auth/login', {
         //     method: 'POST',
+        //     mode: "cors",
+        //     cache: "no-cache",
         //     headers: {
         //         Accept: 'application/json',
         //         'Content-Type': 'application/json',
         //     },
         //     body: JSON.stringify({
-        //         email: 'yourValue',
-        //         secondParam: 'yourOtherValue',
+        //         email: 'kalenparker@mailinator.com',
+        //         password: '12345678',
         //     }),
-        // });
+        // }).then(response => console.log(response.json()))
+
+        // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+        // axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+        // .then(function (response) { console.log('response hunter => ', response); })
+        // .catch(function (error) { console.log(error); });
+
+        // axios.request({
+        //     url: 'https://texaschristianashram.org:3023/auth/login', method: 'POST', data: {
+        //         email: 'kalenparker@mailinator.com',
+        //         password: '12345678',
+        //     }
+        // })
+        // .then(function (response) { console.log('response texas => ', response); })
+        // .catch(function (error) { console.log(error); });
 
         // axios.post('https://reqres.in/api/users', {
         //     "name": "morpheus",
         //     "job": "leader"
-        // })
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+        // }).then(function (response) { console.log(response); }).catch(function (error) { console.log(error); });
+
     }, [])
 
     useEffect(() => {
@@ -65,7 +77,7 @@ const Login = (props) => {
         }
 
         if (props.loginResponse !== prevLoginResponseRef.current && !props.loginResponse.success) {
-            showToast('error', props.loginResponse.message.replaceAll(' ','-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse.message)
+            showToast('error', props.loginResponse.message.replaceAll(' ', '-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse.message)
         }
         isLoading(false);
     }, [props.loginResponse])
@@ -93,21 +105,9 @@ const Login = (props) => {
     // }
 
     const onSubmit = (data) => {
-        // console.log('data => ', data);
+        console.log('onSubmit data => ', data)
         props.LoginApiCall(data);
         isLoading(true);
-        // props.navigation.navigate({ index: 0, routes: ['Screens', { screen: 'Home' }] })
-        // console.log('navigation => ', props.navigation.getParent('Home'));
-
-        // props.navigation.dispatch(
-        //     CommonActions.reset({
-        //         index: 0,
-        //         routes: [
-        //             { name: 'Screens' }, // Replace 'Home' with the initial route name of your nested drawer navigator
-        //         ],
-        //     })
-        // );
-
     }
 
     const input01 = useRef();
@@ -117,7 +117,7 @@ const Login = (props) => {
         <Loader isLoading={loading} />
         {/* <ScrollView style={globalstyle.authContainer}> */}
         <ImageBackground source={require('./../../../assets/images/background-with-img.png')} style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
+            <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         <View style={globalstyle.authLogoContainer}>
@@ -125,6 +125,9 @@ const Login = (props) => {
                             <Text style={globalstyle.authheading}>Hello!</Text>
                             <Text style={globalstyle.authdescription}>So glad you are here</Text>
                         </View>
+
+
+                        {/* <Text style={[globalstyle.inputlabel,]}>Email Address</Text> */}
                         <View style={globalstyle.inputbox}>
                             <Icon color={colors.green} name={'mail'} size={18} />
                             <TextInput
@@ -132,14 +135,14 @@ const Login = (props) => {
                                 placeholder="Email Address"
                                 // value=''
                                 {...register('email', {
-                                    // value: 'johnmartin@mailinator.com',
+                                    // value: 'kalenparker@mailinator.com',
                                     required: 'Email Address is required',
                                     pattern: {
                                         value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
                                         message: "Please provide valid email"
                                     },
                                 })}
-                                // defaultValue={'johnmartin@mailinator.com'}
+                                // defaultValue={'kalenparker@mailinator.com'}
                                 placeholderTextColor={colors.placeholdercolor}
                                 autoCapitalize='none'
                                 onChangeText={(value) => setValue('email', value)}
@@ -155,6 +158,12 @@ const Login = (props) => {
                             style={styles.forgetpasslink}>
                             <Text style={styles.forgetpasstext}>Forget Password?</Text>
                         </TouchableOpacity>
+
+                        {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <AnimatedFloatingPlaceholder />
+                        </View> */}
+
+                        {/* <Text style={[globalstyle.inputlabel,]}>Password</Text> */}
                         <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Icon color={colors.green} name={'lock'} size={18} />
@@ -164,11 +173,11 @@ const Login = (props) => {
                                     placeholderTextColor={colors.placeholdercolor}
                                     // value=''
                                     {...register('password', {
-                                        // value: 'password123',
+                                        // value: '12345678',
                                         required: 'Password is required',
                                         // minLength: { value: 8, message: 'Password length must be greater then 8' }
                                     })}
-                                    // defaultValue={'password123'}
+                                    // defaultValue={'12345678'}
                                     // inputRef={password.ref}
                                     onChangeText={(value) => setValue('password', value)}
                                     secureTextEntry={!showPassword ? true : false}

@@ -34,7 +34,7 @@ const RequestedPrayersItem = (props) => {
 export default RequestedPrayersItem;
 
 const styles = StyleSheet.create({
-    notificationitem: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10, paddingVertical: 10, backgroundColor: colors.white, borderRadius: 4, marginBottom: 15, 
+    notificationitem: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15, paddingVertical: 10, backgroundColor: colors.white, borderRadius: 8, marginBottom: 15, 
     borderLeftColor: '#ddd', borderLeftWidth: 2, 
     // borderTopLeftRadius: 0, borderBottomLeftRadius: 0 
 },

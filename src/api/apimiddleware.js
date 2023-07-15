@@ -5,6 +5,10 @@ import { store } from '../redux/store';
 import axios from 'axios';
 // import { showToast } from '../helpers/toastConfig';
 
+// import https from 'https';
+// const agent = new https.Agent({ rejectUnauthorized: false });
+
+
 export const API_REQUEST = "API_REQUEST";
 const API_START = "API_START";
 const API_END = "API_END";
@@ -58,33 +62,13 @@ const apiMiddleware = ({ dispatch }) => next => action => {
   // axios default configs
   axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://texaschristianashram.org:3023' // 'http://service.demowebsitelinks.com:3023';
   if(state?.appstate?.isLogin) axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;
-
-  // if (Platform.OS === 'android') {
-
-  //   // Disable SSL verification only for Android
-  //   const { XMLHttpRequest } = require('react-native');
-  //   XMLHttpRequest.prototype.open = function () {
-  //     if (arguments[1].startsWith('https')) {
-  //       arguments[1] = arguments[1].replace('https', 'http');
-  //     }
-  //     return this.origOpen.apply(this, arguments);
-  //   };
-
-  //   // const { SSLPinning } = NativeModules;
-  //   // SSLPinning.disableSSLPinning();
-
-  //   // axios.defaults.httpsAgent = new https.Agent({
-  //   //   rejectUnauthorized: false
-  //   // });
-  // }
-
-  console.log(' axios.defaults.baseURL => ',  axios.defaults.baseURL)
-
+  
   if (headersOverride) {
     axios.defaults.headers.common["Content-Type"] = 'multipart/form-data';
-  } else {
-    axios.defaults.headers.common["Content-Type"] = 'application/json';
-  }
+  } 
+  // else {
+  //   axios.defaults.headers.common["Content-Type"] = 'application/json';
+  // }
 
   console.log('data => ', data);
 
@@ -100,6 +84,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
       method,
       headers,
       [dataOrParams]: data,
+      // httpsAgent: agent
     })
     .then(({ data }) => {
       console.log(`API: ${url} => `, data);
@@ -107,7 +92,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
     })
     .catch(error => {
       console.log('APIERROR => ', error.message);
-      console.log('API Error message_to_show => ', error?.response)
+      console.log('API Error => ', error)
 
       // dispatch(apiError(error));
       // showToast('error', props.loginError?.message)

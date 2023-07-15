@@ -37,6 +37,7 @@ export const GetHomeBannerAPI = '/pages/home-banner/get';
 export const GetGroupsAPI = '/groups';
 export const GetMessagesAPI = '/groups/get-messages';
 export const SendMessageAPI = '/messages';
+export const DeleteMessageAPI = '/messages'
 
 export const RequestPrayerAPI = '/prayer-requests';
 export const ContactAPI = '/contacts';

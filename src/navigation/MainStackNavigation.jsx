@@ -23,8 +23,6 @@ import Posts from "../screens/Posts";
 import Sermons from "../screens/Sermons";
 
 /* Components */
-// import DrawerIcon from "../components/header/DrawerIcon";
-// import NotificationIcon from "../components/header/NotificationIcon";
 import RequestedPrayers from "../screens/RequestedPrayers";
 import PrayerRequest from "../screens/PrayerRequest";
 import Profile from "../screens/Profile/Profile";
@@ -45,53 +43,57 @@ import SermonsDetail from "../screens/Detail/SermonsDetail";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import EditProfile from "../screens/Profile/EditProfile";
+import GoBackIcon from "../components/header/GoBackIcon";
+
+import DrawerIcon from "../components/header/DrawerIcon";
+import NotificationIcon from "../components/header/NotificationIcon";
 
 const Stack = createStackNavigator();
 
-const DrawerIcon = (props) => {
-    return (<TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-            console.log('props.navigation => ', props.navigation);
-            Keyboard.dismiss();
-            props.navigation.openDrawer();
-        }}
-        style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
-        <Icon name={'align-right'} size={22} color={fontcolor} />
-    </TouchableOpacity >)
-}
+// const DrawerIcon = (props) => {
+//     return (<TouchableOpacity
+//         activeOpacity={0.8}
+//         onPress={() => {
+//             console.log('props.navigation => ', props.navigation);
+//             Keyboard.dismiss();
+//             props.navigation.openDrawer();
+//         }}
+//         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
+//         <Icon name={'align-right'} size={22} color={fontcolor} />
+//     </TouchableOpacity >)
+// }
 
-const GoBackIcon = (props) => {
-    return (<TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-            // props.navigation.navigate(props.screen ? props.screen : 'Home')
-            props.navigation.goBack()
-        }}
-        style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
-        <Icon name={'chevron-left'} size={22} color={props.color ? props.color : colors.white} />
-    </TouchableOpacity >)
-}
+// const GoBackIcon = (props) => {
+//     return (<TouchableOpacity
+//         activeOpacity={0.8}
+//         onPress={() => {
+//             // props.navigation.navigate(props.screen ? props.screen : 'Home')
+//             props.navigation.goBack()
+//         }}
+//         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
+//         <Icon name={'chevron-left'} size={22} color={props.color ? props.color : colors.white} />
+//     </TouchableOpacity >)
+// }
 
-const NotificationIcon = (props) => {
-    // const state = store.getState();
-    // console.log('state.appstate.notificationBadge => ', state.appstate.notificationBadge);
-    // useEffect(()=>{
-    // },[state.appstate.notificationBadge])
-    return (
-        <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => {
-                console.log('Notifications Clicked');
-                props.navigation.navigate('Notifications');
-            }}
-            style={styles.notibadge}>
-            <Icon name={'bell'} size={20} color={colors.black} />
-            {/* {state.appstate.notificationBadge > 0 && <View style={styles.badge}></View>} */}
-            {props.notificationBadge > 0 && <View style={styles.badge}></View>}
-        </TouchableOpacity>
-    )
-}
+// const NotificationIcon = (props) => {
+//     // const state = store.getState();
+//     // console.log('state.appstate.notificationBadge => ', state.appstate.notificationBadge);
+//     // useEffect(()=>{
+//     // },[state.appstate.notificationBadge])
+//     return (
+//         <TouchableOpacity
+//             activeOpacity={0.8}
+//             onPress={() => {
+//                 console.log('Notifications Clicked');
+//                 props.navigation.navigate('Notifications');
+//             }}
+//             style={styles.notibadge}>
+//             <Icon name={'bell'} size={20} color={colors.black} />
+//             {/* {state.appstate.notificationBadge > 0 && <View style={styles.badge}></View>} */}
+//             {props.notificationBadge > 0 && <View style={styles.badge}></View>}
+//         </TouchableOpacity>
+//     )
+// }
 
 const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
 
@@ -120,7 +122,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                     // headerTransparent: true,
                     // headerStyle: { height: 120 },
                     // headerTitle: () => <SearchHeader />,
@@ -141,7 +143,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -153,9 +155,9 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
-                    headerLeft: () => <DrawerIcon navigation={navigation} />,                    
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -169,10 +171,10 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,                    
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
-            
+
             <Stack.Screen
                 name="PdfView"
                 component={PdfView}
@@ -183,7 +185,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Books'} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -194,9 +196,9 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -209,7 +211,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -222,7 +224,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -234,7 +236,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -247,7 +249,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -259,7 +261,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -272,7 +274,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -293,7 +295,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerTitleStyle: { fontFamily: fonts.headingFont },
                     // // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    // headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -308,7 +310,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerTitleStyle: { fontFamily: fonts.headingFont },
                     // // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    // headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -319,7 +321,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -331,7 +333,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -343,7 +345,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -356,7 +358,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -368,7 +370,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -380,7 +382,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -392,7 +394,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -404,7 +406,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -417,7 +419,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Announcements'} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -430,7 +432,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Announcements'} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -445,7 +447,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black}
                     // screen={'Events'} 
                     />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -457,7 +459,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: { fontFamily: fonts.headingFont },
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -471,7 +473,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black}
                     //screen={'Sermons'} 
                     />,
-                    headerRight: () => <NotificationIcon navigation={navigation} notificationBadge={notificationBadge} />
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
 
@@ -479,18 +481,17 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
     </Animated.View>
 }
 
-const setStateToProps = (state) => ({
-    notificationBadge: state.appstate.notificationBadge
-  })
-  
-  const mapDispatchToProps = (dispatch) => {
-    return {
-    //   LogOut: bindActionCreators(LogOut, dispatch),
-    }
-  }
-  
-  export default connect(setStateToProps, mapDispatchToProps)(MainStackNavigation);
-// export default MainStackNavigation;
+// const setStateToProps = (state) => ({
+//     notificationBadge: state.appstate.notificationBadge
+// })
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         //   LogOut: bindActionCreators(LogOut, dispatch),
+//     }
+// }
+// export default connect(setStateToProps, mapDispatchToProps)(MainStackNavigation);
+
+export default MainStackNavigation;
 
 const styles = StyleSheet.create({
     stack: { flex: 1 },

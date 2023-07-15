@@ -6,7 +6,7 @@ import moment from 'moment';
 const GroupItem = ({ item, width, navigation }) => {
     return (
         <TouchableOpacity
-            style={{ margin: 15, marginBottom: 0, width: width, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, paddingVertical: 8, borderRadius: 5, backgroundColor: colors.white }}
+            style={{ margin: 15, marginBottom: 0, width: width, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 10, borderRadius: 10, backgroundColor: colors.white }}
             activeOpacity={0.8}
             onPress={() => {
                 navigation.navigate('Conversation', {title: item.name, groupid: item.id});

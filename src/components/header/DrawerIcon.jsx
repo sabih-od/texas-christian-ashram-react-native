@@ -1,12 +1,14 @@
 import React from "react";
-import { TouchableOpacity } from "react-native"
-import { Icon } from "react-native-vector-icons/Feather"
+import { Keyboard, TouchableOpacity } from "react-native"
+import Icon from "react-native-vector-icons/Feather"
 import { colors, fontcolor } from "../../theme"
 
-const DrawerIcon = (props) => {
-    return (<TouchableOpacity activeOpacity={0.8}
+const DrawerIcon = ({ navigation }) => {
+    return (<TouchableOpacity
+        activeOpacity={0.8}
         onPress={() => {
-            console.log('props OpenDrawerIcon => ', props.navigation);
+            Keyboard.dismiss();
+            navigation.openDrawer();
         }}
         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
         <Icon name={'align-right'} size={22} color={fontcolor} />

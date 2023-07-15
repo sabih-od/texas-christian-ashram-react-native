@@ -144,7 +144,7 @@ const PrayerRequest = props => {
               <View
                 style={[globalstyle.authLogoContainer, { alignItems: 'flex-start' }]}>
                 <Text style={[globalstyle.authheading, { fontSize: 30, marginTop: 10 }]}>Prayer Request </Text>
-                <Text style={[globalstyle.authdescription, { fontSize: 15, marginBottom: 10 },]}> Invoking collective prayers in the ashram, seeking divine blessings </Text>
+                <Text style={[globalstyle.authdescription, { fontSize: 15, marginBottom: 10 },]}>Invoking collective prayers in the ashram, seeking divine blessings </Text>
               </View>
 
               {/* {Platform.OS === 'ios' && <DateTimeModal showDate={showStartDate || showEndDate} showTime={showTime} maxDate={startDate} isStartDate={showStartDate} setVisible={_handleSetVisible} _handleChangeDate={_handleChangeDate} _handleChangeTime={_handleChangeTime} />}
@@ -347,7 +347,7 @@ const PrayerRequest = props => {
                 </View>
                 {errors?.time && (<Text style={globalstyle.errorField}>{errors?.time?.message}</Text>)} */}
 
-                <View style={[globalstyle.inputbox, { justifyContent: 'space-between', borderRadius: 25 },]}>
+                <View style={[globalstyle.inputbox, { justifyContent: 'space-between', },]}>
                   <View style={{ flexDirection: 'row', alignItems: 'flex-start', width: width }}>
                     <Icon
                       color={colors.green}
