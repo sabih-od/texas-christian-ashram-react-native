@@ -4,7 +4,7 @@ import { colors, fonts, isIPad, width, height } from '../../theme';
 import Icon from 'react-native-vector-icons/Feather';
 import globalstyle from '../../theme/style';
 
-const CameraModal = ({ item, visible, userid, handleDelete, showDeleteModal }) => {
+const ReportDeleteModal = ({ item, visible, userid, handleDelete, setShowDeleteModal }) => {
     // let [visibility, setVisiblity] = useState(visible ? visible : false)
     // useEffect(() => {
     //     setVisiblity(visible)
@@ -20,11 +20,11 @@ const CameraModal = ({ item, visible, userid, handleDelete, showDeleteModal }) =
             statusBarTranslucent={true}
             transparent={true}
             visible={visible}
-            onRequestClose={() => { showDeleteModal(false); }}
+            onRequestClose={() => { setShowDeleteModal(false); }}
         >
             <View style={{ ...StyleSheet.absoluteFillObject, zIndex: 1, flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
-                <TouchableOpacity onPress={() => { showDeleteModal(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0)' }}></TouchableOpacity>
-                <View style={{ backgroundColor: colors.white, borderRadius: 15, width: isIPad ? '70%' : width - 20, overflow: 'hidden', marginBottom: 30, }}>
+                <TouchableOpacity onPress={() => { setShowDeleteModal(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0)' }}></TouchableOpacity>
+                <View style={{ backgroundColor: colors.white, borderRadius: 15, width: isIPad ? '70%' : width - 20, overflow: 'hidden', marginBottom: 14, }}>
                     {/* <Text style={{ paddingHorizontal: 25, paddingVertical: 15, backgroundColor: colors.green, color: colors.white, fontFamily: fonts.latoRegular }}>{item?.message}</Text> */}
                     <View style={{ paddingHorizontal: 25, paddingVertical: 15, flexDirection: 'row', backgroundColor: '#f5f5f5' }} >
                         <Image
@@ -66,7 +66,7 @@ const CameraModal = ({ item, visible, userid, handleDelete, showDeleteModal }) =
         </Modal>
     )
 }
-export default CameraModal;
+export default ReportDeleteModal;
 
 const styles = StyleSheet.create({
     // deletemsgbtn: { color: colors.black, textAlign: 'center', fontFamily: fonts.latoRegular, fontSize: 12, padding: 10 },

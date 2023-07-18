@@ -41,12 +41,12 @@ const NotificationItem = ({ item, navigation }) => {
 export default NotificationItem;
 
 const styles = StyleSheet.create({
-    notificationitem: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', borderLeftWidth: 3, paddingHorizontal: 12, paddingVertical: 12, backgroundColor: colors.white, borderRadius: 4, marginBottom: 15 },
+    notificationitem: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', borderLeftWidth: 3, paddingHorizontal: isIPad ? 15 : 12, paddingVertical: isIPad ? 15 : 12, backgroundColor: colors.white, borderRadius: 4, marginBottom: 15 },
     notiInnerRow: { flexDirection: 'row', alignItems: 'center', flex: 0.78 },
     image: { width: 45, height: 45, resizeMode: 'cover', borderRadius: 40, marginRight: 10 },
-    notiTime: { fontFamily: fonts.latoBold, fontSize: 10, color: colors.orange },
-    notititle: { fontFamily: fonts.latoBold, fontSize: isIPad ? 17 : 15, color: colors.black, marginBottom: 3, width: width - 120, textTransform: 'capitalize' },
-    notimessage: { fontFamily: fonts.latoRegular, fontSize: isIPad ? 15 : 13, color: colors.grey, width: width - 220 },
+    notiTime: { fontFamily: fonts.latoBold, fontSize: isIPad ? 14 : 10, color: colors.orange },
+    notititle: { fontFamily: fonts.latoBold, fontSize: isIPad ? 19 : 15, color: colors.black, marginBottom: 3, width: width - 120, textTransform: 'capitalize' },
+    notimessage: { fontFamily: fonts.latoRegular, fontSize: isIPad ? 16 : 13, color: colors.grey, width: width - 220 },
     notirowmsg: {},
     datetime: { fontFamily: fonts.latoRegular, color: colors.orange, fontSize: 10 }
 })

@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity } from "react-native"
+import { TouchableOpacity, View } from "react-native"
 import Icon from "react-native-vector-icons/Feather"
 import { colors } from "../../theme"
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ const NotificationIcon = (props) => {
             }}
             style={globalstyle.notibadge}>
             <Icon name={'bell'} size={20} color={colors.black} />
-            {props.notificationBadge > 0 && <View style={styles.badge}></View>}
+            {props.notificationBadge > 0 && <View style={globalstyle.badge}></View>}
         </TouchableOpacity>
     )
 }
@@ -32,3 +32,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(setStateToProps, mapDispatchToProps)(NotificationIcon);
+
+// const styles = StyleSheet.create({
+//     badge: { backgroundColor: colors.orange, color: colors.white, position: 'absolute', width: 11, height: 11, top: 5, right: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderRadius: 10, zIndex: 1, fontSize: 12, fontFamily: fonts.primary, },
+//     notibadge: { position: 'relative', width: 36, height: 36, marginRight: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, overflow: 'hidden', },
+// });

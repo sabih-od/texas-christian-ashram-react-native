@@ -31,7 +31,7 @@ export default BookBox;
 
 const styles = StyleSheet.create({
     booktitle: { fontFamily: fonts.latoBold, color: colors.black, fontSize: isIPad ? 19 : 14, marginBottom: isIPad ? 15 : 10, textTransform: 'capitalize' },
-    bookimage: { height: isIPad ? 360 : 230, borderRadius: 5, overflow: 'hidden', width: '100%' },
+    bookimage: { height: isIPad ? 380 : 230, borderRadius: 5, overflow: 'hidden', width: '100%' },
     bookinfo: { paddingVertical: 10, alignItems: 'center' },
     readmoretext: { fontFamily: fonts.latoBold, color: colors.white, fontSize: isIPad ? 15 : 12, textTransform: 'uppercase' },
     readmore: { position: 'absolute', bottom: isIPad ? -18 : -12, backgroundColor: colors.green, width: isIPad ? 150 : 100, height: isIPad ? 33 : 25, alignItems: 'center', justifyContent: 'center', borderRadius: 10 },

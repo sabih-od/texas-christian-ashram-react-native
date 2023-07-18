@@ -1,4 +1,4 @@
-import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts, isIPad } from '../theme';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -13,17 +13,22 @@ const EventScheduleBox = ({ navigation, item, width }) => {
             <Image
                 source={{ uri: item?.image }}
                 defaultSource={require('./../../assets/images/event-placeholder.png')}
-                style={{ height: 130, borderRadius: 10, overflow: 'hidden', width: '100%' }} />
-            <View
-                style={{ paddingVertical: 10 }}>
+                style={styles.eventboximage} />
+            <View style={{ paddingVertical: 10 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <Text style={{ fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 20 : 16, }}>{item?.title}</Text>
+                    <Text style={styles.eventboxtitle}>{item?.title}</Text>
                     {/* <Icon name={'arrow-right'} style={{ color: colors.orange, fontSize: 15 }} /> */}
                 </View>
-                <Text style={{ fontFamily: fonts.latoRegular, color: colors.black, fontSize: isIPad ? 15 :13, }} numberOfLines={1}>{item?.description}</Text>
+                <Text style={styles.eventboxdesc} numberOfLines={1}>{item?.description}</Text>
             </View>
         </TouchableOpacity>
     )
 }
 
 export default EventScheduleBox;
+
+const styles = StyleSheet.create({
+    eventboximage: { height: 130, borderRadius: 10, overflow: 'hidden', width: '100%' },
+    eventboxtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22 : 16, },
+    eventboxdesc: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 18 : 13, }
+})

@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Platform, SafeAreaView, ScrollView, Text, FlatList, TouchableOpacity, View } from "react-native"
-import { Icon } from "react-native-vector-icons/Feather"
+import Icon from "react-native-vector-icons/Feather"
 import eventlist from "../data/eventlist";
 import UpComingEventBox from "../components/UpComingEventBox";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { GetUpcomingEventsList } from "../redux/reducers/ListingApiStateReducer";
-import { colors, isIPad } from "../theme";
+import { colors, fonts, isIPad } from "../theme";
 import globalstyle from "../theme/style";
+import NotFound from "../components/NotFound";
 
 const itemslimit = 50;
 const UpcomingEvents = (props) => {
@@ -16,12 +17,14 @@ const UpcomingEvents = (props) => {
     const [pageno, setPageno] = useState(1);
     const [limit, setLimit] = useState(itemslimit);
     const [loadmore, setLoadmore] = useState(false);
+    const [loading, isLoading] = useState(false);
 
     const prevUpcomingEventsResRef = useRef(props.getUpcomingEventsListResponse);
 
     useEffect(() => {
         props.GetUpcomingEventsList({ pageno, limit })
         console.log({ pageno, limit })
+        isLoading(true);
         return () => {
             console.log('Upcoming Events Unmount');
             setUpcomingEventList([])
@@ -35,6 +38,7 @@ const UpcomingEvents = (props) => {
             if (refreshing) setUpcomingEventList(props.getUpcomingEventsListResponse.data)
             else setUpcomingEventList(prevState => [...prevState, ...props.getUpcomingEventsListResponse.data])
         }
+        if (props.getUpcomingEventsListResponse) isLoading(false)
         setRefreshing(false)
         // setLoadmore(false)
     }, [props.getUpcomingEventsListResponse])
@@ -61,7 +65,11 @@ const UpcomingEvents = (props) => {
     }
 
     return <SafeAreaView style={{ flex: 1 }}>
-        <FlatList
+        {loading && <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size={isIPad ? 'large' : 'small'} color={colors.green} />
+        </View>}
+        {!loading && props.getUpcomingEventsListResponse?.data?.length == 0 && <NotFound title={"Upcoming Events"} />}
+        {!loading && upcomingEventList.length > 0 && <FlatList
             style={{ padding: 15 }}
             // horizontal
             // snapToInterval={width / 2}
@@ -83,7 +91,7 @@ const UpcomingEvents = (props) => {
             renderItem={({ item, index }) => {
                 return (<UpComingEventBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />)
             }}
-        />
+        />}
     </SafeAreaView>
 }
 const setStateToProps = (state) => ({

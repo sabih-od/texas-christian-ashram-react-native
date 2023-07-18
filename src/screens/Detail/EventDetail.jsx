@@ -58,7 +58,7 @@ const EventDetail = (props) => {
                     <Icon name={'map-pin'} style={styles.eventpinicon} />
                     <View>
                         <Text style={styles.subheading}>Location</Text>
-                        <Text style={{ fontFamily: fonts.latoRegular, color: colors.grey }}>{item?.location}</Text>
+                        <Text style={styles.eventlocation}>{item?.location}</Text>
                     </View>
                 </View>
 
@@ -67,12 +67,12 @@ const EventDetail = (props) => {
                     <View style={{ flexDirection: 'row', }}>
                         <View>
                             <Text style={styles.subheading}>Start Date</Text>
-                            <Text style={{ fontFamily: fonts.latoRegular, color: colors.grey }}>{moment.parseZone(item?.date_from, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
+                            <Text style={styles.eventlocation}>{moment.parseZone(item?.date_from, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
                         </View>
-                        <View style={{ height: 22, width: 1, marginTop: 10, backgroundColor: '#ddd', marginHorizontal: 20, }} />
+                        <View style={styles.sperator} />
                         <View>
                             <Text style={styles.subheading}>End Date</Text>
-                            <Text style={{ fontFamily: fonts.latoRegular, color: colors.grey }}>{moment.parseZone(item?.date_to, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
+                            <Text style={styles.eventlocation}>{moment.parseZone(item?.date_to, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
                         </View>
                     </View>
                 </View>
@@ -97,9 +97,10 @@ export default connect(setStateToProps, mapDispatchToProps)(EventDetail);
 
 const styles = StyleSheet.create({
     date: { fontFamily: fonts.latoRegular, color: colors.orange },
-    title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: 28, marginBottom: 5 },
-    subheading: { fontFamily: fonts.headingFont, marginBottom: 3, fontSize: 18, color: colors.black },
-    description: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 15 },
-    eventlocation: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 13, },
-    eventpinicon: { color: colors.orange, marginRight: 15, marginTop: 2, fontSize: 20 }
+    title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 32 : 28, marginBottom: 5 },
+    subheading: { fontFamily: fonts.headingFont, marginBottom: 3, fontSize: isIPad ? 22 : 18, color: colors.black },
+    description: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: isIPad ? 18 : 15 },
+    eventlocation: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 17 : 13, },
+    eventpinicon: { color: colors.orange, marginRight: 15, marginTop: 2, fontSize: isIPad ? 24 : 20 },
+    seperator: { height: 22, width: 1, marginTop: 10, backgroundColor: '#ddd', marginHorizontal: 20, }
 })

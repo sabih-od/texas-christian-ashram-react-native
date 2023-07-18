@@ -1,6 +1,6 @@
 import { ActivityIndicator, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import globalstyle from "../../theme/style";
-import { colors, fonts, width } from "../../theme";
+import { colors, fonts, isIPad, width } from "../../theme";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Feather";
 import Video from "react-native-video";
@@ -48,9 +48,9 @@ const SermonsDetail = (props) => {
         // else setStarted(false);
     }
 
-    function findvideoid(url){
+    function findvideoid(url) {
         var regex = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|v\/|embed\/|shorts\/)?([^\/\?\s&]+)/;
-        
+
         var match = url.match(regex);
         var videoId = match ? match[1] : null;
         console.log('videoId => ', videoId);
@@ -86,10 +86,10 @@ const SermonsDetail = (props) => {
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
             >
-                <Text style={styles.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
-                <Text style={styles.title}>{item?.title}</Text>
-                {/* <Text style={styles.description}>{item?.description}</Text> */}
-                <Text style={styles.description}>{item?.description}</Text>
+                <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+                <Text style={globalstyle.detailtitle}>{item?.title}</Text>
+                {/* <Text style={globalstyle.detaildescription}>{item?.description}</Text> */}
+                <Text style={globalstyle.detaildescription}>{item?.description}</Text>
                 {/* <YouTube
                     videoId="VI9yRXbNyn8"
                     // apiKey="YOUR_YOUTUBE_API_KEY"
@@ -113,10 +113,4 @@ export default connect(setStateToProps, mapDispatchToProps)(SermonsDetail);
 // export default SermonsDetail;
 
 const styles = StyleSheet.create({
-    date: { fontFamily: fonts.latoRegular, color: colors.grey, marginBottom: 5, fontSize: 13 },
-    title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: 28, marginBottom: 5, },
-    subheading: { fontFamily: fonts.headingFont, marginBottom: 3, fontSize: 18, },
-    description: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: 15 },
-    eventlocation: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 13, },
-    eventpinicon: { color: colors.orange, marginRight: 15, marginTop: 2, fontSize: 20 }
 })

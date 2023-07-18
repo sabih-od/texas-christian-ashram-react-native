@@ -1,5 +1,6 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts, width, isIPad } from '../theme';
+import globalstyle from '../theme/style';
 
 const OurStaffBox = ({ item, navigation }) => {
     return (
@@ -16,14 +17,14 @@ const OurStaffBox = ({ item, navigation }) => {
                 // onError={(error) => console.log('Image failed to load:', error)}
                 // onLoad={() => console.log('Image loading:')}
                 defaultSource={require('./../../assets/images/speaker-placeholder.png')}
-                style={styles.image}
+                style={globalstyle.speakerboximage}
             />
             <View style={{ width: isIPad ? width - 180 : width - 140 }}>
-                <View style={styles.speakerrow}>
-                    <Text style={styles.speakername}>{item?.name}</Text>
-                    {/* <Text style={styles.speakertitle}>Evengelist</Text> */}
+                <View style={globalstyle.speakerboxrow}>
+                    <Text style={globalstyle.speakerboxname}>{item?.name}</Text>
+                    {/* <Text style={globalstyle.speakerboxtitle}>Evengelist</Text> */}
                 </View>
-                <Text style={styles.speakerdesc} numberOfLines={3}>{item?.description.replace(/\\n/g, '\n')}</Text>
+                <Text style={globalstyle.speakerboxdesc} numberOfLines={3}>{item?.description.replace(/\\n/g, '\n')}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -32,10 +33,4 @@ const OurStaffBox = ({ item, navigation }) => {
 export default OurStaffBox;
 
 const styles = StyleSheet.create({
-    eventtime: {},
-    image: { height: isIPad ? 100 : 75, borderRadius: 7, overflow: 'hidden', width: isIPad ? 100 : 75, marginRight: 10 },
-    speakertitle: { fontFamily: fonts.latoBold, color: colors.green },
-    speakerrow: { flexDirection: 'row', marginBottom: 4, alignItems: 'center' },
-    speakername: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22: 16, },
-    speakerdesc: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: isIPad ? 16 : 13, }
 })

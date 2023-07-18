@@ -1,6 +1,6 @@
 import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import globalstyle from "../../theme/style";
-import { colors, fonts } from "../../theme";
+import { colors, fonts, isIPad } from "../../theme";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { GetAnnouncementDetailApiCall } from "../../redux/reducers/DetailPageStateReducer";
@@ -42,9 +42,9 @@ const AnnouncementDetail = (props) => {
                 }
                 style={{ padding: 15 }}
             >
-                <Text style={styles.date}>{moment.parseZone(item?.date, 'DD-MM-YYYY').format('DD MMM, YYYY, hh:mm A')}</Text>
-                <Text style={styles.title}>{item?.title}</Text>
-                <Text style={styles.description}>{item?.description}</Text>
+                <Text style={globalstyle.detaildate}>{moment.parseZone(item?.date, 'DD-MM-YYYY').format('DD MMM, YYYY, hh:mm A')}</Text>
+                <Text style={globalstyle.detailtitle}>{item?.title}</Text>
+                <Text style={globalstyle.detaildescription}>{item?.description}</Text>
             </ScrollView>
         </SafeAreaView>
     )
@@ -62,7 +62,4 @@ export default connect(setStateToProps, mapDispatchToProps)(AnnouncementDetail);
 // export default AnnouncementDetail;
 
 const styles = StyleSheet.create({
-    date: { fontFamily: fonts.latoBold, color: colors.orange, marginBottom: 5 },
-    title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: 26, marginBottom: 5 },
-    description: { fontFamily: fonts.latoRegular, color: colors.black, }
 })

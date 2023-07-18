@@ -43,10 +43,12 @@ const Login = (props) => {
         //     }),
         // }).then(response => console.log(response.json()))
 
-        // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-        // axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
-        // .then(function (response) { console.log('response hunter => ', response); })
-        // .catch(function (error) { console.log(error); });
+        // if (!IOS) {
+        //     axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+        //     axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+        //         .then(function (response) { console.log('response hunter => ', response); })
+        //         .catch(function (error) { console.log(error); });
+        // }
 
         // axios.request({
         //     url: 'https://texaschristianashram.org:3023/auth/login', method: 'POST', data: {

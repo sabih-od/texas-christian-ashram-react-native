@@ -52,9 +52,9 @@ const PostDetail = (props) => {
                     borderTopRightRadius: BORDER_RADIUS,
                 }}
             >
-                <Text style={styles.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
-                <Text style={styles.title}>{item?.title}</Text>
-                <Text style={styles.description}>{item?.content}</Text>
+                <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+                <Text style={globalstyle.detailtitle}>{item?.title}</Text>
+                <Text style={globalstyle.detaildescription}>{item?.content}</Text>
             </ScrollView>
         </SafeAreaView>
     )
@@ -72,10 +72,5 @@ export default connect(setStateToProps, mapDispatchToProps)(PostDetail);
 // export default PostDetail;
 
 const styles = StyleSheet.create({
-    date: { fontFamily: fonts.latoBold, color: colors.orange, marginBottom: 5 },
-    title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: 28, marginBottom: 5 },
-    subheading: { fontFamily: fonts.headingFont, marginBottom: 3, fontSize: 18 },
-    description: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 15 },
-    eventlocation: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 13, },
-    eventpinicon: { color: colors.orange, marginRight: 15, marginTop: 2, fontSize: 20 }
+    
 })

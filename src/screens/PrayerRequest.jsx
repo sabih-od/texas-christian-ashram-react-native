@@ -229,13 +229,13 @@ const PrayerRequest = props => {
                   <Icon color={colors.green} name={'phone'} size={18} />
                   <TextInput
                     style={globalstyle.inputfield}
-                    placeholder="Contact"
+                    placeholder="Contact (Optional)"
                     placeholderTextColor={colors.placeholdercolor}
                     // keyboardType='phone-pad'
                     keyboardType="numeric"
                     {...register('contact', {
                       value: user.phone,
-                      required: 'Contact is required',
+                      // required: 'Contact is required',
                       pattern: {
                         value: /[0-9+]$/i,
                         message: 'Please provide valid contact number',

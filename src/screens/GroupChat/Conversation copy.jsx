@@ -260,17 +260,17 @@ const Conversation = (props) => {
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
                 style={[styles.fullview]}
             >
-                {/* <TouchableWithoutFeedback onPress={() => setShowDeleteModal(false)}> */}
-                    {/* <GestureHandlerRootView style={styles.fullview}> */}
-                        {/* <BottomSheetModalProvider> */}
-                            {/* <ReportDeleteBottomSheet
+                <TouchableWithoutFeedback onPress={() => setShowDeleteModal(false)}>
+                    <GestureHandlerRootView style={styles.fullview}>
+                        <BottomSheetModalProvider>
+                            <ReportDeleteBottomSheet
                                 showDeleteModal={showDeleteModal}
                                 item={selectedDeleteItem}
                                 handleDelete={handleDelete}
                                 userid={userid}
                                 setShowDeleteModal={setShowDeleteModal}
-                            /> */}
-                            {showDeleteModal && <ReportDeleteModal item={selectedDeleteItem} handleDelete={handleDelete} userid={userid} setShowDeleteModal={setShowDeleteModal} />}
+                            />
+                            {/* {showDeleteModal && <ReportDeleteModal item={selectedDeleteItem} handleDelete={handleDelete} userid={userid} setShowDeleteModal={setShowDeleteModal} />} */}
                             <FlatList
                                 style={styles.flatliststyle}
                                 contentContainerStyle={{ paddingBottom: 20, flexGrow: 1 }}
@@ -320,9 +320,9 @@ const Conversation = (props) => {
                                     <Icon name="send" size={22} color={colors.white} />
                                 </TouchableOpacity>
                             </View>
-                        {/* </BottomSheetModalProvider> */}
-                    {/* </GestureHandlerRootView> */}
-                {/* </TouchableWithoutFeedback> */}
+                        </BottomSheetModalProvider>
+                    </GestureHandlerRootView>
+                </TouchableWithoutFeedback>
             </KeyboardAvoidingView >
         </SafeAreaView>
     );

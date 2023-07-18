@@ -37,8 +37,8 @@ const PostBox = ({ item, width, navigation, marginfalse }) => {
 export default PostBox;
 
 const styles = StyleSheet.create({
-    postboxtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 20 : 16, },
+    postboxtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22 : 16, },
     postimage: { height: 130, borderRadius: 10, overflow: 'hidden', width: '100%' },
-    postdesc: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 16 : 13, },
-    eventtime: { fontFamily: fonts.latoBold, fontSize: 11, color: colors.orange, marginTop: 3 },
+    postdesc: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 18 : 13, },
+    eventtime: { fontFamily: fonts.latoBold, fontSize: isIPad ? 14 : 11, color: colors.orange, marginTop: 3 },
 })

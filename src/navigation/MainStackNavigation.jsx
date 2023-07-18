@@ -6,7 +6,7 @@ import { NavigationContainer, useNavigationContainerRef, DefaultTheme, DarkTheme
 import Animated, { Extrapolate, interpolate, interpolateNode, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fontcolor, fonts, height, width } from "../theme";
+import { colors, fontcolor, fonts, height, width  } from "../theme";
 import { createDrawerNavigator, useDrawerProgress, useDrawerStatus } from "@react-navigation/drawer";
 
 /* Screens */
@@ -47,6 +47,7 @@ import GoBackIcon from "../components/header/GoBackIcon";
 
 import DrawerIcon from "../components/header/DrawerIcon";
 import NotificationIcon from "../components/header/NotificationIcon";
+import globalstyle from "../theme/style";
 
 const Stack = createStackNavigator();
 
@@ -119,7 +120,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 component={Home}
                 options={{
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -140,7 +141,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Announcements',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -153,7 +154,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: '',
                     headerTransparent: true,
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
@@ -167,7 +168,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: '',
                     headerTransparent: true,
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,                    
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
@@ -194,7 +195,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'About',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
@@ -207,7 +208,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Groups',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
@@ -220,7 +221,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Conversation',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
@@ -233,7 +234,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Our Speakers',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -245,7 +246,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Our Speaker',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
@@ -258,7 +259,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Our Staff',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -270,7 +271,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Our Staff',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
@@ -292,7 +293,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: '',
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
-                    // headerTitleStyle: { fontFamily: fonts.headingFont },
+                    // headerTitleStyle: globalstyle.headerTitleStyle,
                     // // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerRight: () => <NotificationIcon navigation={navigation} />
@@ -307,7 +308,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerTitle: '',
                     // headerTitle: 'Prayer Request',
-                    // headerTitleStyle: { fontFamily: fonts.headingFont },
+                    // headerTitleStyle: globalstyle.headerTitleStyle,
                     // // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerRight: () => <NotificationIcon navigation={navigation} />
@@ -318,7 +319,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 component={Posts}
                 options={{
                     headerTitle: 'Posts',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -330,7 +331,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Books',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -342,7 +343,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Requested Prayers',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -354,7 +355,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Notifications',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
@@ -367,7 +368,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Events',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -379,7 +380,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Upcoming Events',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -391,7 +392,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'PaymentMethod',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -403,7 +404,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Donation',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -415,7 +416,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Post Detail',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Announcements'} />,
@@ -428,7 +429,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Announcement',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Announcements'} />,
@@ -441,7 +442,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Event Detail',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black}
@@ -456,7 +457,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Messages',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -468,7 +469,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'Sermons',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: { fontFamily: fonts.headingFont },
+                    headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black}
                     //screen={'Sermons'} 

@@ -1,5 +1,5 @@
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-import { colors, fonts } from '../theme';
+import { colors, fonts, isIPad, width } from '../theme';
 import { Platform, Text, View } from 'react-native';
 
 export const toastConfig = {
@@ -10,15 +10,15 @@ export const toastConfig = {
     success: (props) => (
         <BaseToast
             {...props}
-            style={{ borderLeftColor: colors.green }}
+            style={[{ borderLeftColor: colors.green }, isIPad && {width: width - 200}]}
             contentContainerStyle={{ paddingHorizontal: 15 }}
             text1Style={{
-                fontSize: 14,
+                fontSize: isIPad ? 17 : 14,
                 fontWeight: '700',
                 fontFamily: fonts.latoRegular
             }}
             text2Style={{
-                fontSize: 13,
+                fontSize: isIPad ? 17 : 14,
                 fontFamily: fonts.latoRegular,
                 color: colors.grey
             }}
@@ -32,12 +32,12 @@ export const toastConfig = {
         <ErrorToast
             {...props}
             text1Style={{
-                fontSize: 14,
+                fontSize: isIPad ? 17 : 14,
                 fontWeight: '700',
                 fontFamily: fonts.latoRegular
             }}
             text2Style={{
-                fontSize: 13,
+                fontSize: isIPad ? 17 : 14,
                 fontFamily: fonts.latoRegular,
                 color: colors.grey
             }}
@@ -61,13 +61,13 @@ export const toastConfig = {
 
 export const showToast = (type, message) => {
     Toast.show({
-      type: type, // Can be 'success', 'error', 'info', or 'none'
-      // text1: 'Success',
-      text2: message,
-      position: 'top', // Can be 'top', 'bottom', or 'center'
-      visibilityTime: 3000, // Duration to show the toast message (in milliseconds)
-      autoHide: true, // Automatically hide the toast after the duration
-      topOffset: Platform.OS === 'ios' ? 60 : 30, // Additional offset from the top/bottom (in pixels)
-      // bottomOffset: 40,
+        type: type, // Can be 'success', 'error', 'info', or 'none'
+        // text1: 'Success',
+        text2: message,
+        position: 'top', // Can be 'top', 'bottom', or 'center'
+        visibilityTime: 3000, // Duration to show the toast message (in milliseconds)
+        autoHide: true, // Automatically hide the toast after the duration
+        topOffset: Platform.OS === 'ios' ? 60 : 30, // Additional offset from the top/bottom (in pixels)
+        // bottomOffset: 40,
     });
-  };
+};

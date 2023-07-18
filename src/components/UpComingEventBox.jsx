@@ -1,6 +1,7 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts, isIPad, width } from '../theme';
 import Icon from 'react-native-vector-icons/Feather';
+import moment from 'moment';
 
 const UpComingEventBox = (props) => {
     // console.log('props?.item?.image => ', props?.item?.image);
@@ -20,7 +21,7 @@ const UpComingEventBox = (props) => {
                 <View
                 //style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' }}
                 >
-                    <View><Text style={styles.eventtime}>July 15th, 2024</Text></View>
+                    <View><Text style={styles.eventtime}>{moment.parseZone(props?.item?.date_from, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text></View>
                     <Text style={styles.eventtitle}>{props?.item?.title ? props?.item?.title : 'Article'}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -35,10 +36,10 @@ const UpComingEventBox = (props) => {
 export default UpComingEventBox;
 
 const styles = StyleSheet.create({
-    eventtime: { fontFamily: fonts.latoBold, fontSize: 11, color: colors.orange, marginTop: 5 },
+    eventtime: { fontFamily: fonts.latoBold, fontSize: isIPad ? 14 : 11, color: colors.orange, marginTop: 5 },
     timeicon: {},
     eventtitlerow: { paddingVertical: 7 },
-    eventtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: 16, marginBottom: 3 },
-    eventlocation: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: 13, },
-    eventpinicon: { color: colors.orange, marginRight: 5, marginTop: 2, }
+    eventtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22 : 16, marginBottom: 3 },
+    eventlocation: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 17 : 13, },
+    eventpinicon: { color: colors.orange, marginRight: 5, marginTop: 2, fontSize: isIPad ? 17 : 13 }
 })

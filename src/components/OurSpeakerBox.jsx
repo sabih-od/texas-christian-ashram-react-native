@@ -1,5 +1,6 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts, isIPad, width } from '../theme';
+import globalstyle from '../theme/style';
 
 const OurSpeakerBox = ({ item, navigation }) => {
     // console.log('item.image => ', item.image);
@@ -16,15 +17,15 @@ const OurSpeakerBox = ({ item, navigation }) => {
                 // onError={(error) => console.log('Image failed to load:', error)}
                 // onLoad={() => console.log('Image loading:')}
                 defaultSource={require('./../../assets/images/speaker-placeholder.png')}
-                style={styles.image}
-                // source={require('./../../assets/images/our-speaker-01.jpg')}
+                style={globalstyle.speakerboximage}
+            // source={require('./../../assets/images/our-speaker-01.jpg')}
             />
             <View style={{ width: isIPad ? width - 180 : width - 140 }}>
-                <View style={styles.speakerrow}>
-                    <Text style={styles.speakername}>{item?.name}</Text>
-                    <Text style={styles.speakertitle}>{item?.designation}</Text>
+                <View style={[globalstyle.speakerboxrow, { flexDirection: 'column', alignItems: 'flex-start' }]}>
+                    <Text style={globalstyle.speakerboxname}>{item?.name}</Text>
+                    <Text style={globalstyle.speakerboxtitle}>{item?.designation}</Text>
                 </View>
-                <Text style={styles.speakerdesc} numberOfLines={2}>{item?.description.replace(/\\n/g, '\n')}</Text>
+                <Text style={globalstyle.speakerboxdesc} numberOfLines={2}>{item?.description.replace(/\\n/g, '\n')}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -33,13 +34,4 @@ const OurSpeakerBox = ({ item, navigation }) => {
 export default OurSpeakerBox;
 
 const styles = StyleSheet.create({
-    eventtime: {},
-    speakertitle: { fontFamily: fonts.latoBold, color: colors.green },
-    speakerrow: {
-        // flexDirection: 'row', alignItems: 'center' 
-        marginBottom: 6,
-    },
-    image: { height: isIPad ? 100 : 75, borderRadius: 7, overflow: 'hidden', width: isIPad ? 100 : 75, marginRight: 10 },
-    speakername: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22: 16, },
-    speakerdesc: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: isIPad ? 16 : 13, }
 })

@@ -51,7 +51,6 @@ const Contact = (props) => {
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <ScrollView
-
                         style={isIPad && globalstyle.authscreencontainer}
                     // style={[globalstyle.authContainer, { paddingHorizontal: 15 }]}
                     // contentContainerStyle={{justifyContent: 'center',}}
@@ -117,13 +116,13 @@ const Contact = (props) => {
                                 <Icon color={colors.green} name={'phone'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Phone Number"
+                                    placeholder="Phone Number (Optional)"
                                     placeholderTextColor={colors.placeholdercolor}
                                     // keyboardType='phone-pad'
                                     keyboardType='numeric'
                                     {...register('phone', {
                                         value: user.phone,
-                                        required: 'Phone number is required',
+                                        // required: 'Phone number is required',
                                         pattern: {
                                             value: /[0-9+]$/i,
                                             message: "Please provide valid phone number"

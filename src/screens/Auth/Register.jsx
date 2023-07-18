@@ -11,11 +11,14 @@ import { RegisterApiCall } from "../../redux/reducers/AuthReducer";
 import { connect } from "react-redux";
 import { SetIsLogin, SetUserInfo } from "../../redux/reducers/AppStateReducer";
 import Loader from "../../components/Loader";
+import TermsAndConditionsModal from "../../components/modal/TermsAndConditionsModal";
+import { showToast } from "../../helpers/toastConfig";
 
 const Register = (props) => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [loading, isLoading] = useState(false);
+    const [isChecked, setChecked] = useState(false);
     const { handleSubmit, formState: { errors }, register, setValue } = useForm();
 
     const prevResgisterResponseRef = useRef(props.registerResponse);
@@ -32,9 +35,13 @@ const Register = (props) => {
     }, [props.registerResponse])
 
     const onSubmit = (data) => {
-        console.log('data => ', data)
-        props.RegisterApiCall(data)
-        isLoading(true);
+        if (isChecked) {
+            console.log('data => ', data)
+            props.RegisterApiCall(data)
+            isLoading(true);
+        } else {
+            showToast('success', 'Please read and agree with terms and conditions')
+        }
     }
 
     const input01 = useRef();
@@ -43,8 +50,11 @@ const Register = (props) => {
     const input04 = useRef();
     const input05 = useRef();
 
+    const [showTermsModal, setShowTermsModal] = useState(false);
+
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
+        <TermsAndConditionsModal visible={showTermsModal} setVisible={setShowTermsModal} />
         <ImageBackground source={require('./../../../assets/images/background-with-img.png')}
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
@@ -133,14 +143,14 @@ const Register = (props) => {
                                 <Icon color={colors.green} name={'phone'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Phone Number"
+                                    placeholder="Phone Number (Optional)"
                                     // defaultValue={'+81112345637'}
                                     placeholderTextColor={colors.placeholdercolor}
                                     // keyboardType='phone-pad'
                                     keyboardType='phone-pad'
                                     {...register('phone', {
                                         // value: '+81112345637',
-                                        required: 'Phone number is required',
+                                        // required: 'Phone number is required',
                                         pattern: {
                                             value: /[0-9+]$/i,
                                             message: "Please provide valid phone number"
@@ -181,6 +191,28 @@ const Register = (props) => {
                                 </TouchableOpacity>
                             </View>
                             {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
+
+                            <View style={{ marginTop: 15, marginBottom: 15 }}>
+                                <TouchableOpacity
+                                    activeOpacity={0.9}
+                                    onPress={() => setChecked(!isChecked)}
+                                    style={{
+                                        flexDirection: 'row', alignItems: 'center',
+                                        // justifyContent: 'center' 
+                                    }}>
+                                    <Icon
+                                        name={isChecked ? "check-circle" : "circle"}
+                                        style={{ fontSize: isIPad ? 20 : 14, marginRight: 10 }}
+                                    />
+                                    <Text style={styles.termstext}>Yes, I agree to the </Text>
+                                    <TouchableOpacity
+                                        activeOpacity={0.9}
+                                        onPress={() => setShowTermsModal(true)}>
+                                        <Text style={styles.termstextbold}>Term & Condition</Text>
+                                    </TouchableOpacity>
+                                </TouchableOpacity>
+                            </View>
+
                             <TouchableOpacity
                                 activeOpacity={0.8}
                                 onPress={handleSubmit(onSubmit)}
@@ -220,6 +252,6 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(setStateToProps, mapDispatchToProps)(Register);
 
 const styles = StyleSheet.create({
-    forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: colors.black, fontFamily: fonts.latoRegular, fontSize: 13 },
+    termstext: { fontFamily: fonts.latoRegular, fontSize: isIPad ? 18 : 14 },
+    termstextbold: { fontFamily: fonts.latoBold, fontSize: isIPad ? 18 : 14 }
 })

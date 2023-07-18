@@ -7,10 +7,10 @@ const globalstyle = StyleSheet.create({
   authContainer: { ...StyleSheet.absoluteFillObject, height: height, resizeMode: 'cover' },
   authLogoContainer: { alignItems: 'center' },
   authLogo: { width: 150, height: 130, resizeMode: 'contain', marginBottom: 25, },
-  authheading: { fontFamily: fonts.headingFont, fontSize: 34, color: colors.black },
-  authdescription: { fontFamily: fonts.latoRegular, fontSize: 17, color: colors.grey, marginBottom: 15 },
+  authheading: { fontFamily: fonts.headingFont, fontSize: isIPad ? 44 : 34, color: colors.black },
+  authdescription: { fontFamily: fonts.latoRegular, fontSize: isIPad ? 22 : 17, color: colors.grey, marginBottom: 15 },
   authSubmitButton: { backgroundColor: colors.orange, padding: 17, borderRadius: 14, marginTop: 15 },
-  authSubmitButtonText: { color: colors.white, fontFamily: fonts.latoBold, fontSize: 15, textAlign: 'center', textTransform: 'uppercase' },
+  authSubmitButtonText: { color: colors.white, fontFamily: fonts.latoBold, fontSize: isIPad ? 17 : 15, textAlign: 'center', textTransform: 'uppercase' },
 
   authscreencontainer: { maxWidth: 500, marginLeft: 'auto', marginRight: 'auto' },
 
@@ -20,8 +20,8 @@ const globalstyle = StyleSheet.create({
   inputlabel: { fontFamily: fonts.latoRegular, fontSize: 15, marginBottom: -5, marginLeft: 14 },
   alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
   errorField: { color: colors.red, fontFamily: fonts.latoRegular, fontSize: 12, marginTop: 2, marginLeft: 15 },
-  alreadyaccount: { fontFamily: fonts.latoRegular, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', color: fontcolor, fontSize: isIPad ? 16 : 14 },
-  actionauthtext: { color: colors.black, fontFamily: fonts.latoBold, fontSize: isIPad ? 16 : 14 },
+  alreadyaccount: { fontFamily: fonts.latoRegular, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', color: fontcolor, fontSize: isIPad ? 18 : 14 },
+  actionauthtext: { color: colors.black, fontFamily: fonts.latoBold, fontSize: isIPad ? 18 : 14 },
   // authlefticon: { color: colors.deepblue },
   showhideicontouch: { padding: 10, zIndex: 1, position: 'absolute', right: 10, },
   showhideicon: { color: '#999' },
@@ -39,7 +39,24 @@ const globalstyle = StyleSheet.create({
   modalbtn: { width: '50%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
 
   notibadge: { position: 'relative', width: 36, height: 36, marginRight: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, overflow: 'hidden', },
+  badge: { backgroundColor: colors.orange, color: colors.white, position: 'absolute', width: 11, height: 11, top: 5, right: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderRadius: 10, zIndex: 1, fontSize: 12, fontFamily: fonts.primary, },
+    
+  headerTitleStyle: { fontFamily: fonts.headingFont, fontSize: isIPad ? 22 : 18 },
 
+  speakerboximage: { height: isIPad ? 100 : 75, borderRadius: 7, overflow: 'hidden', width: isIPad ? 100 : 75, marginRight: isIPad ? 15 : 10 },
+  speakerboxtitle: { fontFamily: fonts.latoBold, color: colors.green, fontSize: isIPad ? 18 : 14 },
+  speakerboxrow: { flexDirection: 'row', marginBottom: 4, alignItems: 'center' },
+  speakerboxname: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22 : 16, },
+  speakerboxdesc: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 18 : 13, },
+  speakerdetailheading: { fontSize: isIPad ? 28 : 22, fontFamily: fonts.headingFont, color: colors.black, marginBottom: 5 },
+  speakerdetailparagraph: { fontSize: isIPad ? 18 : 14, marginBottom: 0, fontFamily: fonts.latoRegular, color: colors.grey, lineHeight: isIPad ? 24 : 20 },
+  speakerdetailparabold: { fontSize: 14, fontFamily: fonts.latoBold, color: colors.black },
+  speakerdetailimage: { width: 100, height: 100, resizeMode: 'cover', borderRadius: 10, marginBottom: 15, marginRight: 15 },
+  speakerdetaildesignation: { fontFamily: fonts.latoBold, color: colors.green, fontSize: isIPad ? 18 : 15 },
+  
+  detaildate: { fontFamily: fonts.latoBold, color: colors.orange, marginBottom: 5, fontSize: isIPad ? 15 : 13 },
+  detailtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 32 : 28, marginBottom: 5 },
+  detaildescription: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: isIPad ? 18 : 15 }
 
   // inputBox: { marginBottom: 10, },
   // inputField: { borderWidth: 1, borderColor: '#eee', paddingHorizontal: 14, paddingVertical: 10, borderRadius: 7, fontFamily: fonts.latoRegular, backgroundColor: colors.white, fontSize: 13 },
