@@ -69,10 +69,24 @@ const EventDetail = (props) => {
                             <Text style={styles.subheading}>Start Date</Text>
                             <Text style={styles.eventlocation}>{moment.parseZone(item?.date_from, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
                         </View>
-                        <View style={styles.sperator} />
+                        <View style={styles.seperator} />
                         <View>
                             <Text style={styles.subheading}>End Date</Text>
                             <Text style={styles.eventlocation}>{moment.parseZone(item?.date_to, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: 1, paddingVertical: 15, paddingTop: 0, marginBottom: 15 }}>
+                    <Icon name={'clock'} style={styles.eventpinicon} />
+                    <View style={{ flexDirection: 'row', }}>
+                        <View>
+                            <Text style={styles.subheading}>Start Time</Text>
+                            <Text style={styles.eventlocation}>{moment.parseZone(item?.date_from, 'DD-MM-YYYY').format('HH:mm')}</Text>
+                        </View>
+                        <View style={styles.seperator} />
+                        <View>
+                            <Text style={styles.subheading}>End Time</Text>
+                            <Text style={styles.eventlocation}>{moment.parseZone(item?.date_to, 'DD-MM-YYYY').format('HH:mm')}</Text>
                         </View>
                     </View>
                 </View>

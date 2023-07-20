@@ -1,5 +1,5 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { colors, fonts, isIPad } from '../theme';
+import { colors, fonts, isIPad, width } from '../theme';
 import Icon from 'react-native-vector-icons/Feather';
 
 const EventScheduleBox = ({ navigation, item, width }) => {
@@ -28,7 +28,7 @@ const EventScheduleBox = ({ navigation, item, width }) => {
 export default EventScheduleBox;
 
 const styles = StyleSheet.create({
-    eventboximage: { height: 130, borderRadius: 10, overflow: 'hidden', width: '100%' },
+    eventboximage: { height: isIPad ? ((width / 5)) : width / 3, borderRadius: 10, overflow: 'hidden', width: '100%' },
     eventboxtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22 : 16, },
     eventboxdesc: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 18 : 13, }
 })

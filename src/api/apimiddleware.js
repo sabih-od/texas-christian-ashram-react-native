@@ -3,6 +3,8 @@ import { store } from '../redux/store';
 // import { LoadingStart, LoadingEnd } from './../state';
 // inspired by https://leanpub.com/redux-book
 import axios from 'axios';
+import { showToast } from '../helpers/toastConfig';
+import { LogOut } from '../redux/reducers/AppStateReducer';
 // import { showToast } from '../helpers/toastConfig';
 
 // import https from 'https';
@@ -41,7 +43,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
 
   next(action);
 
-  console.log('action => ', action);
+  // console.log('action => ', action);
 
 
   if (action.type !== API_REQUEST) return;
@@ -56,21 +58,19 @@ const apiMiddleware = ({ dispatch }) => next => action => {
   const state = store.getState();
   // console.log('state => ', state);
 
-  console.log('process.env.API_BASE_URL => ', process.env.API_BASE_URL);
+  // console.log('process.env.API_BASE_URL => ', process.env.API_BASE_URL);
   // console.log(`Bearer ${state?.appstate?.userInfo?.access_token}`);
 
   // axios default configs
   axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://texaschristianashram.org:3023' // 'http://service.demowebsitelinks.com:3023';
-  if(state?.appstate?.isLogin) axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;
-  
-  if (headersOverride) {
-    axios.defaults.headers.common["Content-Type"] = 'multipart/form-data';
-  } 
-  // else {
-  //   axios.defaults.headers.common["Content-Type"] = 'application/json';
-  // }
+  if (state?.appstate?.isLogin) axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;
 
-  console.log('data => ', data);
+  if (headersOverride) axios.defaults.headers.common["Content-Type"] = 'multipart/form-data';
+  else axios.defaults.headers.common["Content-Type"] = 'application/json';
+
+  // console.log('axios.defaults.headers.common => ', axios.defaults.headers.common)
+
+  // console.log('data => ', data);
 
   if (label) {
     dispatch(apiStart(label));
@@ -96,8 +96,15 @@ const apiMiddleware = ({ dispatch }) => next => action => {
 
       // dispatch(apiError(error));
       // showToast('error', props.loginError?.message)
+      if (error.response.status == 400) {
+        if (error?.response?.data?.message == 'Abusive words detected.') showToast('error', 'Please use respectful language');
+        else showToast('error', error?.response?.data?.message);
+      }
+      if (error.response.status == 401) {
+        dispatch(LogOut())
+      }
       dispatch(onFailure(error));
-      if (error.response && error.response.status === 403) {
+      if (error.response && error.response.status === 403) { // Un
         dispatch(accessDenied(window.location.pathname));
       }
     })

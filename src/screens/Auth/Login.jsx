@@ -41,14 +41,16 @@ const Login = (props) => {
         //         email: 'kalenparker@mailinator.com',
         //         password: '12345678',
         //     }),
-        // }).then(response => console.log(response.json()))
+        // }).then(response => response.json())
+        // .then(data => console.log(data))
+        // .catch(error => console.log(error));
 
-        // if (!IOS) {
-        //     axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-        //     axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
-        //         .then(function (response) { console.log('response hunter => ', response); })
-        //         .catch(function (error) { console.log(error); });
-        // }
+        if (!IOS) {
+            axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+            axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+                .then(function (response) { console.log('response hunter => ', response); })
+                .catch(function (error) { console.log(error); });
+        }
 
         // axios.request({
         //     url: 'https://texaschristianashram.org:3023/auth/login', method: 'POST', data: {
@@ -58,6 +60,9 @@ const Login = (props) => {
         // })
         // .then(function (response) { console.log('response texas => ', response); })
         // .catch(function (error) { console.log(error); });
+
+        // axios.post('https://reqres.in/api/users/2').then(function (response) { console.log(response); }).catch(function (error) { console.log(error); });
+
 
         // axios.post('https://reqres.in/api/users', {
         //     "name": "morpheus",

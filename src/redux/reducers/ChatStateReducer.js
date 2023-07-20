@@ -1,12 +1,15 @@
 import apiAction from "../../api/apiAction";
-import { DeleteMessageAPI, GetGroupsAPI, GetMessagesAPI, SendMessageAPI } from "../../api/routes";
-import { GET_GROUPS_API_SUCCESS, SET_ERROR, SEND_MESSAGES_API_SUCCESS, GET_MESSAGES_API_SUCCESS, DELETE_MESSAGES_API_SUCCESS } from "../actiontypes";
+import { DeleteMessageAPI, GetGroupsAPI, GetMessagesAPI, ReportMessageAPI, SendMessageAPI } from "../../api/routes";
+import { GET_GROUPS_API_SUCCESS, SET_ERROR, SEND_MESSAGES_API_SUCCESS, GET_MESSAGES_API_SUCCESS, DELETE_MESSAGES_API_SUCCESS, REPORT_MESSAGE_API_SUCCESS, SEND_MESSAGES_API_FAILURE } from "../actiontypes";
 
 const initialState = {
     getGroupsResponse: {},
     getMessagesResponse: {},
     sendMessagesResponse: {},
+    sendMessagesFailResponse: {},
     deleteMessagesResponse: {},
+    reportMessageResponse: {},
+    errorResponse: {},
 }
 
 
@@ -54,7 +57,7 @@ export function SendMessageApiCall(params) {
             return { type: SEND_MESSAGES_API_SUCCESS, payload: response };
         },
         onFailure: (response) => {
-            return { type: SET_ERROR, payload: response };
+            return { type: SEND_MESSAGES_API_FAILURE, payload: response };
         },
     });
 }
@@ -67,6 +70,21 @@ export function DeleteMessageApiCall(params) {
         // data: params,
         onSuccess: (response) => {
             return { type: DELETE_MESSAGES_API_SUCCESS, payload: response };
+        },
+        onFailure: (response) => {
+            return { type: SET_ERROR, payload: response };
+        },
+    });
+}
+
+// Report Message Api Call
+export function ReportMessageApiCall(params) {
+    return apiAction({
+        url: ReportMessageAPI,
+        method: 'POST',
+        data: params,
+        onSuccess: (response) => {
+            return { type: REPORT_MESSAGE_API_SUCCESS, payload: response };
         },
         onFailure: (response) => {
             return { type: SET_ERROR, payload: response };
@@ -88,9 +106,21 @@ const ChatStateReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 sendMessagesResponse: action.payload,
             });
+        case SEND_MESSAGES_API_FAILURE:
+            return Object.assign({}, state, {
+                sendMessagesFailResponse: action.payload,
+            });
         case DELETE_MESSAGES_API_SUCCESS:
             return Object.assign({}, state, {
                 deleteMessagesResponse: action.payload,
+            });
+        case REPORT_MESSAGE_API_SUCCESS:
+            return Object.assign({}, state, {
+                reportMessageResponse: action.payload,
+            });
+        case SET_ERROR:
+            return Object.assign({}, state, {
+                errorResponse: action.payload,
             });
         default:
             return state;

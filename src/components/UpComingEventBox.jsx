@@ -7,7 +7,7 @@ const UpComingEventBox = (props) => {
     // console.log('props?.item?.image => ', props?.item?.image);
     return (
         <TouchableOpacity
-            style={[{ marginBottom: 10, width: props.width ? props.width : '48%', }, isIPad && { marginRight: 10 }]}
+            style={[{ marginBottom: 10, width: props.width ? props.width : '48%', }, isIPad && { marginRight: 15 }]}
             activeOpacity={0.8}
             onPress={() => {
                 props.navigation.navigate('EventDetail', { item: props.item });

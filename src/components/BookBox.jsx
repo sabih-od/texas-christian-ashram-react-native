@@ -4,7 +4,7 @@ import { colors, fonts, isIPad } from '../theme';
 const BookBox = ({ item, navigation, width }) => {
     console.log('item => ', item);
     return (
-        <View style={[{ width: width ? width : '48%', padding: 10, paddingBottom: 0, marginBottom: 25, borderRadius: 8, backgroundColor: colors.white }, isIPad && { marginRight: 10 }]} >
+        <View style={[{ width: width ? width : '48%', padding: 10, paddingBottom: 0, marginBottom: 30, borderRadius: 8, backgroundColor: colors.white }, isIPad && { marginRight: 10, marginBottom: 40 }]} >
             <Image
                 // source={{ uri: item.image }} 
                 source={{ uri: item.image }}

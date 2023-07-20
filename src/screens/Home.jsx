@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, Image, StyleSheet, TouchableOpacity, BackHandler, Alert, RefreshControl } from "react-native";
-import { colors, fonts, height, isIPad, width } from "./../theme";
+import { IOS, colors, fonts, height, isIPad, width } from "./../theme";
 
 import Icon from 'react-native-vector-icons/Feather';
 import HomeSlideBox from "../components/HomeSlideBox";
@@ -36,6 +36,7 @@ import HomeSliderSkeleton from './../components/skeleton/HomeSliderSkeletion';
 
 import { useCallback } from "react";
 import RequestAdditionalInformation from "../components/RequestAdditionalInformation";
+import axios from "axios";
 
 const PAGINATION_LIMIT = 6;
 const Home = (props) => {
@@ -53,6 +54,23 @@ const Home = (props) => {
     // },[props.getUserProfileResponse])
 
     useEffect(() => {
+
+        if (!IOS) {
+            axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+            axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+                .then(function (response) {
+                    console.log('response hunter => ', response);
+                    props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+                    props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+                    props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
+                    props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
+                    props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
+                    props.GetOurStaffList({ pageno: 1, limit: PAGINATION_LIMIT });
+                    props.GetHomeBanner();
+                })
+                .catch(function (error) { console.log(error); });
+        }
+
         props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
@@ -181,7 +199,7 @@ const Home = (props) => {
                             keyExtractor={(item, index) => String(index)}
                             ItemSeparatorComponent={() => <View style={{ height: "100%", width: 10, }} />}
                             renderItem={({ item, index }) =>
-                                <EventScheduleBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />
+                                <EventScheduleBox key={index} item={item} width={isIPad ? (width / 3) - 17 : (width / 2) - 20} navigation={props.navigation} />
                             }
                         />
                     </>
@@ -264,9 +282,9 @@ const Home = (props) => {
                 </View>}
                 <View style={[styles.flexrow, { flexWrap: 'wrap', width: width - 20 }]}>
                     {postList.map((item, index) =>
-                        index < 4 &&
+                        index <  (isIPad ? 3 : 4) &&
                         <Fragment key={index}>
-                            <PostBox item={item} width={isIPad ? (width / 4) - 20 : (width / 2) - 20} navigation={props.navigation} marginfalse={true} />
+                            <PostBox item={item} width={isIPad ? (width / 3) - 17 : (width / 2) - 20} navigation={props.navigation} marginfalse={true} />
                             <View style={{ width: 10, }} />
                         </Fragment>
                     )}
@@ -305,7 +323,7 @@ const Home = (props) => {
                     keyExtractor={(item, index) => String(index)}
                     ItemSeparatorComponent={() => <View style={{ height: "100%", width: 10, }} />}
                     renderItem={({ item, index }) => {
-                        return (<SermonsBox key={index} item={item} width={isIPad ? (width / 4) - 24 : (width / 2) - 20} navigation={props.navigation} />)
+                        return (<SermonsBox key={index} item={item} width={isIPad ? (width / 3) - 17 : (width / 2) - 20} marginfalse={true} navigation={props.navigation} />)
                     }}
                 />
 

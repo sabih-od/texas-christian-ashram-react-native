@@ -70,7 +70,7 @@ const Posts = (props) => {
             // scrollEnabled
             // scrollEventThrottle={16}
             columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
-            numColumns={isIPad ? 4 : 2}
+            numColumns={isIPad ? 3 : 2}
             showsVerticleScrollIndicator={false}
             refreshing={refreshing}
             onRefresh={_handleRefresh}
@@ -83,7 +83,7 @@ const Posts = (props) => {
             data={postList}
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => {
-                return (<PostBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />)
+                return (<PostBox key={index} item={item} width={isIPad ? (width / 3) - 20 : (width / 2) - 20} navigation={props.navigation} />)
             }}
         />
     </SafeAreaView>

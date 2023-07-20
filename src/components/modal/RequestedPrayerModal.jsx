@@ -50,10 +50,10 @@ const RequestedPrayerModal = ({ visible, setVisible, item }) => {
                         <Text style={styles.rowheading}>Email</Text>
                         <Text style={styles.rowdetail}>{item?.email}</Text>
                     </View>
-                    <View style={styles.itemrow}>
+                    {item?.contact && <View style={styles.itemrow}>
                         <Text style={styles.rowheading}>Contact</Text>
                         <Text style={styles.rowdetail}>{item?.contact}</Text>
-                    </View>
+                    </View>}
 
                     {/* <View style={{ flexDirection: 'row', alignItems: 'center', borderTopColor: '#ddd', borderTopWidth: 1, }}>
                         <TouchableOpacity onPress={() => { handleCamera(true) }} activeOpacity={0.6} style={{ width: '50%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRightColor: '#ddd', borderRightWidth: 1, }}><Icon name="camera" size={17} color={colors.green} style={{ marginRight: 10 }} /><Text style={{ fontFamily: fonts.latoRegular, color: colors.black, textAlign: 'center', paddingVertical: 14, textAlign: 'center' }}>Camera</Text></TouchableOpacity>
@@ -69,5 +69,5 @@ export default RequestedPrayerModal;
 const styles = StyleSheet.create({
     itemrow: { flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 15 },
     rowheading: { fontFamily: fonts.latoBold, minWidth: isIPad ? 170 : 110, color: colors.green, fontSize: isIPad ? 17 : 14 },
-    rowdetail: { fontFamily: fonts.latoRegular, color: colors.grey, maxWidth: width - 180, fontSize: isIPad ? 17 : 14}
+    rowdetail: { fontFamily: fonts.latoRegular, color: colors.grey, maxWidth: width - 180, fontSize: isIPad ? 17 : 14 }
 })

@@ -1,5 +1,5 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { colors, fonts, isIPad } from '../theme';
+import { colors, fonts, isIPad, width } from '../theme';
 import postslist from '../data/postslist';
 import { useState } from 'react';
 import moment from 'moment';
@@ -8,7 +8,7 @@ const PostBox = ({ item, width, navigation, marginfalse }) => {
     // console.log(item.created_at)
     return (
         <TouchableOpacity
-            style={[{ marginBottom: 10, width: width ? width : '48%', }, isIPad && !marginfalse && { marginRight: 10 }]}
+            style={[{ marginBottom: 10, width: width ? width : '48%', }, isIPad && !marginfalse && { marginRight: 15 }]}
             activeOpacity={0.8}
             onPress={() => {
                 navigation.navigate('PostDetail', { item: item });
@@ -38,7 +38,7 @@ export default PostBox;
 
 const styles = StyleSheet.create({
     postboxtitle: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 22 : 16, },
-    postimage: { height: 130, borderRadius: 10, overflow: 'hidden', width: '100%' },
+    postimage: { height: isIPad ? ((width / 5)) : width / 3, borderRadius: 10, overflow: 'hidden', width: '100%' },
     postdesc: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 18 : 13, },
     eventtime: { fontFamily: fonts.latoBold, fontSize: isIPad ? 14 : 11, color: colors.orange, marginTop: 3 },
 })

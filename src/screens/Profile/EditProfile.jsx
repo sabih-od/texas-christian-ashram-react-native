@@ -322,7 +322,7 @@ const EditProfile = props => {
               <Icon color={colors.green} name={'phone'} size={18} />
               <TextInput
                 style={globalstyle.inputfield}
-                placeholder="Phone Number"
+                placeholder="Phone Number (Optional)"
                 placeholderTextColor={colors.placeholdercolor}
                 defaultValue={user?.phone}
                 editable={isEditable}

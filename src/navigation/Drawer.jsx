@@ -88,7 +88,7 @@ const DrawerContent = (props) => {
   const [user, setUser] = useState(props.userInfo)
 
   useEffect(() => {
-    console.log('Drawer props.userInfo => ', props.userInfo);
+    // console.log('Drawer props.userInfo => ', props.userInfo);
     setUser(props.userInfo);
   }, [props.userInfo])
 
@@ -103,7 +103,7 @@ const DrawerContent = (props) => {
   useEffect(() => {
     if (props.isLogin && props.getUserProfileResponse !== prevUserProfileResRef.current && props.getUserProfileResponse?.success && props.getUserProfileResponse?.data) {
       prevUserProfileResRef.current = props.getUserProfileResponse?.data;
-      console.log('props.getUserProfileResponse => ', props.getUserProfileResponse);
+      // console.log('props.getUserProfileResponse => ', props.getUserProfileResponse);
       let userdata = props.getUserProfileResponse?.data;
       props.SetUserInfo({
         ...props.userInfo,

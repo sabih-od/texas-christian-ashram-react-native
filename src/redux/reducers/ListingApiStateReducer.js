@@ -1,6 +1,6 @@
 import apiAction from '../../api/apiAction';
 import { AboutAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetEventsAPI, GetHomeBannerAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, } from '../../api/routes';
-import { ABOUT_API_SUCCESS, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_BOOKS_API_SUCCESS, GET_EVENTS_API_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SET_ERROR, } from '../actiontypes';
+import { ABOUT_API_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_BOOKS_API_SUCCESS, GET_EVENTS_API_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SET_ERROR, } from '../actiontypes';
 
 const initialState = {
   getSermonsListResponse: {},
@@ -16,11 +16,13 @@ const initialState = {
   getHomeBannerResponse: {},
   requestPrayerResponse: {},
   contactResponse: {},
+  contactErrorResponse: {},
   aboutResponse: {},
+  errorResponse: {}
 };
 
 export function GetSermonsList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetSermonsAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
@@ -35,7 +37,7 @@ export function GetSermonsList(params) {
 }
 
 export function GetPostsList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetPostsAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
@@ -50,7 +52,7 @@ export function GetPostsList(params) {
 }
 
 export function GetAnnouncementList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetAnnouncementAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
@@ -65,7 +67,7 @@ export function GetAnnouncementList(params) {
 }
 
 export function GetEventsList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetEventsAPI + '?page=' + params.pageno + '&limit=' + params.limit + '&is_upcoming_event=false',
     method: 'GET',
@@ -80,7 +82,7 @@ export function GetEventsList(params) {
 }
 
 export function GetUpcomingEventsList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetUpcomingEventsAPI + '?page=' + params.pageno + '&limit=' + params.limit + '&is_upcoming_event=true',
     method: 'GET',
@@ -95,7 +97,7 @@ export function GetUpcomingEventsList(params) {
 }
 
 export function GetOurStaffList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetOurStaffAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
@@ -110,7 +112,7 @@ export function GetOurStaffList(params) {
 }
 
 export function GetOurSpeakerList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetOurSpeakerAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
@@ -125,7 +127,7 @@ export function GetOurSpeakerList(params) {
 }
 
 export function GetBooksList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: GetBooksAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
@@ -140,14 +142,9 @@ export function GetBooksList(params) {
 }
 
 export function GetRequestedPrayersList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
-    url:
-      GetRequestedPrayerAPI +
-      '?page=' +
-      params.pageno +
-      '&limit=' +
-      params.limit,
+    url: GetRequestedPrayerAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
     // data: params,
     onSuccess: response => {
@@ -160,7 +157,7 @@ export function GetRequestedPrayersList(params) {
 }
 
 export function GetNotificationsList(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url:
       GetNotificationsAPI + '?page=' + params.pageno + '&limit=' + params.limit,
@@ -176,7 +173,7 @@ export function GetNotificationsList(params) {
 }
 
 export function RequestPrayerApiCall(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: RequestPrayerAPI,
     method: 'POST',
@@ -191,7 +188,7 @@ export function RequestPrayerApiCall(params) {
 }
 
 export function ContactApiCall(params) {
-  console.log('params => ', params);
+  // console.log('params => ', params);
   return apiAction({
     url: ContactAPI,
     method: 'POST',
@@ -200,7 +197,7 @@ export function ContactApiCall(params) {
       return { type: CONTACT_API_SUCCESS, payload: response };
     },
     onFailure: response => {
-      return { type: SET_ERROR, payload: response };
+      return { type: CONTACT_API_ERROR, payload: response };
     },
   });
 }
@@ -285,6 +282,10 @@ const ListingApiStateReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         contactResponse: action.payload,
       });
+    case CONTACT_API_ERROR:
+      return Object.assign({}, state, {
+        contactErrorResponse: action.payload,
+      });
     case ABOUT_API_SUCCESS:
       return Object.assign({}, state, {
         aboutResponse: action.payload,
@@ -292,6 +293,10 @@ const ListingApiStateReducer = (state = initialState, action) => {
     case HOME_BANNER_API_SUCCESS:
       return Object.assign({}, state, {
         getHomeBannerResponse: action.payload,
+      });
+    case SET_ERROR:
+      return Object.assign({}, state, {
+        errorResponse: action.payload,
       });
     case LOGOUT_USER:
       return initialState

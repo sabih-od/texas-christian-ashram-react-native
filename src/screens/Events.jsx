@@ -79,10 +79,11 @@ const Events = (props) => {
                 // scrollEnabled
                 // scrollEventThrottle={16}
                 columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
-                numColumns={isIPad ? 4 : 2}
+                numColumns={isIPad ? 3 : 2}
                 showsVerticleScrollIndicator={false}
                 refreshing={refreshing}
                 onRefresh={_handleRefresh}
+                // ItemSeparatorComponent={() => <View style={{height: 20}} />}
                 ListFooterComponent={() => loadmore ? <View style={globalstyle.footerloadmore}>
                     <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
                     <Text style={globalstyle.footerloadingtext}>Loading</Text>
@@ -92,7 +93,7 @@ const Events = (props) => {
                 data={eventList}
                 keyExtractor={item => String(item.id)}
                 renderItem={({ item, index }) => {
-                    return (<UpComingEventBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />)
+                    return (<UpComingEventBox key={index} item={item} width={isIPad ? (width / 3) - 20 : (width / 2) - 20} navigation={props.navigation} />)
                 }}
             />}
     </SafeAreaView>

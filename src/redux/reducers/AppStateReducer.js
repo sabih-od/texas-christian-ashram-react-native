@@ -8,6 +8,7 @@ export const initialState = {
     notificationBadge: 0,
     messageBadge: 0,
     accessToken: '',
+    isLoading: false,
 }
 
 export function SetIsLogin(data) {

@@ -20,7 +20,7 @@ const DeleteProfileConfirmationModal = ({ visible, handleDeleteConfirmValue, set
             onRequestClose={() => { setShowConfirmationModal(false); }}
         >
             <View style={{ ...StyleSheet.absoluteFillObject, zIndex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity onPress={() => { setShowConfirmationModal(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></TouchableOpacity>
+                <TouchableOpacity onPress={() => { handleDeleteConfirmValue(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></TouchableOpacity>
                 <View style={{ backgroundColor: '#fff', borderRadius: 7, width: '90%', }}>
                     <Text style={globalstyle.modaltitle}>Delete Account</Text>
                     <Text style={globalstyle.modaldesc}>Are you sure you want to delete your account?</Text>

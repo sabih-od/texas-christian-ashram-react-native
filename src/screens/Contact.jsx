@@ -18,22 +18,30 @@ const Contact = (props) => {
     const [loading, isLoading] = useState(false);
     const { handleSubmit, formState: { errors }, register, setValue, reset, resetField } = useForm();
 
-    const prevContactResRef = useRef(props.contactResponse);
+    // const prevContactResRef = useRef(props.contactResponse);
+    const prevPropsRef = useRef({ contactResponse: null, contactErrorResponse: null });
+
 
     useEffect(() => {
-        if (props.contactResponse !== prevContactResRef.current && props.contactResponse.success && props.contactResponse.data) {
-            prevContactResRef.current = props.contactResponse;
-            console.log('props.contactResponse => ', props.contactResponse,);
-            // reset({ message: '', company: '' })
-            // resetField('message');
-            // resetField('company');
+        if (props.contactResponse !== prevPropsRef.current.contactResponse && props.contactResponse?.success && props.contactResponse?.data) {
+            prevPropsRef.current.contactResponse = props.contactResponse;
             showToast('success', 'Your message sumitted successfully');
         }
         isLoading(false);
     }, [props.contactResponse]);
 
+    useEffect(() => {
+        console.log('props.contactErrorResponse => ', props.contactErrorResponse);
+        isLoading(false);
+    }, [props.contactErrorResponse]);
+
     const onSubmit = data => {
         console.log('data => ', data);
+        // reset({
+        //     phone: '',
+        //     company: '',
+        //     message: '',
+        // })
         props.ContactApiCall(data);
         isLoading(true);
     };
@@ -51,6 +59,7 @@ const Contact = (props) => {
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <ScrollView
+                        contentContainerStyle={{ paddingTop: 60 }}
                         style={isIPad && globalstyle.authscreencontainer}
                     // style={[globalstyle.authContainer, { paddingHorizontal: 15 }]}
                     // contentContainerStyle={{justifyContent: 'center',}}
@@ -59,8 +68,8 @@ const Contact = (props) => {
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}> */}
                         {/* <ScrollView> */}
                         <View style={[globalstyle.authLogoContainer, { alignItems: 'flex-start', }]}>
-                            <Text style={[globalstyle.authheading, { fontSize: 30, marginTop: 10 }]}>Contact Us</Text>
-                            <Text style={[globalstyle.authdescription, { fontSize: 15, marginBottom: 10 }]}>Contact us for any question and query</Text>
+                            <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 30, marginTop: 10 }]}>Contact Us</Text>
+                            <Text style={[globalstyle.authdescription, { fontSize: isIPad ? 20 : 15, marginBottom: 10, marginTop: isIPad ? 8 : 0 }]}>Contact us for any question and query</Text>
                         </View>
                         <View>
                             <View style={globalstyle.inputbox}>
@@ -141,13 +150,13 @@ const Contact = (props) => {
                                 <Icon color={colors.green} name={'globe'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Your Company"
+                                    placeholder="Your Company (Optional)"
                                     placeholderTextColor={colors.placeholdercolor}
                                     // keyboardType='phone-pad'
                                     // keyboardType='numeric'
                                     {...register('company', {
                                         // value: '',
-                                        required: 'Company is required',
+                                        // required: 'Company is required',
                                     })}
                                     onChangeText={(value) => setValue('company', value)}
                                     ref={input03}
@@ -203,6 +212,7 @@ const Contact = (props) => {
 const setStateToProps = (state) => ({
     userInfo: state.appstate.userInfo,
     contactResponse: state.listingstate.contactResponse,
+    contactErrorResponse: state.listingstate.contactErrorResponse
 })
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -47,6 +47,14 @@ const PrayerRequest = props => {
     isLoading(false);
   }, [props.requestPrayerResponse]);
 
+  useEffect(() => {
+    console.log('props.errorResponse => ', props.errorResponse);
+    isLoading(false);
+  }, [props.errorResponse]);
+
+
+
+
   const showToast = (type, message) => {
     Toast.show({
       type: type, // Can be 'success', 'error', 'info', or 'none'
@@ -72,55 +80,55 @@ const PrayerRequest = props => {
   const input04 = useRef();
   // const input05 = useRef();
 
-  const [showStartDate, setShowStartDate] = useState(false);
-  const [showEndDate, setShowEndDate] = useState(false);
-  const [showTime, setShowTime] = useState(false);
+  // const [showStartDate, setShowStartDate] = useState(false);
+  // const [showEndDate, setShowEndDate] = useState(false);
+  // const [showTime, setShowTime] = useState(false);
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [startTime, setStartTime] = useState('');
+  // const [startDate, setStartDate] = useState('');
+  // const [endDate, setEndDate] = useState('');
+  // const [startTime, setStartTime] = useState('');
 
-  const _handleChangeDate = (event, date) => {
-    const { type, nativeEvent: { timestamp }, } = event;
-    // console.log('type => ', type);
-    if (type != 'dismissed') {
-      // console.log('date => ', date);
-      const momentdate = moment(date).format('DD-MM-YYYY')
-      // console.log('momentdate => ', momentdate);
-      if (showStartDate) {
-        setShowStartDate(false);
-        setValue('start_date', momentdate)
-        setStartDate(momentdate);
-      } else {
-        setShowEndDate(false);
-        setValue('end_date', momentdate)
-        setEndDate(momentdate);
-      }
-    } else {
-      setShowStartDate(false);
-      setShowEndDate(false);
-    }
-  };
+  // const _handleChangeDate = (event, date) => {
+  //   const { type, nativeEvent: { timestamp }, } = event;
+  //   // console.log('type => ', type);
+  //   if (type != 'dismissed') {
+  //     // console.log('date => ', date);
+  //     const momentdate = moment(date).format('DD-MM-YYYY')
+  //     // console.log('momentdate => ', momentdate);
+  //     if (showStartDate) {
+  //       setShowStartDate(false);
+  //       setValue('start_date', momentdate)
+  //       setStartDate(momentdate);
+  //     } else {
+  //       setShowEndDate(false);
+  //       setValue('end_date', momentdate)
+  //       setEndDate(momentdate);
+  //     }
+  //   } else {
+  //     setShowStartDate(false);
+  //     setShowEndDate(false);
+  //   }
+  // };
 
-  const _handleChangeTime = (event, date) => {
-    const { type, nativeEvent: { datestamp }, } = event;
-    if (type != 'dismissed') {
-      setShowTime(false);
-      console.log('date => ', date);
-      const momenttime = moment(date).format('HH:mm')
-      console.log('momenttime => ', momenttime);
-      setValue('time', momenttime)
-      setStartTime(momenttime);
-    } else {
-      setShowTime(false);
-    }
-  };
+  // const _handleChangeTime = (event, date) => {
+  //   const { type, nativeEvent: { datestamp }, } = event;
+  //   if (type != 'dismissed') {
+  //     setShowTime(false);
+  //     console.log('date => ', date);
+  //     const momenttime = moment(date).format('HH:mm')
+  //     console.log('momenttime => ', momenttime);
+  //     setValue('time', momenttime)
+  //     setStartTime(momenttime);
+  //   } else {
+  //     setShowTime(false);
+  //   }
+  // };
 
-  function _handleSetVisible(data) {
-    setShowStartDate(false);
-    setShowEndDate(false);
-    setShowTime(false);
-  }
+  // function _handleSetVisible(data) {
+  //   setShowStartDate(false);
+  //   setShowEndDate(false);
+  //   setShowTime(false);
+  // }
 
   // console.log('errors => ', errors)
 
@@ -143,8 +151,8 @@ const PrayerRequest = props => {
               {/* <ScrollView> */}
               <View
                 style={[globalstyle.authLogoContainer, { alignItems: 'flex-start' }]}>
-                <Text style={[globalstyle.authheading, { fontSize: 30, marginTop: 10 }]}>Prayer Request </Text>
-                <Text style={[globalstyle.authdescription, { fontSize: 15, marginBottom: 10 },]}>Invoking collective prayers in the ashram, seeking divine blessings </Text>
+                <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 30, marginTop: 10 }]}>Prayer Request </Text>
+                <Text style={[globalstyle.authdescription, { fontSize: isIPad ? 20 : 15, marginBottom: 10, marginTop: isIPad ? 8 : 0 },]}>Invoking collective prayers in the ashram, seeking divine blessings </Text>
               </View>
 
               {/* {Platform.OS === 'ios' && <DateTimeModal showDate={showStartDate || showEndDate} showTime={showTime} maxDate={startDate} isStartDate={showStartDate} setVisible={_handleSetVisible} _handleChangeDate={_handleChangeDate} _handleChangeTime={_handleChangeTime} />}
@@ -400,6 +408,7 @@ const PrayerRequest = props => {
 const setStateToProps = state => ({
   userInfo: state.appstate.userInfo,
   requestPrayerResponse: state.listingstate.requestPrayerResponse,
+  errorResponse: state.listingstate.errorResponse
 });
 
 const mapDispatchToProps = dispatch => {

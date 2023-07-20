@@ -1,17 +1,14 @@
 import apiAction from "../../api/apiAction";
-import { DeleteUserAPI, EditProfileAPI, GetProfileAPI, GetUserByIdAPI, UpdateProfilePictureAPI } from "../../api/routes";
-import { DELETE_USER_API_SUCCESS, EDIT_PROFILE_API_SUCCESS, FORGET_PASSWORD_API_SUCCESS, GET_PROFILE_API_SUCCESS, GET_USER_PROFILE_API_SUCCESS, LOGIN_API_SUCCESS, LOGOUT_USER, REGISTER_API_SUCCESS, SET_ERROR, UPDATE_PROFILE_PIC_API_ERROR, UPDATE_PROFILE_PIC_API_SUCCESS } from "../actiontypes";
+import { DeleteUserAPI, EditProfileAPI, ReportUserAPI, UpdateProfilePictureAPI } from "../../api/routes";
+import { DELETE_USER_API_SUCCESS, EDIT_PROFILE_API_SUCCESS, LOGOUT_USER, REPORT_USER_API_SUCCESS, SET_ERROR, UPDATE_PROFILE_PIC_API_ERROR, UPDATE_PROFILE_PIC_API_SUCCESS } from "../actiontypes";
 
 const initialState = {
     editProfileResponse: {},
     updateProfilePicResponse: {},
     updateProfilePicError: {},
-    deleteUserResponse: {}
-    // getUserProfileResponse: {}
+    deleteUserResponse: {},
+    reportUserResponse: {},
 }
-
-
-
 
 // Edit Profile Api Call
 export function EditProfileApiCall(userid, params) {
@@ -27,7 +24,6 @@ export function EditProfileApiCall(userid, params) {
         },
     });
 }
-
 
 //Delete User Api Call
 export function DeleteUserApiCall(params) {
@@ -61,20 +57,21 @@ export function UpdateProfilePicApiCall(params) {
     });
 }
 
-// Get User By ID Api Call
-// export function GetUserByIdApiCall(params) {
-//     return apiAction({
-//         url: GetUserByIdAPI,
-//         method: 'POST',
-//         data: params,
-//         onSuccess: (response) => {
-//             return { type: GET_USER_PROFILE_API_SUCCESS, payload: response };
-//         },
-//         onFailure: (response) => {
-//             return { type: SET_ERROR, payload: response };
-//         },
-//     });
-// }
+// Edit Profile Api Call
+export function ReportUserApiCall(params) {
+    return apiAction({
+        url: ReportUserAPI,
+        method: 'POST',
+        data: params,
+        onSuccess: (response) => {
+            return { type: REPORT_USER_API_SUCCESS, payload: response };
+        },
+        onFailure: (response) => {
+            console.log('Error Response => ', response);
+            return { type: SET_ERROR, payload: response };
+        },
+    });
+}
 
 const UserStateReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -94,10 +91,10 @@ const UserStateReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 deleteUserResponse: action.payload,
             });
-        // case GET_USER_PROFILE_API_SUCCESS:
-        //     return Object.assign({}, state, {
-        //         getUserProfileResponse: action.payload,
-        //     });
+        case REPORT_USER_API_SUCCESS:
+            return Object.assign({}, state, {
+                reportUserResponse: action.payload,
+            });
         case LOGOUT_USER:
             return initialState
         default:

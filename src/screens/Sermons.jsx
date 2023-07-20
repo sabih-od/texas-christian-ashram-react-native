@@ -69,7 +69,7 @@ const Sermons = (props) => {
             // scrollEnabled
             // scrollEventThrottle={16}
             columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
-            numColumns={isIPad ? 4 : 2}
+            numColumns={isIPad ? 3 : 2}
             showsVerticleScrollIndicator={false}
             refreshing={refreshing}
             onRefresh={_handleRefresh}
@@ -82,7 +82,7 @@ const Sermons = (props) => {
             data={sermonslist}
             keyExtractor={item => String(item.id)}
             renderItem={({ item, index }) => {
-                return (<SermonsBox key={index} item={item} width={isIPad ? (width / 4) - 15 : (width / 2) - 20} navigation={props.navigation} />)
+                return (<SermonsBox key={index} item={item} width={isIPad ? (width / 3) - 20 : (width / 2) - 20} navigation={props.navigation} />)
             }}
         />
     </SafeAreaView>

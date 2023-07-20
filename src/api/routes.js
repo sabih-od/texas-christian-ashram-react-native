@@ -2,6 +2,7 @@ export const LoginAPI = '/auth/login';
 export const RegisterAPI = '/auth/signup';
 export const ForgetPassAPI = '/auth/forgot-password';
 export const UpdateProfilePictureAPI = '/auth/upload-profile-picture';
+
 export const SubmitOTPAPI = '/auth/submit-otp';
 export const ResendOTPAPI = '/auth/resend-otp';
 export const ResetPasswordAPI = '/auth/reset-password';
@@ -24,6 +25,9 @@ export const GetAnnouncementAPI = '/announcements';
 export const GetBooksAPI = '/books';
 export const GetRequestedPrayerAPI = '/prayer-requests';
 export const GetHomeBannerAPI = '/pages/home-banner/get';
+
+export const ReportUserAPI = '/reports/report-user';
+export const ReportMessageAPI = '/reports/report-message';
 
 // export const GetSermonsDetailAPI = '';
 // export const GetPostsDetailAPI = '';

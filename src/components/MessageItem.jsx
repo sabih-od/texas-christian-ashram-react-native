@@ -1,13 +1,13 @@
 
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet, Platform, Button, Keyboard, View, TextInput, TouchableOpacity, FlatList, Text, RefreshControl, ActivityIndicator, KeyboardAvoidingView, TouchableWithoutFeedback, Image } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, Platform, Button, Keyboard, View, TextInput, TouchableOpacity, FlatList, Text, RefreshControl, ActivityIndicator, KeyboardAvoidingView, TouchableWithoutFeedback, Image, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { colors, fonts, height, isIPad } from "./../theme";
 import { connect } from "react-redux";
 import ReportDeleteModal from "./modal/ReportDeleteModal_bkp";
 
-const MessageItem = ({ item, userid, showDeleteModal, handleDelete }) => {
+const MessageItem = ({ item, userid, showDeleteModal }) => {
     const sender = item?.user?.id == userid;
     // const [showModal, setShowModal] = useState(false);
 
@@ -22,7 +22,6 @@ const MessageItem = ({ item, userid, showDeleteModal, handleDelete }) => {
             <Image source={item?.user?.profile_picture ? { uri: item?.user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={[styles.proficon, sender ? { marginLeft: 10, } : { marginRight: 10, }]} />
             <View>
                 <Text style={[styles.msgusername, sender ? { marginLeft: 'auto' } : { marginRight: 'auto' }]}>{!item?.user?.first_name ? 'User not found' : `${item?.user?.first_name} ${item?.user?.last_name}`}</Text>
-                {/* {showModal && <ReportDeleteModal item={item} sender={sender} handleDelete={handleDelete} />} */}
                 <View style={[{
                     borderRadius: 12,
                     backgroundColor: sender ? (item?.isdeleted ? '#fff3cd' : colors.green) : '#eee',
@@ -30,26 +29,19 @@ const MessageItem = ({ item, userid, showDeleteModal, handleDelete }) => {
                 }, sender ? { borderTopRightRadius: 0 } : {
                     borderTopLeftRadius: 0
                 }]}>
-                    <TouchableOpacity
+                    <Pressable
                         // disabled={sender && !item?.isdeleted ? false : true}
                         style={{ paddingHorizontal: 17, paddingVertical: 10, }}
                         activeOpacity={0.8}
-                        onLongPress={() => { showDeleteModal(true, item) }}
-                        onPress={() => { showDeleteModal(true, item) }}
-                    // onLongPress={() => { sender && !item?.isdeleted && setShowDelete(true) }}
-                    // onPress={() => {
-                    //     if (sender && !item?.isdeleted) {
-                    //         setShowDelete(false)
-                    //         setShowTime(prev => !prev)
-                    //     }
-                    // }}
+                        onLongPress={() => { showDeleteModal(item) }}
+                        delayLongPress={100}
                     >
                         <Text style={{
                             fontFamily: fonts.latoRegular, fontSize: isIPad ? 18 : 14,
                             color: sender ? (item?.isdeleted ? '#333' : colors.white) : '#333',
                             textAlign: sender ? 'right' : 'left',
                         }}>{item?.isdeleted ? 'This message is deleted' : item?.message}</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
                 <Text style={[styles.time, sender ? { marginLeft: 'auto' } : { marginRight: 'auto' }]}>{moment(parseInt(item?.created_at)).fromNow()}</Text>
             </View>
