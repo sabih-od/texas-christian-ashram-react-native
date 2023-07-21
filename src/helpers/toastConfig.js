@@ -17,6 +17,7 @@ export const toastConfig = {
                 fontWeight: '700',
                 fontFamily: fonts.latoRegular
             }}
+            text2NumberOfLines={2}
             text2Style={{
                 fontSize: isIPad ? 17 : 14,
                 fontFamily: fonts.latoRegular,
@@ -36,6 +37,7 @@ export const toastConfig = {
                 fontWeight: '700',
                 fontFamily: fonts.latoRegular
             }}
+            text2NumberOfLines={2}
             text2Style={{
                 fontSize: isIPad ? 17 : 14,
                 fontFamily: fonts.latoRegular,

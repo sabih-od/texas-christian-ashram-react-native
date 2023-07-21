@@ -30,10 +30,10 @@ const Announcements = (props) => {
     }, [])
 
     useEffect(() => {
-        if (props.getAnnouncementResponse !== prevAnnoucenmentListResponseRef.current && props.getAnnouncementResponse.success && props.getAnnouncementResponse.data.length) {
+        if (props.getAnnouncementResponse !== prevAnnoucenmentListResponseRef.current && props.getAnnouncementResponse?.success && props.getAnnouncementResponse?.data.length) {
             prevAnnoucenmentListResponseRef.current = props.getAnnouncementResponse;
-            if (refreshing) setAnnoucenmentlist(props.getAnnouncementResponse.data)
-            else setAnnoucenmentlist(prevState => [...prevState, ...props.getAnnouncementResponse.data])
+            if (refreshing) setAnnoucenmentlist(props.getAnnouncementResponse?.data)
+            else setAnnoucenmentlist(prevState => [...prevState, ...props.getAnnouncementResponse?.data])
         }
         setRefreshing(false)
         // setLoadmore(false)
@@ -52,7 +52,7 @@ const Announcements = (props) => {
         setPageno(prevState => prevState + 1);
         // props.GetAnnouncementList({ pageno: pageno + 1, limit });
         if (!loadmore) {
-            if (announcementList.length < props.getAnnouncementResponse.total) {
+            if (announcementList.length < props.getAnnouncementResponse?.total) {
                 console.log('_handleLoadMore ');
                 props.GetAnnouncementList({ pageno: pageno + 1, limit });
             }

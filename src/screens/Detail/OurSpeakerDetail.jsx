@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Image, RefreshControl } from "react-native";
 import { colors, fonts, height, isIPad, width } from "../../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -15,9 +15,10 @@ const OurSpeakerDetail = (props) => {
     const [refreshing, setRefreshing] = useState(false);
     const [item, setItem] = useState(props.route.params.item);
 
+    const prevProps = useRef(props.getOurSpeakerDetailResponse);
     useEffect(() => {
-        if (props.getOurSpeakerDetailResponse.success && props.getOurSpeakerDetailResponse.data) {
-            setItem(props.getOurSpeakerDetailResponse.data);
+        if (prevProps.current != props.getOurSpeakerDetailResponse && props.getOurSpeakerDetailResponse?.success && props.getOurSpeakerDetailResponse?.data) {
+            setItem(props.getOurSpeakerDetailResponse?.data);
         }
         setRefreshing(false);
     }, [props.getOurSpeakerDetailResponse])

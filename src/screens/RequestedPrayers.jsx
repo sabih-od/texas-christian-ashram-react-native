@@ -33,11 +33,11 @@ const RequestedPrayers = (props) => {
     }, [])
 
     useEffect(() => {
-        if (props.getRequestedPrayersListResponse !== prevRequestedPrayersResponseRef.current && props.getRequestedPrayersListResponse.success && props.getRequestedPrayersListResponse.data.length) {
+        if (props.getRequestedPrayersListResponse !== prevRequestedPrayersResponseRef.current && props.getRequestedPrayersListResponse?.success && props.getRequestedPrayersListResponse?.data.length) {
             prevRequestedPrayersResponseRef.current = props.getRequestedPrayersListResponse;
             console.log('props.getRequestedPrayersListResponse => ', props.getRequestedPrayersListResponse)
-            if (refreshing) setRequestedPrayersList(props.getRequestedPrayersListResponse.data)
-            else setRequestedPrayersList(prevState => [...prevState, ...props.getRequestedPrayersListResponse.data])
+            if (refreshing) setRequestedPrayersList(props.getRequestedPrayersListResponse?.data)
+            else setRequestedPrayersList(prevState => [...prevState, ...props.getRequestedPrayersListResponse?.data])
         }
         setRefreshing(false)
         // setLoadmore(false)

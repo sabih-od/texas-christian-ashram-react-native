@@ -3,11 +3,11 @@ import moment from "moment";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, Platform, Button, Keyboard, View, TextInput, TouchableOpacity, FlatList, Text, RefreshControl, ActivityIndicator, KeyboardAvoidingView, TouchableWithoutFeedback, Image } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
-import { colors, fonts, height, isIPad, width } from "../../theme";
+import { IOS, colors, fonts, height, isIPad, width } from "../../theme";
 import { API_PATH } from "@env"
 import messageslist from "../../data/messageslist";
 import MessageItem from "../../components/MessageItem";
-import { DeleteMessageApiCall, GetMessagesApiCall, ReportMessageApiCall, SendMessageApiCall } from "../../redux/reducers/ChatStateReducer";
+import { DeleteMessageApiCall, GetMessagesApiCall, ReportMessageApiCall, SendGroupRequestApiCall, SendMessageApiCall } from "../../redux/reducers/ChatStateReducer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { getSocket } from "../../helpers/socket-manager";
@@ -21,6 +21,7 @@ import ReportDeleteBottomSheet from "../../components/bottom-sheet/ReportDeleteB
 import DeleteReportMessageModal from "../../components/modal/DeleteReportMessageModal";
 import ReportUserOrMessageModal from "../../components/modal/ReportUserOrMessageModal";
 import { ReportUserApiCall } from "../../redux/reducers/UserStateReducer";
+import Loader from "../../components/Loader";
 
 // import { io } from 'socket.io-client';
 // // const websocketurl = 'ws://10.10.8.113:8029';
@@ -32,6 +33,8 @@ function delayanimate(toexecute) {
         toexecute;
     }, 200)
 }
+
+const groupmember = [2, 5, 6, 8, 9, 16, 33];
 
 const ITEMS_LIMIT = 50;
 const Conversation = (props) => {
@@ -60,6 +63,7 @@ const Conversation = (props) => {
     const [messages, setMessages] = useState([]);
     const [pageno, setPageno] = useState(1);
     const [limit, setLimit] = useState(ITEMS_LIMIT);
+    const [loading, isLoading] = useState(false);
 
     const messagesRef = useRef();
 
@@ -68,22 +72,27 @@ const Conversation = (props) => {
     const [currentChat, setCurrentChat] = useState(null);
     const [isTyping, setIsTyping] = useState(null);
     const [newMessage, setNewMessage] = useState(null);
-
-    const { groupid } = props.route.params
+    const [group, setGroup] = useState(props.route.params?.groupitem);
+    const [groupMembers, setGroupMembers] = useState(props.route.params?.groupitem?.members);
+    
     const userid = props?.userInfo?.id;
+    
+    useEffect(()=>{
+        console.log('useEffect groupMembers => ', groupMembers);
+    },[groupMembers])
 
     const socket = getSocket();
     useEffect(() => {
         // console.log('socketId => ', socket?.id);
-        // console.log('new-message-' + groupid);
-        socket?.on('new-message-' + groupid, (res) => {
+        // console.log('new-message-' + group?.id);
+        socket?.on('new-message-' + group?.id, (res) => {
             console.log('on arrival message => ', res);
             if (res?.user?.id != userid) {
                 setMessages(prevState => [res, ...prevState]);
             }
         });
-        // console.log('deleted-message-' + groupid);
-        socket?.on('deleted-message-' + groupid, (res) => {
+        // console.log('deleted-message-' + group?.id);
+        socket?.on('deleted-message-' + group?.id, (res) => {
             console.log('on delete message => ', res);
             if (res?.user?.id != userid) {
                 // const updatedMessages = messages.filter((message) => message.id !== res.id);
@@ -93,29 +102,31 @@ const Conversation = (props) => {
         });
         return () => {
             // Clean up socket event listeners if needed
-            socket?.off('new-message-' + groupid, (res) => {
+            socket?.off('new-message-' + group?.id, (res) => {
                 console.log('off arrival message => ', res);
             });
-            socket?.off('deleted-message-' + groupid, (res) => {
+            socket?.off('deleted-message-' + group?.id, (res) => {
                 console.log('off deleted message => ', res);
             });
         };
     }, [socket]);
 
     useEffect(() => {
-        console.log('props.route.params.groupid => ', props.route.params.groupid);
-        props.navigation.setOptions({ headerTitle: props.route.params.title });
-        props.GetMessagesApiCall({ pageno, limit, group_id: props.route.params.groupid })
+        console.log('group?.id => ', group);
+        props.navigation.setOptions({ headerTitle: group?.name });
+        props.GetMessagesApiCall({ pageno, limit, group_id: group?.id })
         return () => {
             setMessages([])
         }
-    }, [props.route.params.groupid]);
+    }, [group]);
 
     const prevGetMessagesResRef = useRef(props.getMessagesResponse);
     useEffect(() => {
         if (props.getMessagesResponse !== prevGetMessagesResRef.current && props.getMessagesResponse?.success) {
             prevGetMessagesResRef.current = props.getMessagesResponse;
             console.log('props.getMessagesResponse => ', props.getMessagesResponse);
+            setGroupMembers(props.getMessagesResponse?.members)
+            console.log('setGroupMembers => ')
             if (props.getMessagesResponse.data.length > 0) {
                 if (messages.length == 0 && !loadmore) {
                     setMessages(props.getMessagesResponse.data);
@@ -152,6 +163,20 @@ const Conversation = (props) => {
             setMessages(prevMsges => [props.sendMessagesResponse?.data, ...prevMsges])
         }
     }, [props.sendMessagesResponse])
+
+    const prevSendGroupReqResRef = useRef(props.sendGroupRequestResponse);
+    useEffect(() => {
+        if (props.sendGroupRequestResponse !== prevSendGroupReqResRef.current && props.sendGroupRequestResponse?.success && props.sendGroupRequestResponse?.data) {
+            prevSendGroupReqResRef.current = props.sendGroupRequestResponse;
+            console.log('props.sendGroupRequestResponse => ', props.sendGroupRequestResponse);
+            showToast('success', 'Group request send successfully');
+        }
+        if (props.sendGroupRequestResponse !== prevSendGroupReqResRef.current && !props.sendGroupRequestResponse?.success && props.sendGroupRequestResponse?.data) {
+            prevSendGroupReqResRef.current = props.sendGroupRequestResponse;
+            showToast('error', props.sendGroupRequestResponse.message);
+        }
+        isLoading(false);
+    }, [props.sendGroupRequestResponse])
 
     // const prevSendMessagesFailResRef = useRef(props.sendMessagesResponse);
     // useEffect(() => {
@@ -193,7 +218,7 @@ const Conversation = (props) => {
             if (props.getMessagesResponse.data.length != 0) {
                 console.log('onEndReached upar wala', distanceFromEnd);
                 setLoadmore(true)
-                props.GetMessagesApiCall({ pageno: pageno + 1, limit, group_id: props.route.params.groupid })
+                props.GetMessagesApiCall({ pageno: pageno + 1, limit, group_id: group?.id })
                 setPageno(prevState => prevState + 1);
             }
         }
@@ -211,14 +236,14 @@ const Conversation = (props) => {
 
     // useEffect(() => {
     //     console.log('textMsg => ', textMsg);
-    //     socket.emit("typing", {groupid: props.route.params.groupid, user: { id: props.userInfo?.id, first_name: props.userInfo?.first_name}});
+    //     socket.emit("typing", {groupid: group?.id, user: { id: props.userInfo?.id, first_name: props.userInfo?.first_name}});
     // }, [textMsg])
 
     const onSendMessage = () => {
         if (textMsg == '') { return; }
         console.log(textMsg);
         props.SendMessageApiCall({
-            group_id: props.route.params.groupid,
+            group_id: group?.id,
             user_id: userid,
             message: textMsg
         });
@@ -269,24 +294,30 @@ const Conversation = (props) => {
         visibleReportUserOrMessageModal(true)
     }
 
+    function onSendRequest() {
+        isLoading(true);
+        props.SendGroupRequestApiCall({ "user_id": userid, "group_id": group?.id });
+    }
+
     return (
         <SafeAreaView style={[styles.fullview]}>
+            <Loader isLoading={loading} />
             <KeyboardAvoidingView
                 // behavior={'padding'}
-                // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                behavior={Platform.OS === 'ios' ? 'padding' : null}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+                // behavior={IOS ? 'padding' : 'height'}
+                behavior={IOS ? 'padding' : null}
+                keyboardVerticalOffset={IOS ? 90 : 0}
                 style={[styles.fullview]}
             >
 
-                {showDeleteModal && <DeleteReportMessageModal
+                {showDeleteModal && groupMembers?.includes(userid) && <DeleteReportMessageModal
                     item={itemToBeDeleted}
                     handleDelete={onHandleDelete}
                     userid={userid}
                     setShowDeleteModal={setShowDeleteModal}
                     handleReportUserModal={onSelectRport}
                 />}
-                {showReportUserModal && <ReportUserOrMessageModal
+                {showReportUserModal && groupMembers?.includes(userid) && <ReportUserOrMessageModal
                     item={itemToBeDeleted}
                     // visible={showReportUserModal}
                     reportType={reportType}
@@ -316,27 +347,46 @@ const Conversation = (props) => {
                     renderItem={({ item, index }) => <MessageItem item={item} userid={userid} showDeleteModal={_showDeleteModal} />}
                 />
                 <View style={styles.textmsgbox}>
-                    <TextInput
-                        placeholder="Write your message.."
-                        defaultValue=""
-                        style={styles.textinputmsg}
-                        value={textMsg}
-                        onChangeText={text => { setText(text) }}
-                        onFocus={() => {
-                            console.log('input foucs');
-                            scrollToBottom(false)
-                            // setTimeout(() => {
-                            //     messagesRef.current.scrollToEnd({ animated: false })
-                            // }, 200)
-                        }}
-                    // onSubmitEditing={() => sendMessage()}
-                    />
-                    <TouchableOpacity
-                        onPress={() => onSendMessage()}
-                        activeOpacity={0.8}
-                        style={styles.sendmsgbtn}>
-                        <Icon name="send" size={22} color={colors.white} />
-                    </TouchableOpacity>
+                    {(groupMembers != null && !groupMembers?.includes(userid)) && <>
+                        <View style={{}}>
+                            <Text style={styles.notmembertext}>You are not currently a member of this group</Text>
+                        </View>
+                        {isIPad ?
+                            <TouchableOpacity
+                                onPress={() => onSendRequest()}
+                                activeOpacity={0.8}
+                                style={[styles.sendmsgbtn, { width: 170 }]}>
+                                <Text style={{ color: colors.white, fontFamily: fonts.latoBold, fontSize: 17, marginRight: 10 }}>Send Request</Text>
+                                <Icon name="send" size={20} color={colors.white} />
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity
+                                onPress={() => onSendRequest()}
+                                activeOpacity={0.8}
+                                style={[styles.sendmsgbtn, { borderRadius: 15 }]}>
+                                {/* <Text style={{color: colors.white, fontFamily: fonts.latoBold,  fontSize: 15}}>Send Request</Text> */}
+                                <Icon name="plus" size={22} color={colors.white} />
+                            </TouchableOpacity>}
+                    </>}
+                    {groupMembers?.includes(userid) && <>
+                        <TextInput
+                            placeholder="Write your message.."
+                            defaultValue=""
+                            style={styles.textinputmsg}
+                            value={textMsg}
+                            onChangeText={text => { setText(text) }}
+                            onFocus={() => {
+                                console.log('input foucs');
+                                scrollToBottom(false)
+                            }}
+                        />
+                        <TouchableOpacity
+                            onPress={() => onSendMessage()}
+                            activeOpacity={0.8}
+                            style={styles.sendmsgbtn}>
+                            <Icon name="send" size={22} color={colors.white} />
+                        </TouchableOpacity>
+                    </>}
                 </View>
             </KeyboardAvoidingView >
         </SafeAreaView>
@@ -349,6 +399,7 @@ const styles = StyleSheet.create({
     textinputmsg: { color: colors.black, fontFamily: fonts.latoRegular, fontSize: isIPad ? 18 : 14, width: width - 80, backgroundColor: colors.white, paddingHorizontal: 15, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 45 },
     textmsgbox: { width: width - 20, margin: 10, borderRadius: 10, backgroundColor: colors.white, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 5, paddingVertical: 5 },
     flatliststyle: { paddingHorizontal: 15, backgroundColor: colors.white, },
+    notmembertext: { fontFamily: fonts.latoRegular, color: '#666', textAlign: 'center', width: isIPad ? width - 210 : width - 80, fontSize: isIPad ? 17 : 14 }
 });
 
 const setStateToProps = (state) => ({
@@ -358,6 +409,7 @@ const setStateToProps = (state) => ({
     sendMessagesFailResponse: state.chatstate.sendMessagesFailResponse,
     deleteMessagesResponse: state.chatstate.deleteMessagesResponse,
     reportMessageResponse: state.chatstate.reportMessageResponse,
+    sendGroupRequestResponse: state.chatstate.sendGroupRequestResponse,
     reportUserResponse: state.userstate.reportUserResponse,
 })
 const mapDispatchToProps = (dispatch) => {
@@ -367,6 +419,7 @@ const mapDispatchToProps = (dispatch) => {
         DeleteMessageApiCall: bindActionCreators(DeleteMessageApiCall, dispatch),
         ReportMessageApiCall: bindActionCreators(ReportMessageApiCall, dispatch),
         ReportUserApiCall: bindActionCreators(ReportUserApiCall, dispatch),
+        SendGroupRequestApiCall: bindActionCreators(SendGroupRequestApiCall, dispatch),
     }
 }
 

@@ -1,6 +1,6 @@
 import apiAction from "../../api/apiAction";
-import { DeleteMessageAPI, GetGroupsAPI, GetMessagesAPI, ReportMessageAPI, SendMessageAPI } from "../../api/routes";
-import { GET_GROUPS_API_SUCCESS, SET_ERROR, SEND_MESSAGES_API_SUCCESS, GET_MESSAGES_API_SUCCESS, DELETE_MESSAGES_API_SUCCESS, REPORT_MESSAGE_API_SUCCESS, SEND_MESSAGES_API_FAILURE } from "../actiontypes";
+import { DeleteMessageAPI, GetGroupsAPI, GetMessagesAPI, ReportMessageAPI, SendGroupRequestAPI, SendMessageAPI } from "../../api/routes";
+import { GET_GROUPS_API_SUCCESS, SET_ERROR, SEND_MESSAGES_API_SUCCESS, GET_MESSAGES_API_SUCCESS, DELETE_MESSAGES_API_SUCCESS, REPORT_MESSAGE_API_SUCCESS, SEND_MESSAGES_API_FAILURE, SEND_GROUP_REQUEST_API_SUCCESS } from "../actiontypes";
 
 const initialState = {
     getGroupsResponse: {},
@@ -10,6 +10,7 @@ const initialState = {
     deleteMessagesResponse: {},
     reportMessageResponse: {},
     errorResponse: {},
+    sendGroupRequestResponse: {},
 }
 
 
@@ -92,6 +93,21 @@ export function ReportMessageApiCall(params) {
     });
 }
 
+// Report Message Api Call
+export function SendGroupRequestApiCall(params) {
+    return apiAction({
+        url: SendGroupRequestAPI,
+        method: 'POST',
+        data: params,
+        onSuccess: (response) => {
+            return { type: SEND_GROUP_REQUEST_API_SUCCESS, payload: response };
+        },
+        onFailure: (response) => {
+            return { type: SET_ERROR, payload: response };
+        },
+    });
+}
+
 const ChatStateReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_GROUPS_API_SUCCESS:
@@ -117,6 +133,10 @@ const ChatStateReducer = (state = initialState, action) => {
         case REPORT_MESSAGE_API_SUCCESS:
             return Object.assign({}, state, {
                 reportMessageResponse: action.payload,
+            });
+        case SEND_GROUP_REQUEST_API_SUCCESS:
+            return Object.assign({}, state, {
+                sendGroupRequestResponse: action.payload,
             });
         case SET_ERROR:
             return Object.assign({}, state, {

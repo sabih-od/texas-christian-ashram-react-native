@@ -28,6 +28,7 @@ export const GetHomeBannerAPI = '/pages/home-banner/get';
 
 export const ReportUserAPI = '/reports/report-user';
 export const ReportMessageAPI = '/reports/report-message';
+export const SendGroupRequestAPI = '/group-requests';
 
 // export const GetSermonsDetailAPI = '';
 // export const GetPostsDetailAPI = '';

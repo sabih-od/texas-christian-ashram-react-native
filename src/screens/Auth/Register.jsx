@@ -24,9 +24,9 @@ const Register = (props) => {
     const prevResgisterResponseRef = useRef(props.registerResponse);
 
     useEffect(() => {
-        if (props.registerResponse !== prevResgisterResponseRef.current && props.registerResponse.success && props.registerResponse.data) {
+        if (props.registerResponse !== prevResgisterResponseRef.current && props.registerResponse?.success && props.registerResponse?.data) {
             prevResgisterResponseRef.current = props.registerResponse;
-            props.SetUserInfo(props.registerResponse.data);
+            props.SetUserInfo(props.registerResponse?.data);
             console.log('props.registerResponse => ', props.registerResponse);
             props.SetIsLogin(true);
             // props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })

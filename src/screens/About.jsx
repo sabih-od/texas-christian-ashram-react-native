@@ -19,9 +19,9 @@ const About = (props) => {
     }, []);
 
     useEffect(() => {
-        if (props.aboutResponse !== prevAboutResponseResponseRef.current && props.aboutResponse.success && props.aboutResponse.data) {
+        if (props.aboutResponse !== prevAboutResponseResponseRef.current && props.aboutResponse?.success && props.aboutResponse?.data) {
             prevAboutResponseResponseRef.current = props.aboutResponse;
-            console.log('props.aboutResponse => ', JSON.parse(props.aboutResponse.data.content))
+            console.log('props.aboutResponse => ', JSON.parse(props.aboutResponse?.data?.content))
             setBody(JSON.parse(props.aboutResponse.data.content))
         }
     }, [props.aboutResponse])

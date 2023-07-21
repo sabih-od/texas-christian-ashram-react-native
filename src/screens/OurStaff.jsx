@@ -29,11 +29,11 @@ const OurStaff = (props) => {
     }, [])
 
     useEffect(() => {
-        if (props.getOurStaffListResponse !== prevOurStaffListResponseResponseRef.current && props.getOurStaffListResponse.success && props.getOurStaffListResponse.data.length) {
+        if (props.getOurStaffListResponse !== prevOurStaffListResponseResponseRef.current && props.getOurStaffListResponse?.success && props.getOurStaffListResponse?.data.length) {
             prevOurStaffListResponseResponseRef.current = props.getOurStaffListResponse;
             console.log('props.getOurStaffListResponse => ', props.getOurStaffListResponse)
-            if (refreshing) setOurStaff(props.getOurStaffListResponse.data)
-            else setOurStaff(prevState => [...prevState, ...props.getOurStaffListResponse.data])
+            if (refreshing) setOurStaff(props.getOurStaffListResponse?.data)
+            else setOurStaff(prevState => [...prevState, ...props.getOurStaffListResponse?.data])
         }
         setRefreshing(false)
         // setLoadmore(false)
@@ -52,7 +52,7 @@ const OurStaff = (props) => {
         setPageno(prevState => prevState + 1);
         // props.GetOurStaffList({ pageno: pageno + 1, limit });
         if (!loadmore) {
-            if (ourStaff.length < props.getOurStaffListResponse.total) {
+            if (ourStaff.length < props.getOurStaffListResponse?.total) {
                 console.log('_handleLoadMore ');
                 props.GetOurStaffList({ pageno: pageno + 1, limit });
                 setLoadmore(false)

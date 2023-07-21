@@ -2,7 +2,7 @@ import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from
 import globalstyle from "../../theme/style";
 import { colors, fonts, isIPad } from "../../theme";
 import moment from "moment";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GetAnnouncementDetailApiCall } from "../../redux/reducers/DetailPageStateReducer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -19,9 +19,10 @@ const AnnouncementDetail = (props) => {
         }
     }, [props.route.params.refresh])
 
+    const prevProps = useRef(props.getAnnouncementDetailResponse);
     useEffect(() => {
-        if (props.getAnnouncementDetailResponse.success && props.getAnnouncementDetailResponse.data) {
-            setItem(props.getAnnouncementDetailResponse.data);
+        if (prevProps.current != props.getAnnouncementDetailResponse && props.getAnnouncementDetailResponse?.success && props.getAnnouncementDetailResponse?.data) {
+            setItem(props.getAnnouncementDetailResponse?.data);
         }
         setRefreshing(false);
     }, [props.getAnnouncementDetailResponse])

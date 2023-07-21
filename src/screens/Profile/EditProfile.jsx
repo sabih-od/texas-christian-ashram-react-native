@@ -137,7 +137,7 @@ const EditProfile = props => {
 
   useEffect(() => {
     // console.log('props.updateProfilePicResponse => ', props.updateProfilePicResponse);
-    if (props.updateProfilePicResponse !== prevUpdateProfilePicResRef.current && props.updateProfilePicResponse.success && props.updateProfilePicResponse?.data) {
+    if (props.updateProfilePicResponse !== prevUpdateProfilePicResRef.current && props.updateProfilePicResponse?.success && props.updateProfilePicResponse?.data) {
       prevUpdateProfilePicResRef.current = props.updateProfilePicResponse;
       console.log('updateProfilePicResponse => ', props.updateProfilePicResponse,);
       if (props.updateProfilePicResponse?.data?.profile_picture) {
@@ -164,7 +164,7 @@ const EditProfile = props => {
   }, [user]);
 
   useEffect(() => {
-    if (props.editProfileResponse !== prevEditProfileResRef.current && props.editProfileResponse.success && props.editProfileResponse?.data) {
+    if (props.editProfileResponse !== prevEditProfileResRef.current && props.editProfileResponse?.success && props.editProfileResponse?.data) {
       prevEditProfileResRef.current = props.editProfileResponse?.data;
       console.log('props.editProfileResponse => ', props.editProfileResponse);
       props.SetUserInfo({

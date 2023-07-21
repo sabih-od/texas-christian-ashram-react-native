@@ -37,9 +37,9 @@ const PrayerRequest = props => {
 
   useEffect(() => {
     // console.log('props.requestPrayerResponse => ', props.requestPrayerResponse);
-    if (props.requestPrayerResponse !== prevRequestPrayerResRef.current && props.requestPrayerResponse.success && props.requestPrayerResponse.data) {
+    if (props.requestPrayerResponse !== prevRequestPrayerResRef.current && props.requestPrayerResponse?.success && props.requestPrayerResponse?.data) {
       prevRequestPrayerResRef.current = props.requestPrayerResponse;
-      //   props.SetUserInfo(props.requestPrayerResponse.data);
+      //   props.SetUserInfo(props.requestPrayerResponse?.data);
       console.log('props.requestPrayerResponse => ', props.requestPrayerResponse,);
       showToast('success', 'Your request sumitted successfully..');
       props.navigation.navigate('RequestedPrayers');

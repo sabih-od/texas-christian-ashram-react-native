@@ -25,23 +25,23 @@ const SubmitOTP = (props) => {
 
     useEffect(() => {
         // console.log('props.submitOtpResponse => ', props.submitOtpResponse);
-        if (props.submitOtpResponse !== prevSubmitOtpResRef.current && props.submitOtpResponse.success && props.submitOtpResponse.data) {
+        if (props.submitOtpResponse !== prevSubmitOtpResRef.current && props.submitOtpResponse?.success && props.submitOtpResponse?.data) {
             prevSubmitOtpResRef.current = props.submitOtpResponse;
             console.log('props.submitOtpResponse => ', props.submitOtpResponse);
-            props.SetUserInfo(props.submitOtpResponse.data);
-            props.SetIsLogin(true);
+            props.SetUserInfo(props.submitOtpResponse?.data);
+            // props.SetIsLogin(true);
             props.navigation.navigate('ResetPassword');
-        } else if (props.submitOtpResponse !== prevSubmitOtpResRef.current && !props.submitOtpResponse.success) {
-            showToast('error', props.submitOtpResponse.message)
+        } else if (props.submitOtpResponse !== prevSubmitOtpResRef.current && !props.submitOtpResponse?.success) {
+            showToast('error', props.submitOtpResponse?.message)
         }
         isLoading(false);
     }, [props.submitOtpResponse])
 
     useEffect(() => {
         // // console.log('props.resendOtpResponse => ', props.resendOtpResponse);
-        // if (props.resendOtpResponse !== prevResendOtpResRef.current && props.resendOtpResponse.success && props.resendOtpResponse.data) {
+        // if (props.resendOtpResponse !== prevResendOtpResRef.current && props.resendOtpResponse?.success && props.resendOtpResponse?.data) {
         //     prevResendOtpResRef.current = props.resendOtpResponse;
-        //     props.SetUserInfo(props.resendOtpResponse.data);
+        //     props.SetUserInfo(props.resendOtpResponse?.data);
         //     console.log('props.resendOtpResponse => ', props.resendOtpResponse);
         //     props.SetIsLogin(true);
         //     props.navigation.navigate('Screens', { screen: 'Home' })

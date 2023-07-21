@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Image, RefreshControl } from "react-native";
 import { colors, fonts, height, isIPad, width } from "../../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -15,9 +15,10 @@ const OurStaffDetail = (props) => {
     const [refreshing, setRefreshing] = useState(false);
     const [item, setItem] = useState(props.route.params.item);
 
+    const prevProps = useRef(props.getOurStaffDetailResponse);
     useEffect(() => {
-        if (props.getOurStaffDetailResponse.success && props.getOurStaffDetailResponse.data) {
-            setItem(props.getOurStaffDetailResponse.data);
+        if (prevProps.current != props.getOurStaffDetailResponse && props.getOurStaffDetailResponse?.success && props.getOurStaffDetailResponse?.data) {
+            setItem(props.getOurStaffDetailResponse?.data);
         }
         setRefreshing(false);
     }, [props.getOurStaffDetailResponse])

@@ -120,15 +120,15 @@ const Conversation = (props) => {
     const prevGetMessagesResRef = useRef(props.getMessagesResponse);
 
     useEffect(() => {
-        if (props.getMessagesResponse !== prevGetMessagesResRef.current && props.getMessagesResponse.success) {
+        if (props.getMessagesResponse !== prevGetMessagesResRef.current && props.getMessagesResponse?.success) {
             prevGetMessagesResRef.current = props.getMessagesResponse;
             console.log('props.getMessagesResponse => ', props.getMessagesResponse);
 
-            if (props.getMessagesResponse.data.length > 0) {
+            if (props.getMessagesResponse?.data.length > 0) {
                 if (messages.length == 0 && !loadmore) {
-                    setMessages(props.getMessagesResponse.data);
+                    setMessages(props.getMessagesResponse?.data);
                 } else {
-                    setMessages(prevState => [...prevState, ...props.getMessagesResponse.data]);
+                    setMessages(prevState => [...prevState, ...props.getMessagesResponse?.data]);
                 }
             }
             !loadmore && scrollToBottom(false)
@@ -145,7 +145,7 @@ const Conversation = (props) => {
 
     const prevDeleteMessagesResRef = useRef(props.deleteMessagesResponse);
     useEffect(() => {
-        if (props.deleteMessagesResponse !== prevDeleteMessagesResRef.current && props.deleteMessagesResponse.success) {
+        if (props.deleteMessagesResponse !== prevDeleteMessagesResRef.current && props.deleteMessagesResponse?.success) {
             prevDeleteMessagesResRef.current = props.deleteMessagesResponse;
             console.log('props.deleteMessagesResponse => ', props.deleteMessagesResponse);
             showToast('success', 'Message deleted successfully');
@@ -154,7 +154,7 @@ const Conversation = (props) => {
 
     const prevSendMessageResRef = useRef(props.sendMessagesResponse);
     useEffect(() => {
-        if (props.sendMessagesResponse !== prevSendMessageResRef.current && props.sendMessagesResponse.success && props.sendMessagesResponse?.data) {
+        if (props.sendMessagesResponse !== prevSendMessageResRef.current && props.sendMessagesResponse?.success && props.sendMessagesResponse?.data) {
             prevSendMessageResRef.current = props.sendMessagesResponse;
             console.log('props.sendMessagesResponse => ', props.sendMessagesResponse);
             setMessages(prevMsges => [props.sendMessagesResponse?.data, ...prevMsges])
@@ -205,7 +205,7 @@ const Conversation = (props) => {
     function handleOnEndReached({ distanceFromEnd }) {
         if (distanceFromEnd <= 0) return;
         if (!loadmore && distanceFromEnd > 0 && distanceFromEnd <= height - 150) {
-            if (props.getMessagesResponse.data.length != 0) {
+            if (props.getMessagesResponse?.data.length != 0) {
                 console.log('handleOnEndReached upar wala', distanceFromEnd);
                 setLoadmore(true)
                 props.GetMessagesApiCall({ pageno: pageno + 1, limit, group_id: props.route.params.groupid })

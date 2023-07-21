@@ -33,11 +33,11 @@ const Sermons = (props) => {
     }, [])
 
     useEffect(() => {
-        if (props.getSermonsListResponse !== prevSermonsListResponseRef.current && props.getSermonsListResponse.success && props.getSermonsListResponse.data.length) {
+        if (props.getSermonsListResponse !== prevSermonsListResponseRef.current && props.getSermonsListResponse?.success && props.getSermonsListResponse?.data.length) {
             prevSermonsListResponseRef.current = props.getSermonsListResponse;
             console.log('props.getSermonsListResponse => ', props.getSermonsListResponse)
-            if (refreshing) setSermonslist(props.getSermonsListResponse.data)
-            else setSermonslist(prevState => [...prevState, ...props.getSermonsListResponse.data])
+            if (refreshing) setSermonslist(props.getSermonsListResponse?.data)
+            else setSermonslist(prevState => [...prevState, ...props.getSermonsListResponse?.data])
         }
         setRefreshing(false)
         setLoadmore(false)

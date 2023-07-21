@@ -30,11 +30,11 @@ const OurSpeakers = (props) => {
     }, [])
 
     useEffect(() => {
-        if (props.getOurSpeakersListResponse !== prevOurSpeakerListResponseRef.current && props.getOurSpeakersListResponse.success && props.getOurSpeakersListResponse.data.length) {
+        if (props.getOurSpeakersListResponse !== prevOurSpeakerListResponseRef.current && props.getOurSpeakersListResponse?.success && props.getOurSpeakersListResponse?.data.length) {
             prevOurSpeakerListResponseRef.current = props.getOurSpeakersListResponse;
             console.log('props.getOurSpeakersListResponse => ', props.getOurSpeakersListResponse)
-            if (refreshing) setOurSpeakers(props.getOurSpeakersListResponse.data)
-            else setOurSpeakers(prevState => [...prevState, ...props.getOurSpeakersListResponse.data])
+            if (refreshing) setOurSpeakers(props.getOurSpeakersListResponse?.data)
+            else setOurSpeakers(prevState => [...prevState, ...props.getOurSpeakersListResponse?.data])
         }
         if(props.getOurSpeakersListResponse) isLoading(false);
         console.log('here');
@@ -55,7 +55,7 @@ const OurSpeakers = (props) => {
         setPageno(prevState => prevState + 1);
         // props.GetOurSpeakerList({ pageno: pageno + 1, limit });
         if (!loadmore) {
-            if (ourSpeakers.length < props.getOurSpeakersListResponse.total) {
+            if (ourSpeakers.length < props.getOurSpeakersListResponse?.total) {
                 console.log('_handleLoadMore ');
                 props.GetOurSpeakerList({ pageno: pageno + 1, limit });
                 setLoadmore(false)

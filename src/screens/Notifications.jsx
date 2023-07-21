@@ -29,11 +29,11 @@ const Notifications = (props) => {
 
     useEffect(() => {
         // console.log('props.getNotificationsListResponse => ', props.getNotificationsListResponse);
-        if (props.getNotificationsListResponse !== prevGetNotificationsListResponseRef.current && props.getNotificationsListResponse.success && props.getNotificationsListResponse.data) {
+        if (props.getNotificationsListResponse !== prevGetNotificationsListResponseRef.current && props.getNotificationsListResponse?.success && props.getNotificationsListResponse?.data) {
             prevGetNotificationsListResponseRef.current = props.getNotificationsListResponse;
             console.log('props.getNotificationsListResponse => ', props.getNotificationsListResponse);
-            if (refreshing) setNotificationList(props.getNotificationsListResponse.data)
-            else setNotificationList(prevState => [...prevState, ...props.getNotificationsListResponse.data])
+            if (refreshing) setNotificationList(props.getNotificationsListResponse?.data)
+            else setNotificationList(prevState => [...prevState, ...props.getNotificationsListResponse?.data])
         }
         setRefreshing(false)
         // setLoadmore(false)

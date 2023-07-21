@@ -16,6 +16,8 @@ const NotificationItem = ({ item, navigation }) => {
             if (item?.topic == 'post') { navigation.navigate('PostDetail', { id: item?.topic_id, refresh: true }) } // Posts // PostDetail
             if (item?.topic == 'sermon') { navigation.navigate('SermonsDetail', { id: item?.topic_id, refresh: true }) } // Sermons // SermonsDetail
             if (item?.topic == 'announcement') { navigation.navigate('AnnouncementDetail', { id: item?.topic_id, refresh: true }) } // Announcements // AnnouncementDetail
+            if (item?.topic == 'group-request') { navigation.navigate('ChatGroups') } // Group Chat
+            
         }}
         style={[styles.notificationitem, {
             borderLeftColor: item.isRead ? colors.green : '#ddd',
@@ -29,7 +31,7 @@ const NotificationItem = ({ item, navigation }) => {
             />
             <View style={styles.notirowmsg}>
                 <Text style={[styles.notititle]} numberOfLines={1}>{item?.title}</Text>
-                <Text style={[styles.notimessage]} numberOfLines={1}>{item?.content}</Text>
+                <Text style={[styles.notimessage]} numberOfLines={2}>{item?.content}</Text>
             </View>
             {/* </View> */}
             {/* <Text style={styles.datetime}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY hh:mm")}</Text> */}

@@ -30,12 +30,12 @@ const Posts = (props) => {
     }, [])
 
     useEffect(() => {
-        if (props.getPostsListResponse !== prevPostsListResRef.current && props.getPostsListResponse.success && props.getPostsListResponse.data.length) {
+        if (props.getPostsListResponse !== prevPostsListResRef.current && props.getPostsListResponse?.success && props.getPostsListResponse?.data.length) {
             prevPostsListResRef.current = props.getPostsListResponse;
-            setPostList(prevState => [...prevState, ...props.getPostsListResponse.data])
+            setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
             console.log('props.getPostsListResponse => ', props.getPostsListResponse)
-            if (refreshing) setPostList(props.getPostsListResponse.data)
-            else setPostList(prevState => [...prevState, ...props.getPostsListResponse.data])
+            if (refreshing) setPostList(props.getPostsListResponse?.data)
+            else setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
         }
         setRefreshing(false)
         // setLoadmore(false)
@@ -54,7 +54,7 @@ const Posts = (props) => {
         setPageno(prevState => prevState + 1);
         // props.GetPostsList({ pageno: pageno + 1, limit });
         if (!loadmore) {
-            if (postList.length < props.getPostsListResponse.total) {
+            if (postList.length < props.getPostsListResponse?.total) {
                 console.log('_handleLoadMore ');
                 props.GetPostsList({ pageno: pageno + 1, limit });
                 setLoadmore(false)

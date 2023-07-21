@@ -18,7 +18,7 @@ const BookBox = ({ item, navigation, width }) => {
                     style={styles.readmore}
                     activeOpacity={0.8}
                     onPress={() => {
-                        navigation.navigate('PdfView', { file: item.file, title: item.title })
+                        navigation.navigate('BookDetail', { file: item.file, title: item.title, url: item.url })
                     }}>
                     <Text style={styles.readmoretext} numberOfLines={1}>Read More</Text>
                 </TouchableOpacity>

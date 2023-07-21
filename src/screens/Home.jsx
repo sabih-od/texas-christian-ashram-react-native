@@ -55,21 +55,21 @@ const Home = (props) => {
 
     useEffect(() => {
 
-        if (!IOS) {
-            axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-            axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
-                .then(function (response) {
-                    console.log('response hunter => ', response);
-                    props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
-                    props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
-                    props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
-                    props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
-                    props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
-                    props.GetOurStaffList({ pageno: 1, limit: PAGINATION_LIMIT });
-                    props.GetHomeBanner();
-                })
-                .catch(function (error) { console.log(error); });
-        }
+        // if (!IOS) {
+        //     axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+        //     axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+        //         .then(function (response) {
+        //             console.log('response hunter => ', response);
+        //             props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        //             props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        //             props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        //             props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        //             props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
+        //             props.GetOurStaffList({ pageno: 1, limit: PAGINATION_LIMIT });
+        //             props.GetHomeBanner();
+        //         })
+        //         .catch(function (error) { console.log(error); });
+        // }
 
         props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });

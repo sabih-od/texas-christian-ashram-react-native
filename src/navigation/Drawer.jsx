@@ -19,6 +19,7 @@ import { GetProfileApiCall } from '../redux/reducers/AuthReducer';
 
 import { connectSocket, getSocket } from '../helpers/socket-manager';
 import { useAppState } from '../hooks/useAppState';
+import { EditProfileApiCall } from '../redux/reducers/UserStateReducer';
 
 const DrawerContent = (props) => {
 
@@ -29,11 +30,12 @@ const DrawerContent = (props) => {
 
     fcmService.register(onRegister, onNotification, onOpenNotification);
     localNotificationService.configure(onOpenNotification);
-    
+
     function onRegister(token) {
       console.log('onRegister => ', token);
       if (props.fcmToken == '' || props.fcmToken != token) {
         props.UpdateFcmToken(token);
+        props.EditProfileApiCall(user.id, { fcm_token: token });
       }
     }
 
@@ -46,7 +48,7 @@ const DrawerContent = (props) => {
     messaging().subscribeToTopic(newtopic).then(() => console.log("Subscribed to topic:", newtopic)).catch((e) => {
       console.log(e);
     });
-    
+
     function onNotification(notify) {
       console.log('onNotification => ', notify);
       const options = { soundName: 'default', };
@@ -119,6 +121,7 @@ const DrawerContent = (props) => {
   const draweritems = [
     { title: 'Home', nav: 'Home', icon: 'home', isActive: true },
     { title: 'About Us', nav: 'About', icon: 'home', isActive: false },
+    // { title: 'Book Detail', nav: 'BookDetail', icon: 'home', isActive: false },
     { title: 'Books', nav: 'Books', icon: 'home', isActive: false },
     { title: 'Events', nav: 'Events', icon: 'home', isActive: false },
     { title: 'Upcoming Events', nav: 'UpcomingEvents', icon: 'home', isActive: false },
@@ -133,7 +136,7 @@ const DrawerContent = (props) => {
     { title: 'Posts', nav: 'Posts', icon: 'home', isActive: false },
     { title: 'Contact Us', nav: 'Contact', icon: 'home', isActive: false },
   ]
-  
+
   return (
     <>
       {user &&
@@ -167,6 +170,8 @@ const DrawerContent = (props) => {
       {user && <View style={{ backgroundColor: colors.black }}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => {
           // logout(props.navigation) 
+          props.navigation.closeDrawer();
+          props.EditProfileApiCall(user.id, { fcm_token: '' });
           props.LogOut();
           // props.navigation.navigate('Login');
           // props.navigation.reset({ index: 0, routes: [{ name: 'AuthScreens' }] })
@@ -204,6 +209,7 @@ const mapDispatchToProps = (dispatch) => {
     UpdateNotificationBadge: bindActionCreators(UpdateNotificationBadge, dispatch),
     GetProfileApiCall: bindActionCreators(GetProfileApiCall, dispatch),
     SetUserInfo: bindActionCreators(SetUserInfo, dispatch),
+    EditProfileApiCall: bindActionCreators(EditProfileApiCall, dispatch),
   }
 }
 

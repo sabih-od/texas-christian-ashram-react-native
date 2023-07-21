@@ -7,7 +7,7 @@ import Video from "react-native-video";
 import { GetSermonsDetailApiCall } from "../../redux/reducers/DetailPageStateReducer";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useCallback } from "react";
 // import YouTube from "react-native-youtube";
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -27,9 +27,11 @@ const SermonsDetail = (props) => {
         }
     }, [props.route.params.refresh])
 
+    const prevProps = useRef(props.getSermonDetailResponse);
     useEffect(() => {
-        if (props.getSermonDetailResponse.success && props.getSermonDetailResponse.data) {
-            setItem(props.getSermonDetailResponse.data);
+        if (prevProps.current != props.getSermonDetailResponse && props.getSermonDetailResponse?.success && props.getSermonDetailResponse?.data) {
+            console.log('props.getSermonDetailResponse?.data => ', props.getSermonDetailResponse?.data);
+            setItem(props.getSermonDetailResponse?.data);
         }
         setRefreshing(false);
     }, [props.getSermonDetailResponse])

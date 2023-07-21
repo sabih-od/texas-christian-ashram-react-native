@@ -46,7 +46,6 @@ const ChatGroups = (props) => {
         // }
     }, []);
 
-    const getGroupsResponseRef = useRef(props.getGroupsResponse);
 
     const socket = getSocket();
     useEffect(() => {
@@ -80,17 +79,18 @@ const ChatGroups = (props) => {
     }, [])
 
 
+    const getGroupsResponseRef = useRef(props.getGroupsResponse);
     useEffect(() => {
         // console.log('props.getGroupsResponse => ', props.getGroupsResponse);
-        if (props.getGroupsResponse !== getGroupsResponseRef.current && props.getGroupsResponse.success && props.getGroupsResponse.data) {
+        if (props.getGroupsResponse !== getGroupsResponseRef.current && props.getGroupsResponse?.success && props.getGroupsResponse?.data) {
             getGroupsResponseRef.current = props.getGroupsResponse;
             console.log('props.getGroupsResponse => ', props.getGroupsResponse)
-            if (refreshing) setGroupList(props.getGroupsResponse.data)
-            else setGroupList(prevState => [...prevState, ...props.getGroupsResponse.data])
+            if (refreshing) setGroupList(props.getGroupsResponse?.data)
+            else setGroupList(prevState => [...prevState, ...props.getGroupsResponse?.data])
         }
         setRefreshing(false)
         // isLoading(false);
-        // if (props.getGroupsResponse !== getGroupsResponseRef.current && !props.getGroupsResponse.success) {
+        // if (props.getGroupsResponse !== getGroupsResponseRef.current && !props.getGroupsResponse?.success) {
         //     showToast('error', 'Email Id or password incorrect')
         // }
         // isLoading(false);

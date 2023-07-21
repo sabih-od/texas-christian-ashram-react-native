@@ -97,7 +97,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
       // dispatch(apiError(error));
       // showToast('error', props.loginError?.message)
       if (error.response.status == 400) {
-        if (error?.response?.data?.message == 'Abusive words detected.') showToast('error', 'Please use respectful language');
+        if (error?.response?.data?.message == 'Abusive words detected.') showToast('error', 'Kindly refrain from using abusive language');
         else showToast('error', error?.response?.data?.message);
       }
       if (error.response.status == 401) {

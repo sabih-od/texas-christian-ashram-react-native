@@ -25,16 +25,16 @@ const ResetPassword = (props) => {
 
     useEffect(() => {
         // console.log('props.resetPasswordResponse => ', props.resetPasswordResponse);
-        if (props.resetPasswordResponse !== prevResetPasswordResRef.current && props.resetPasswordResponse.success && props.resetPasswordResponse.data) {
+        if (props.resetPasswordResponse !== prevResetPasswordResRef.current && props.resetPasswordResponse?.success && props.resetPasswordResponse?.data) {
             prevResetPasswordResRef.current = props.resetPasswordResponse;
-            // props.SetUserInfo(props.resetPasswordResponse.data);
+            // props.SetUserInfo(props.resetPasswordResponse?.data);
             console.log('props.resetPasswordResponse => ', props.resetPasswordResponse);
-            // props.SetIsLogin(true);
-            props.navigation.navigate('Screens', { screen: 'Home' });
-            showToast('success', props.resetPasswordResponse.message)
+            props.SetIsLogin(true);
+            // props.navigation.navigate('Screens', { screen: 'Home' });
+            showToast('success', props.resetPasswordResponse?.message)
         } else {
-            if (props.resetPasswordResponse !== prevResetPasswordResRef.current && !props.resetPasswordResponse.success) {
-                showToast('error', props.resetPasswordResponse.message)
+            if (props.resetPasswordResponse !== prevResetPasswordResRef.current && !props.resetPasswordResponse?.success) {
+                showToast('error', props.resetPasswordResponse?.message)
             }
         }
         isLoading(false);
@@ -172,6 +172,7 @@ const setStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         ResetPasswordApiCall: bindActionCreators(ResetPasswordApiCall, dispatch),
+        SetIsLogin: bindActionCreators(SetIsLogin, dispatch),
     }
 }
 

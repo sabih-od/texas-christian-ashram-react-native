@@ -3,7 +3,7 @@ import globalstyle from "../../theme/style";
 import { colors, fonts, isIPad, width } from "../../theme";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Feather";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GetEventsDetailApiCall } from "../../redux/reducers/DetailPageStateReducer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -15,6 +15,14 @@ const EventDetail = (props) => {
     const [refreshing, setRefreshing] = useState(false);
     const [item, setItem] = useState(props.route.params.item);
 
+    console.log('props.route.params.item => ', props.route.params.item)
+    console.log('item => ', item)
+
+    // useEffect(() => {
+    //     console.log('setitem', props.route.params.item);
+    //     setItem(props.route.params.item)
+    // }, [props.route.params.item])
+
     useEffect(() => {
         if (props.route.params.refresh) {
             setRefreshing(true);
@@ -22,9 +30,11 @@ const EventDetail = (props) => {
         }
     }, [props.route.params.refresh])
 
+    const prevProps = useRef(props.getEventDetailResponse);
     useEffect(() => {
-        if (props.getEventDetailResponse.success && props.getEventDetailResponse.data) {
-            setItem(props.getEventDetailResponse.data);
+        if (prevProps.current != props.getEventDetailResponse && props.getEventDetailResponse?.success && props.getEventDetailResponse?.data) {
+            prevProps.current = props.getEventDetailResponse;
+            setItem(props.getEventDetailResponse?.data);
         }
         setRefreshing(false);
     }, [props.getEventDetailResponse])
@@ -81,12 +91,12 @@ const EventDetail = (props) => {
                     <View style={{ flexDirection: 'row', }}>
                         <View>
                             <Text style={styles.subheading}>Start Time</Text>
-                            <Text style={styles.eventlocation}>{moment.parseZone(item?.date_from, 'DD-MM-YYYY').format('HH:mm')}</Text>
+                            <Text style={styles.eventlocation}>{item?.start_time}</Text>
                         </View>
                         <View style={styles.seperator} />
                         <View>
                             <Text style={styles.subheading}>End Time</Text>
-                            <Text style={styles.eventlocation}>{moment.parseZone(item?.date_to, 'DD-MM-YYYY').format('HH:mm')}</Text>
+                            <Text style={styles.eventlocation}>{item?.end_time}</Text>
                         </View>
                     </View>
                 </View>

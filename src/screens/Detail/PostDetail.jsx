@@ -3,7 +3,7 @@ import globalstyle from "../../theme/style";
 import { colors, fonts, isIPad, width } from "../../theme";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Feather";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GetPostDetailApiCall } from "../../redux/reducers/DetailPageStateReducer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -21,9 +21,10 @@ const PostDetail = (props) => {
         }
     }, [props.route.params.refresh])
 
+    const prevProps = useRef(props.getPostDetailResponse);
     useEffect(() => {
-        if (props.getPostDetailResponse.success && props.getPostDetailResponse.data) {
-            setItem(props.getPostDetailResponse.data);
+        if (prevProps.current != props.getPostDetailResponse && props.getPostDetailResponse?.success && props.getPostDetailResponse?.data) {
+            setItem(props.getPostDetailResponse?.data);
         }
         setRefreshing(false);
     }, [props.getPostDetailResponse])

@@ -62,7 +62,7 @@ const ReportUserOrMessageModal = ({ visible, handleReportAction, setVisible, rep
                 <TouchableOpacity onPress={() => { setVisible(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></TouchableOpacity>
                 <View style={{ backgroundColor: '#fff', borderRadius: 7, width: isIPad ? '70%' : '90%', }}>
                     <Text style={[globalstyle.modaltitle, { textTransform: 'capitalize', textAlign: 'left', paddingHorizontal: 15, paddingTop: 15, paddingBottom: 10, fontSize: isIPad ? 26 : 20 }]}>Report {reportType}</Text>
-                    <Text style={[globalstyle.modaldesc, { textAlign: 'left', fontSize: isIPad ? 18 : 15 }]}>Thank you for reporting this {reportType}. Your feedback helps us maintain a safe and welcoming community. Please review the information below and provide additional details regarding your report.{'\n\n'}Please select the category that best describes the reason for your report</Text>
+                    <Text style={[globalstyle.modaldesc, { textAlign: 'left', fontSize: isIPad ? 18 : 15 }]}>Thank you for reporting this {reportType}. Your feedback helps us maintain a safe and welcoming community. Please review the information below and provide additional details regarding your report.{'\n\n'}Please select the category that best describes the reason for your report.An appropriate action will be taken within 24 hours</Text>
 
                     <View style={{ paddingHorizontal: 15, marginBottom: 10 }}>
                         {options?.map((item, index) => {

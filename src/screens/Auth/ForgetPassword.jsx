@@ -23,16 +23,16 @@ const ForgetPassword = (props) => {
     const prevForgetPasswordResRef = useRef(props.forgetPasswordResponse);
 
     useEffect(() => {
-        if (props.forgetPasswordResponse !== prevForgetPasswordResRef.current && props.forgetPasswordResponse.success && props.forgetPasswordResponse.data) {
+        if (props.forgetPasswordResponse !== prevForgetPasswordResRef.current && props.forgetPasswordResponse?.success && props.forgetPasswordResponse?.data) {
             prevForgetPasswordResRef.current = props.forgetPasswordResponse;
             console.log('props.forgetPasswordResponse => ', props.forgetPasswordResponse);
             props.navigation.navigate('SubmitOTP', { email: emailaddress })
             // props.navigation.navigate('SubmitOTP')
         }
-        else if (props.forgetPasswordResponse !== prevForgetPasswordResRef.current && !props.forgetPasswordResponse.success) {
+        else if (props.forgetPasswordResponse !== prevForgetPasswordResRef.current && !props.forgetPasswordResponse?.success) {
             prevForgetPasswordResRef.current = props.forgetPasswordResponse;
             console.log('props.forgetPasswordResponse Eroor => ', props.forgetPasswordResponse);
-            showToast('error', props.forgetPasswordResponse.message)
+            showToast('error', props.forgetPasswordResponse?.message)
             // props.navigation.navigate('SubmitOTP', { email: data.email })
             // props.navigation.navigate('SubmitOTP')
         }

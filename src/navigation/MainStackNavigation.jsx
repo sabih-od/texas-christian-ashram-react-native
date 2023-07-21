@@ -48,6 +48,7 @@ import GoBackIcon from "../components/header/GoBackIcon";
 import DrawerIcon from "../components/header/DrawerIcon";
 import NotificationIcon from "../components/header/NotificationIcon";
 import globalstyle from "../theme/style";
+import BookDetail from "../screens/Detail/BookDetail";
 
 const Stack = createStackNavigator();
 
@@ -175,10 +176,22 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
-
             <Stack.Screen
                 name="PdfView"
                 component={PdfView}
+                options={{
+                    headerTitle: '',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: { fontFamily: fonts.headingFont, textTransform: 'capitalize' },
+                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Books'} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="BookDetail"
+                component={BookDetail}
                 options={{
                     headerTitle: '',
                     headerTitleAlign: 'center',
@@ -305,12 +318,12 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 // options={{ headerShown: false }}
                 options={{
                     headerTransparent: true,
-                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerTitle: '',
                     // headerTitle: 'Prayer Request',
                     // headerTitleStyle: globalstyle.headerTitleStyle,
                     // // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />

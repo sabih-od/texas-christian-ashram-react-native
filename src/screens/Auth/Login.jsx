@@ -45,12 +45,12 @@ const Login = (props) => {
         // .then(data => console.log(data))
         // .catch(error => console.log(error));
 
-        if (!IOS) {
-            axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-            axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
-                .then(function (response) { console.log('response hunter => ', response); })
-                .catch(function (error) { console.log(error); });
-        }
+        // if (!IOS) {
+        //     axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+        //     axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+        //         .then(function (response) { console.log('response hunter => ', response); })
+        //         .catch(function (error) { console.log(error); });
+        // }
 
         // axios.request({
         //     url: 'https://texaschristianashram.org:3023/auth/login', method: 'POST', data: {
@@ -73,9 +73,9 @@ const Login = (props) => {
 
     useEffect(() => {
         // console.log('props.loginResponse => ', props.loginResponse);
-        if (props.loginResponse !== prevLoginResponseRef.current && props.loginResponse.success && props.loginResponse.data) {
+        if (props.loginResponse !== prevLoginResponseRef.current && props.loginResponse?.success && props.loginResponse?.data) {
             prevLoginResponseRef.current = props.loginResponse;
-            props.SetUserInfo(props.loginResponse.data);
+            props.SetUserInfo(props.loginResponse?.data);
             console.log('props.loginResponse => ', props.loginResponse);
             // showToast();
             props.SetIsLogin(true);
@@ -83,8 +83,8 @@ const Login = (props) => {
             // props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })
         }
 
-        if (props.loginResponse !== prevLoginResponseRef.current && !props.loginResponse.success) {
-            showToast('error', props.loginResponse.message.replaceAll(' ', '-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse.message)
+        if (props.loginResponse !== prevLoginResponseRef.current && !props.loginResponse?.success) {
+            showToast('error', props.loginResponse?.message.replaceAll(' ', '-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse?.message)
         }
         isLoading(false);
     }, [props.loginResponse])
