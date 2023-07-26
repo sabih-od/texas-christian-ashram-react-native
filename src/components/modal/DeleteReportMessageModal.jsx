@@ -24,7 +24,7 @@ const DeleteReportMessageModal = ({ item, visible, userid, handleDelete, setShow
         >
             <View style={{ ...StyleSheet.absoluteFillObject, zIndex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => { setShowDeleteModal(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></TouchableOpacity>
-                <View style={{ backgroundColor: '#fff', borderRadius: 7, width: isIPad ? '70%' : '90%', }}>
+                <View style={{ backgroundColor: '#fff', borderRadius: 7, width: isIPad ? '70%' : '90%', overflow: 'hidden' }}>
                     {/* <Text style={{ paddingHorizontal: 25, paddingVertical: 15, backgroundColor: colors.green, color: colors.white, fontFamily: fonts.latoRegular }}>{item?.message}</Text> */}
                     {/* <View style={{ paddingHorizontal: 25, paddingVertical: 15, flexDirection: 'row', backgroundColor: '#f5f5f5' }} >
                         <Image
@@ -75,7 +75,7 @@ const DeleteReportMessageModal = ({ item, visible, userid, handleDelete, setShow
                             <Text style={{ fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 16 : 12 }}>From <Text style={{ fontFamily: fonts.latoBold }}>{`${item?.user?.first_name} ${item?.user?.last_name}`}</Text></Text>
                         </View>
                     </View>
-                    <View style={globalstyle.modalbtnsrow}>
+                    <View style={[globalstyle.modalbtnsrow, { flexWrap: 'wrap' }]}>
                         {sender && <TouchableOpacity
                             onPress={() => { handleDelete(item) }}
                             activeOpacity={0.6}
@@ -84,18 +84,33 @@ const DeleteReportMessageModal = ({ item, visible, userid, handleDelete, setShow
                             <Text style={globalstyle.modalbtntext}>Delete Message</Text>
                         </TouchableOpacity>}
                         {!sender && <>
-                            <TouchableOpacity onPress={() => { 
+                            <TouchableOpacity onPress={() => {
                                 setShowDeleteModal(false)
-                                handleReportUserModal('message') }} activeOpacity={0.6} style={[globalstyle.modalbtn, { borderRightColor: '#ddd', borderRightWidth: 1, }]}>
+                                handleReportUserModal('message')
+                            }} activeOpacity={0.6} style={[globalstyle.modalbtn, { borderRightColor: '#ddd', borderRightWidth: 1, justifyContent: 'flex-start', paddingLeft: 30 }]}>
                                 <Icon name="message-circle" size={17} color={colors.green} style={{ marginRight: 10 }} />
                                 <Text style={globalstyle.modalbtntext}>Report Message</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => { 
+                            <TouchableOpacity onPress={() => {
                                 setShowDeleteModal(false)
-                                handleReportUserModal('user') }} activeOpacity={0.6} style={globalstyle.modalbtn}>
+                                handleReportUserModal('user')
+                            }} activeOpacity={0.6} style={[globalstyle.modalbtn, { justifyContent: 'flex-start', paddingLeft: 30 }]}>
                                 <Icon name="user" size={17} color={colors.green} style={{ marginRight: 10 }} />
                                 <Text style={globalstyle.modalbtntext}>Report User</Text>
                             </TouchableOpacity>
+                            {/* <TouchableOpacity onPress={() => {
+                                setShowDeleteModal(false)
+                                handleReportUserModal('block')
+                            }} activeOpacity={0.6} style={[globalstyle.modalbtn, { justifyContent: 'flex-start', paddingLeft: 30, borderRightColor: '#ddd', borderRightWidth: 1, borderTopColor: '#ddd', borderTopWidth: 1 }]}>
+                                <Icon name="user" size={17} color={colors.green} style={{ marginRight: 10 }} />
+                                <Text style={globalstyle.modalbtntext}>Block User</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {
+                                setShowDeleteModal(false)
+                            }} activeOpacity={0.6} style={[globalstyle.modalbtn, { justifyContent: 'flex-start', paddingLeft: 30, borderTopColor: '#ddd', borderTopWidth: 1, backgroundColor: colors.green }]}>
+                                <Icon name="x" size={17} color={colors.white} style={{ marginRight: 10 }} />
+                                <Text style={[globalstyle.modalbtntext, { color: colors.white }]}>Cancel</Text>
+                            </TouchableOpacity> */}
                         </>}
                     </View>
                 </View>

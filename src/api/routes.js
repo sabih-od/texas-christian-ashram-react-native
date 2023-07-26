@@ -7,6 +7,8 @@ export const SubmitOTPAPI = '/auth/submit-otp';
 export const ResendOTPAPI = '/auth/resend-otp';
 export const ResetPasswordAPI = '/auth/reset-password';
 export const GetProfileAPI = '/auth/me';
+export const BlockedUsersListAPI = '/auth/blocked-users';
+export const BlockUserAPI = '/auth/block-user';
 
 // export const EditProfileAPI = '/users';
 export const EditProfileAPI = '/auth/update-profile';

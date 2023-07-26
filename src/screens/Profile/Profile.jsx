@@ -31,6 +31,8 @@ import { LogOut, SetUserInfo } from '../../redux/reducers/AppStateReducer';
 import { showToast } from '../../helpers/toastConfig';
 import Loader from "../../components/Loader";
 import DeleteProfileConfirmationModal from '../../components/modal/DeleteProfileConfirmationModal';
+import BlockedUsers from '../../components/bottom-sheet/BlockedUsers';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const Profile = props => {
   const [showModal, setShowModal] = useState(false);
@@ -211,6 +213,12 @@ const Profile = props => {
 
   const PROFILE_SQUARE = isIPad ? 170 : 140;
 
+
+
+  const bottomSheetModalRef = useRef(null);
+  const handleChildReference = (ref) => {
+    bottomSheetModalRef.current = ref;
+  };
   return (
     <>
       <DeleteProfileConfirmationModal handleDeleteConfirmValue={_handleDeleteConfirmValue} visible={showConfirmationModal} setVisible={setShowConfirmationModal} />
@@ -219,56 +227,69 @@ const Profile = props => {
       <SafeAreaView style={styles.fullview}>
         <ImageBackground source={require('./../../../assets/images/background-with-img.png')}
           style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
-          <View style={styles.container}>
-            {/* <View style={{ backgroundColor: colors.green, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
-            <View style={[{ paddingVertical: 20, paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer, { marginTop: 'auto', marginBottom: 'auto' }]}>
-              <View style={{ width: PROFILE_SQUARE, height: PROFILE_SQUARE, borderRadius: PROFILE_SQUARE, marginLeft: 'auto', marginRight: 'auto', marginVertical: 20, position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2 }}>
-                <Image
-                  source={
-                    filePath?.uri
-                      ? { uri: filePath?.uri }
-                      : user?.profile_picture
-                        ? { uri: user?.profile_picture }
-                        : require('./../../../assets/images/dummy-profile-image.png')
-                    // { uri: user?.profilepic }
-                    // require('./../../assets/images/profile-image.jpg')
-                  }
-                  defaultSource={require('./../../../assets/images/speaker-placeholder.png')}
-                  style={{ width: '100%', height: '100%', borderRadius: 120, resizeMode: 'cover', }}
-                />
-                {isEditable && (
+          <BottomSheetModalProvider>
+            <View style={styles.container}>
+
+              <BlockedUsers passReferenceToParent={handleChildReference} />
+              {/* <View style={{ backgroundColor: colors.green, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
+              <View style={[{ paddingVertical: 20, paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer, { marginTop: 'auto', marginBottom: 'auto' }]}>
+                <View style={{ width: PROFILE_SQUARE, height: PROFILE_SQUARE, borderRadius: PROFILE_SQUARE, marginLeft: 'auto', marginRight: 'auto', marginVertical: 20, position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2 }}>
+                  <Image
+                    source={
+                      filePath?.uri
+                        ? { uri: filePath?.uri }
+                        : user?.profile_picture
+                          ? { uri: user?.profile_picture }
+                          : require('./../../../assets/images/dummy-profile-image.png')
+                      // { uri: user?.profilepic }
+                      // require('./../../assets/images/profile-image.jpg')
+                    }
+                    defaultSource={require('./../../../assets/images/speaker-placeholder.png')}
+                    style={{ width: '100%', height: '100%', borderRadius: 120, resizeMode: 'cover', }}
+                  />
+                  {isEditable && (
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={{ borderWidth: 1, borderColor: colors.white, position: 'absolute', right: 5, bottom: 2, zIndex: 1, alignItems: 'center', justifyContent: 'center', width: 35, height: 35, borderRadius: 35, backgroundColor: colors.white, }}
+                      onPress={() => {
+                        setShowModal(true);
+                      }}>
+                      <Icon name="camera" size={17} color={colors.green} />
+                    </TouchableOpacity>
+                  )}
+                </View>
+
+
+                <View style={globalstyle.inputbox}>
+                  <Icon color={colors.green} name={'user'} size={18} />
+                  <Text style={globalstyle.inputfield}>{`${user?.first_name} ${user?.last_name}`}</Text>
+                </View>
+
+                <View style={globalstyle.inputbox}>
+                  <Icon color={colors.green} name={'mail'} size={18} />
+                  <Text style={globalstyle.inputfield}>{`${user?.email}`}</Text>
+                </View>
+
+                {user?.phone && <View style={globalstyle.inputbox}>
+                  <Icon color={colors.green} name={'phone'} size={18} />
+                  <Text style={globalstyle.inputfield}>{`${user?.phone}`}</Text>
+                </View>}
+
+                <View style={{
+                  flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20,
+                  //marginTop: 'auto' 
+                }}>
                   <TouchableOpacity
-                    activeOpacity={0.7}
-                    style={{ borderWidth: 1, borderColor: colors.white, position: 'absolute', right: 5, bottom: 2, zIndex: 1, alignItems: 'center', justifyContent: 'center', width: 35, height: 35, borderRadius: 35, backgroundColor: colors.white, }}
+                    activeOpacity={0.9}
                     onPress={() => {
-                      setShowModal(true);
-                    }}>
-                    <Icon name="camera" size={17} color={colors.green} />
+                      // props.navigation.navigate('EditProfile')
+                      bottomSheetModalRef.current?.present()
+                      // setShowConfirmationModal(true)
+                    }}
+                    style={[globalstyle.authSubmitButton, { width: '49%', backgroundColor: colors.orange }]}>
+                    <Text style={[globalstyle.authSubmitButtonText, { fontSize: isIPad ? 16 : 13 }]}>Blocked Users</Text>
                   </TouchableOpacity>
-                )}
-              </View>
-
-
-              <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'user'} size={18} />
-                <Text style={globalstyle.inputfield}>{`${user?.first_name} ${user?.last_name}`}</Text>
-              </View>
-
-              <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'mail'} size={18} />
-                <Text style={globalstyle.inputfield}>{`${user?.email}`}</Text>
-              </View>
-
-              <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'phone'} size={18} />
-                <Text style={globalstyle.inputfield}>{`${user?.phone}`}</Text>
-              </View>
-
-              <View style={{
-                flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20,
-                //marginTop: 'auto' 
-              }}>
-                <TouchableOpacity
+                  {/* <TouchableOpacity
                   activeOpacity={0.9}
                   onPress={() => {
                     props.navigation.navigate('EditProfile')
@@ -276,18 +297,19 @@ const Profile = props => {
                   }}
                   style={[globalstyle.authSubmitButton, { width: '49%' }]}>
                   <Text style={[globalstyle.authSubmitButtonText, { fontSize: isIPad ? 16 : 13 }]}>Edit Profile</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  onPress={() => {
-                    setShowConfirmationModal(true)
-                  }}
-                  style={[globalstyle.authSubmitButton, { width: '49%', backgroundColor: colors.black, }]}>
-                  <Text style={[globalstyle.authSubmitButtonText, { fontSize: isIPad ? 16 : 13 }]}>Delete Account</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={() => {
+                      setShowConfirmationModal(true)
+                    }}
+                    style={[globalstyle.authSubmitButton, { width: '49%', backgroundColor: colors.black, }]}>
+                    <Text style={[globalstyle.authSubmitButtonText, { fontSize: isIPad ? 16 : 13 }]}>Delete Account</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
+          </BottomSheetModalProvider>
         </ImageBackground>
       </SafeAreaView >
     </>

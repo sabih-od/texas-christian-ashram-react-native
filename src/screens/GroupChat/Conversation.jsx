@@ -20,8 +20,9 @@ import ReportDeleteBottomSheet from "../../components/bottom-sheet/ReportDeleteB
 
 import DeleteReportMessageModal from "../../components/modal/DeleteReportMessageModal";
 import ReportUserOrMessageModal from "../../components/modal/ReportUserOrMessageModal";
-import { ReportUserApiCall } from "../../redux/reducers/UserStateReducer";
+import { BlockUserApiCall, ReportUserApiCall } from "../../redux/reducers/UserStateReducer";
 import Loader from "../../components/Loader";
+import ProfileModal from "../../components/modal/ProfileModal";
 
 // import { io } from 'socket.io-client';
 // // const websocketurl = 'ws://10.10.8.113:8029';
@@ -74,12 +75,12 @@ const Conversation = (props) => {
     const [newMessage, setNewMessage] = useState(null);
     const [group, setGroup] = useState(props.route.params?.groupitem);
     const [groupMembers, setGroupMembers] = useState(props.route.params?.groupitem?.members);
-    
+
     const userid = props?.userInfo?.id;
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         console.log('useEffect groupMembers => ', groupMembers);
-    },[groupMembers])
+    }, [groupMembers])
 
     const socket = getSocket();
     useEffect(() => {
@@ -299,6 +300,30 @@ const Conversation = (props) => {
         props.SendGroupRequestApiCall({ "user_id": userid, "group_id": group?.id });
     }
 
+    const [profile, setProfile] = useState(null)
+    const [showProfileModal, setProfileModal] = useState(false)
+    function _showProfileModal(value) {
+        setProfileModal(true)
+        setProfile(value)
+    }
+
+    function _handleBlockUser(id) {
+        console.log('_handleBlockUser => ', id)
+        setProfileModal(false)
+        props.BlockUserApiCall({ user_id: id })
+    }
+
+    const prevBlockUserResRef = useRef(props.blockUserResponse);
+    useEffect(() => {
+        if (props.blockUserResponse !== prevBlockUserResRef.current && props.blockUserResponse?.success) {
+            prevBlockUserResRef.current = props.blockUserResponse;
+            console.log('props.blockUserResponse => ', props.blockUserResponse);
+            showToast('success', 'User blocked successfully');
+            // props.GetMessagesApiCall({ pageno: 1, limit, group_id: group?.id })
+            // setMessages([])
+        }
+    }, [props.blockUserResponse])
+
     return (
         <SafeAreaView style={[styles.fullview]}>
             <Loader isLoading={loading} />
@@ -309,7 +334,7 @@ const Conversation = (props) => {
                 keyboardVerticalOffset={IOS ? 90 : 0}
                 style={[styles.fullview]}
             >
-
+                <ProfileModal visible={groupMembers?.includes(userid) && showProfileModal} setVisible={setProfileModal} handleBlockUser={_handleBlockUser} profile={profile} />
                 {showDeleteModal && groupMembers?.includes(userid) && <DeleteReportMessageModal
                     item={itemToBeDeleted}
                     handleDelete={onHandleDelete}
@@ -334,6 +359,7 @@ const Conversation = (props) => {
                     showsHorizontalScrollIndicator={false}
                     onEndReached={onEndReached}
                     onEndReachedThreshold={0.9}
+                    ListEmptyComponent={() => <View />} //<==== here
                     ListFooterComponent={() => loadmore &&
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 7, marginBottom: 15, }}>
                             <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'small'} color={colors.green} />
@@ -343,8 +369,8 @@ const Conversation = (props) => {
                     // data={messages.reverse()}
                     data={messages}
                     // data={messageslist}
-                    keyExtractor={item => String(item?.id)}
-                    renderItem={({ item, index }) => <MessageItem item={item} userid={userid} showDeleteModal={_showDeleteModal} />}
+                    keyExtractor={(item, index) => String(index)}
+                    renderItem={({ item, index }) => item ? <MessageItem item={item} userid={userid} showDeleteModal={_showDeleteModal} showProfileModal={_showProfileModal} /> : <View />}
                 />
                 <View style={styles.textmsgbox}>
                     {(groupMembers != null && !groupMembers?.includes(userid)) && <>
@@ -411,6 +437,7 @@ const setStateToProps = (state) => ({
     reportMessageResponse: state.chatstate.reportMessageResponse,
     sendGroupRequestResponse: state.chatstate.sendGroupRequestResponse,
     reportUserResponse: state.userstate.reportUserResponse,
+    blockUserResponse: state.userstate.blockUserResponse,
 })
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -420,6 +447,7 @@ const mapDispatchToProps = (dispatch) => {
         ReportMessageApiCall: bindActionCreators(ReportMessageApiCall, dispatch),
         ReportUserApiCall: bindActionCreators(ReportUserApiCall, dispatch),
         SendGroupRequestApiCall: bindActionCreators(SendGroupRequestApiCall, dispatch),
+        BlockUserApiCall: bindActionCreators(BlockUserApiCall, dispatch),
     }
 }
 
