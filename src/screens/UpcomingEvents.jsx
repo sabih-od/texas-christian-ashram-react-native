@@ -6,7 +6,7 @@ import UpComingEventBox from "../components/UpComingEventBox";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { GetUpcomingEventsList } from "../redux/reducers/ListingApiStateReducer";
-import { colors, fonts, isIPad } from "../theme";
+import { colors, fonts, isIPad, width } from "../theme";
 import globalstyle from "../theme/style";
 import NotFound from "../components/NotFound";
 

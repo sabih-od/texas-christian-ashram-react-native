@@ -55,8 +55,7 @@ function App() {
         />
         {/* <Loader /> */}
         <Navigation />
-        <Toast config={toastConfig}
-        />
+        <Toast config={toastConfig} />
       </PersistGate>
     </Provider>
   );

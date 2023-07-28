@@ -26,9 +26,13 @@ const ProfileModal = ({ profile, visible, handleBlockUser, setVisible }) => {
                 <TouchableOpacity onPress={() => { setVisible(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></TouchableOpacity>
                 <View style={{ backgroundColor: '#fff', borderRadius: 7, width: isIPad ? '70%' : '90%', }}>
                     <View style={{ padding: 20, alignItems: 'center' }}>
-                        <Image source={profile?.profile_picture ? { uri: profile?.profile_picture } : require('./../../../assets/images/dummy-profile-image.png')} style={styles.proficon} />
-                        <Text style={styles.username}>John Martin {profile?.id}</Text>
-                        <Text style={{ fontFamily: fonts.latoRegular, fontSize: 14, textAlign: 'center', color: colors.grey, marginTop: 13 }}>Are you sure you want to block this user? This action will restrict all interactions and communications with them.</Text>
+                        <Image
+                            source={profile?.profile_picture ? { uri: profile?.profile_picture } : require('./../../../assets/images/dummy-profile-image.png')}
+                            style={styles.proficon}
+                            defaultSource={require('./../../../assets/images/speaker-placeholder.png')}
+                        />
+                        <Text style={styles.username}>John Martin</Text>
+                        <Text style={{ fontFamily: fonts.latoRegular, fontSize: isIPad ? 17 : 14, textAlign: 'center', color: colors.grey, marginTop: 13 }}>Are you sure you want to block this user? This action will restrict all interactions and communications with them.</Text>
                     </View>
                     <View style={globalstyle.modalbtnsrow}>
                         <TouchableOpacity onPress={() => { handleBlockUser(profile?.id) }} activeOpacity={0.6}
@@ -50,5 +54,5 @@ export default ProfileModal;
 
 const styles = StyleSheet.create({
     proficon: { width: isIPad ? 100 : 90, height: isIPad ? 100 : 90, borderRadius: isIPad ? 100 : 90, marginBottom: 10, resizeMode: 'cover', },
-    username: { textTransform: 'capitalize', fontFamily: fonts.latoBold, fontSize: 16, color: colors.black }
+    username: { textTransform: 'capitalize', fontFamily: fonts.latoBold, fontSize: isIPad ? 22 : 16, color: colors.black }
 })

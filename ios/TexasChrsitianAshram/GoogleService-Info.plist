@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1031081615742-68tv3j0j7h96su5gjss7n6dem4mg97hm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1031081615742-68tv3j0j7h96su5gjss7n6dem4mg97hm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC9NSvS2rKaMjAskYyuOq7Gez320Os4svA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1031081615742</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.texaschristianapp</string>
+	<key>PROJECT_ID</key>
+	<string>texas-christan-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>texas-christan-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1031081615742:ios:e11387a0abf6e878dc532f</string>
+</dict>
+</plist>

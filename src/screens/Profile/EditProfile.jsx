@@ -226,11 +226,11 @@ const EditProfile = props => {
               {isEditable && (
                 <TouchableOpacity
                   activeOpacity={0.7}
-                  style={{ borderWidth: 1, borderColor: colors.white, position: 'absolute', right: 5, bottom: 2, zIndex: 1, alignItems: 'center', justifyContent: 'center', width: 35, height: 35, borderRadius: 35, backgroundColor: colors.white, }}
+                  style={{ borderWidth: 1, borderColor: colors.white, position: 'absolute', right: 5, bottom: 2, zIndex: 1, alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: 40, backgroundColor: colors.white, }}
                   onPress={() => {
                     setShowModal(true);
                   }}>
-                  <Icon name="camera" size={17} color={colors.green} />
+                  <Icon name="camera" size={isIPad ? 20 : 18} color={colors.green} />
                 </TouchableOpacity>
               )}
             </View>

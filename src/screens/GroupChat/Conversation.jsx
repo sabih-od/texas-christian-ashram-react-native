@@ -319,8 +319,8 @@ const Conversation = (props) => {
             prevBlockUserResRef.current = props.blockUserResponse;
             console.log('props.blockUserResponse => ', props.blockUserResponse);
             showToast('success', 'User blocked successfully');
-            // props.GetMessagesApiCall({ pageno: 1, limit, group_id: group?.id })
-            // setMessages([])
+            props.GetMessagesApiCall({ pageno: 1, limit, group_id: group?.id })
+            setMessages([])
         }
     }, [props.blockUserResponse])
 
@@ -334,7 +334,7 @@ const Conversation = (props) => {
                 keyboardVerticalOffset={IOS ? 90 : 0}
                 style={[styles.fullview]}
             >
-                <ProfileModal visible={groupMembers?.includes(userid) && showProfileModal} setVisible={setProfileModal} handleBlockUser={_handleBlockUser} profile={profile} />
+                {groupMembers?.includes(userid) && <ProfileModal visible={showProfileModal} setVisible={setProfileModal} handleBlockUser={_handleBlockUser} profile={profile} />}
                 {showDeleteModal && groupMembers?.includes(userid) && <DeleteReportMessageModal
                     item={itemToBeDeleted}
                     handleDelete={onHandleDelete}
@@ -359,7 +359,7 @@ const Conversation = (props) => {
                     showsHorizontalScrollIndicator={false}
                     onEndReached={onEndReached}
                     onEndReachedThreshold={0.9}
-                    ListEmptyComponent={() => <View />} //<==== here
+                    // ListEmptyComponent={() => <View><Text>hello</Text></View>}
                     ListFooterComponent={() => loadmore &&
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 7, marginBottom: 15, }}>
                             <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'small'} color={colors.green} />
@@ -373,7 +373,7 @@ const Conversation = (props) => {
                     renderItem={({ item, index }) => item ? <MessageItem item={item} userid={userid} showDeleteModal={_showDeleteModal} showProfileModal={_showProfileModal} /> : <View />}
                 />
                 <View style={styles.textmsgbox}>
-                    {(groupMembers != null && !groupMembers?.includes(userid)) && <>
+                    {(!groupMembers?.includes(userid)) && <>
                         <View style={{}}>
                             <Text style={styles.notmembertext}>You are not currently a member of this group</Text>
                         </View>

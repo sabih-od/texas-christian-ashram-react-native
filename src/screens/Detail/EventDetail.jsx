@@ -64,28 +64,30 @@ const EventDetail = (props) => {
                 }}>
                 <Text style={styles.title}>{item?.title}</Text>
 
-                <View style={{ flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: 1, paddingVertical: 15 }}>
+                {item?.location && <><View style={{ flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: 1, paddingVertical: 15 }}>
                     <Icon name={'map-pin'} style={styles.eventpinicon} />
                     <View>
                         <Text style={styles.subheading}>Location</Text>
                         <Text style={styles.eventlocation}>{item?.location}</Text>
                     </View>
                 </View>
+                </>}
 
-                <View style={{ flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: 1, paddingVertical: 15, marginBottom: 15 }}>
+                {(item?.date_from || item?.date_to) && <View style={{ flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: 1, paddingVertical: 15, marginBottom: 15 }}>
                     <Icon name={'clock'} style={styles.eventpinicon} />
                     <View style={{ flexDirection: 'row', }}>
-                        <View>
+                        {item?.date_from && <><View>
                             <Text style={styles.subheading}>Start Date</Text>
                             <Text style={styles.eventlocation}>{moment.parseZone(item?.date_from, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
                         </View>
-                        <View style={styles.seperator} />
-                        <View>
+                            <View style={styles.seperator} />
+                        </>}
+                        {item?.date_to && <View>
                             <Text style={styles.subheading}>End Date</Text>
                             <Text style={styles.eventlocation}>{moment.parseZone(item?.date_to, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text>
-                        </View>
+                        </View>}
                     </View>
-                </View>
+                </View>}
                 <View style={{ flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: 1, paddingVertical: 15, paddingTop: 0, marginBottom: 15 }}>
                     <Icon name={'clock'} style={styles.eventpinicon} />
                     <View style={{ flexDirection: 'row', }}>
@@ -101,8 +103,10 @@ const EventDetail = (props) => {
                     </View>
                 </View>
 
-                <Text style={styles.subheading}>Description</Text>
-                <Text style={styles.description}>{item?.description}</Text>
+                {item?.description && <>
+                    <Text style={styles.subheading}>Description</Text>
+                    <Text style={styles.description}>{item?.description}</Text>
+                </>}
             </ScrollView>
         </SafeAreaView>
     )
@@ -121,7 +125,7 @@ export default connect(setStateToProps, mapDispatchToProps)(EventDetail);
 
 const styles = StyleSheet.create({
     date: { fontFamily: fonts.latoRegular, color: colors.orange },
-    title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 32 : 28, marginBottom: 5 },
+    title: { fontFamily: fonts.headingFont, color: colors.black, fontSize: isIPad ? 32 : 28, marginBottom: 15 },
     subheading: { fontFamily: fonts.headingFont, marginBottom: 3, fontSize: isIPad ? 22 : 18, color: colors.black },
     description: { fontFamily: fonts.latoRegular, color: colors.black, fontSize: isIPad ? 18 : 15 },
     eventlocation: { fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 17 : 13, },

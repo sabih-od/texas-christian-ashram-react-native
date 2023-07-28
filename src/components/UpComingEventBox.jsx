@@ -21,13 +21,13 @@ const UpComingEventBox = (props) => {
                 <View
                 //style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' }}
                 >
-                    <View><Text style={styles.eventtime}>{moment.parseZone(props?.item?.date_from, 'DD-MM-YYYY').format('DD MMM, YYYY')}</Text></View>
-                    <Text style={styles.eventtitle}>{props?.item?.title ? props?.item?.title : 'Article'}</Text>
+                    {props?.item?.date_from && <View><Text style={styles.eventtime}>{moment.parseZone(props?.item?.date_from, 'YYYY-MM-DD').format('DD MMM, YYYY')}</Text></View>}
+                    <Text style={styles.eventtitle}>{props?.item?.title}</Text>
                 </View>
-                <View style={{ flexDirection: 'row' }}>
+                {props?.item?.location && <View style={{ flexDirection: 'row', width: '90%' }}>
                     <Icon name={'map-pin'} style={styles.eventpinicon} />
-                    <Text style={styles.eventlocation} numberOfLines={1}>{props?.item?.location ? props?.item?.location : 'C253 Martin Drive, New California, LA, USA'}</Text>
-                </View>
+                    <Text style={styles.eventlocation} numberOfLines={1}>{props?.item?.location}</Text>
+                </View>}
             </View>
         </TouchableOpacity>
     )

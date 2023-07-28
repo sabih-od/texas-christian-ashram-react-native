@@ -27,7 +27,7 @@ const GroupItem = ({ item, width, navigation }) => {
                     <Text numberOfLines={1} style={styles.lastmsg}>{item?.last_message ? item?.last_message : 'Tap to start chat on group'}</Text>
                 </View>
                 {/* <Text style={styles.lastmsgtime}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY")}</Text> */}
-                <Text style={styles.lastmsgtime}>{moment(parseInt(item?.last_updated)).fromNow()}</Text>
+                <Text style={styles.lastmsgtime}>{item?.last_message ? moment(parseInt(item?.last_updated)).fromNow() : ''}</Text>
             </View>
         </TouchableOpacity>
     )

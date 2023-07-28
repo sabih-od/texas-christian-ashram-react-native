@@ -6,8 +6,10 @@ import Icon from "react-native-vector-icons/Feather";
 import { colors, fonts, height, isIPad } from "./../theme";
 import { connect } from "react-redux";
 import ReportDeleteModal from "./modal/ReportDeleteModal_bkp";
+import { useNavigation } from "@react-navigation/native";
 
 const MessageItem = ({ item, userid, showDeleteModal, showProfileModal }) => {
+    // const navigation = useNavigation()
     const sender = item?.user?.id == userid;
     // const [showModal, setShowModal] = useState(false);
 
@@ -20,8 +22,13 @@ const MessageItem = ({ item, userid, showDeleteModal, showProfileModal }) => {
     return (
         <View style={[{ marginBottom: 10, maxWidth: '70%', }, sender ? { marginLeft: 'auto', flexDirection: 'row-reverse' } : { marginRight: 'auto', flexDirection: 'row' }]}>
             <TouchableOpacity
+                disabled={sender}
                 activeOpacity={0.8}
-                onPress={() => { showProfileModal(item?.user) }}>
+                onPress={() => {
+                    // if(sender) navigation.navigate('Profile')
+                    // else 
+                    showProfileModal(item?.user)
+                }}>
                 <Image source={item?.user?.profile_picture ? { uri: item?.user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={[styles.proficon, sender ? { marginLeft: 10, } : { marginRight: 10, }]} />
             </TouchableOpacity>
             <View>
