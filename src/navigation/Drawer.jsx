@@ -124,7 +124,7 @@ const DrawerContent = (props) => {
     // { title: 'Book Detail', nav: 'BookDetail', icon: 'home', isActive: false },
     { title: 'Books', nav: 'Books', icon: 'home', isActive: false },
     { title: 'Events', nav: 'Events', icon: 'home', isActive: false },
-    { title: 'Upcoming Events', nav: 'UpcomingEvents', icon: 'home', isActive: false },
+    // { title: 'Upcoming Events', nav: 'UpcomingEvents', icon: 'home', isActive: false },
     { title: 'Our Speakers', nav: 'OurSpeakers', icon: 'home', isActive: false },
     { title: 'Our Staff', nav: 'OurStaff', icon: 'home', isActive: false },
     { title: 'Messages', nav: 'Sermons', icon: 'home', isActive: false },

@@ -14,12 +14,13 @@ import UpComingEventBox from "../components/UpComingEventBox";
 import NotFound from "../components/NotFound";
 import WebView from "react-native-webview";
 import RenderHTML from "../components/RenderHTML";
+import EventsTable from "../components/EventsTable";
 // import Logo from "./../../assets/images/logo.svg";
 
 
 
 
-const itemslimit = 50;
+const itemslimit = 100;
 const Events = (props) => {
     const [eventList, setEventList] = useState([]);
     const [pageno, setPageno] = useState(1);
@@ -87,33 +88,14 @@ const Events = (props) => {
     }
 
     return <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
             {loading && <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <ActivityIndicator size={isIPad ? 'large' : 'small'} color={colors.green} />
             </View>}
             {!loading && props.getEventsListResponse?.data?.length == 0 && <NotFound title={"Events"} />}
             <RenderHTML htmlcontent={props.eventsPageContentResponse?.data?.content} />
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 13, paddingHorizontal: 15, borderBottomColor: '#ddd', borderBottomWidth: 1, backgroundColor: colors.grey }}>
-                <View style={{ width: (width / 2) - 20, }}><Text style={{ fontFamily: fonts.latoRegular, color: colors.white }}>Title</Text></View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{width: (width / 4) + 10}}><Text style={{ paddingHorizontal: 15,  textAlign: 'center', fontFamily: fonts.latoRegular, color: colors.white }} numberOfLines={1}>Start Time</Text></View>
-                    <View style={{width: (width / 4) - 10}}><Text style={{ paddingHorizontal: 15,  textAlign: 'center', fontFamily: fonts.latoRegular, color: colors.white }} numberOfLines={1}>End Time</Text></View>
-                </View>
-            </View>
-
-            {!loading && eventList.map((item, index) => {
-                return (
-                    <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 13, paddingHorizontal: 15, borderBottomColor: '#ddd', borderBottomWidth: 1, }}>
-                        <View style={{ width: (width / 2) - 20, }}><Text style={{ fontFamily: fonts.latoRegular }}>{item?.title}</Text></View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <View style={{width: (width / 4) + 10}}><Text style={{ paddingHorizontal: 15,  textAlign: 'center', fontFamily: fonts.latoRegular }} numberOfLines={1}>{item?.start_time}</Text></View>
-                            <View style={{width: (width / 4) - 10}}><Text style={{ paddingHorizontal: 15,  textAlign: 'center', fontFamily: fonts.latoRegular }} numberOfLines={1}>{item?.end_time}</Text></View>
-                        </View>
-                    </View>
-                )
-            })}
-
+            {!loading && eventList.length > 0 && <EventsTable list={eventList} width={width} />}
             {/* {!loading && eventList.length > 0 &&
             <FlatList
                 style={{ padding: 15, }}

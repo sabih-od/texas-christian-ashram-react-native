@@ -37,6 +37,7 @@ import HomeSliderSkeleton from './../components/skeleton/HomeSliderSkeletion';
 import { useCallback } from "react";
 import RequestAdditionalInformation from "../components/RequestAdditionalInformation";
 import axios from "axios";
+import EventsTable from "../components/EventsTable";
 
 const PAGINATION_LIMIT = 6;
 const Home = (props) => {
@@ -72,7 +73,7 @@ const Home = (props) => {
         // }
 
         props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
-        props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
@@ -83,7 +84,7 @@ const Home = (props) => {
     const eventList = useEvents(props.getEventsListResponse);
     // console.log('eventList Home => ', eventList);
 
-    const upcomingEventList = useUpcomingEvents(props.getUpcomingEventsListResponse);
+    // const upcomingEventList = useUpcomingEvents(props.getUpcomingEventsListResponse);
     // console.log('eventList Home => ', eventList);
 
     const postList = usePosts(props.getPostsListResponse);
@@ -129,7 +130,7 @@ const Home = (props) => {
         setRefreshing(true);
 
         props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
-        props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
         props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
@@ -179,8 +180,9 @@ const Home = (props) => {
 
                 {(eventList.length > 0) &&
                     <>
-                        <SectionHeading title={`${year} Event Schedule`} />
-                        <FlatList
+                        <SectionHeading title={`${year} Event Schedule`} viewall={'Events'} />
+                        <EventsTable list={eventList} width={width - 30} />
+                        {/* <FlatList
                             // style={{ padding: 15 }}
                             horizontal
                             // snapToInterval={width / 2}
@@ -201,9 +203,10 @@ const Home = (props) => {
                             renderItem={({ item, index }) =>
                                 <EventScheduleBox key={index} item={item} width={isIPad ? (width / 3) - 17 : (width / 2) - 20} navigation={props.navigation} />
                             }
-                        />
+                        /> */}
                     </>
                 }
+                <View style={{ marginTop: 30 }} />
 
                 {/* {(eventList.length == 0) && <View style={[styles.flexrow, { marginBottom: 20 }]}>
                     <EventsSkeleton />
@@ -237,7 +240,7 @@ const Home = (props) => {
                     <EventsSkeleton />
                 </View>} */}
 
-                {(upcomingEventList.length != 0) &&
+                {/* {(upcomingEventList.length != 0) &&
                     <><SectionHeading title="Upcoming Events" />
                         <FlatList
                             // style={{ padding: 15 }}
@@ -261,7 +264,7 @@ const Home = (props) => {
                                 return (<UpComingEventBox key={index} item={item} width={isIPad ? (width / 4) - 20 : (width / 2) - 20} navigation={props.navigation} />)
                             }}
                         />
-                    </>}
+                    </>} */}
 
                 {ourSpeakersList.length > 0 && <>
                     <SectionHeading title="Our Speakers" />
@@ -282,7 +285,7 @@ const Home = (props) => {
                 </View>}
                 <View style={[styles.flexrow, { flexWrap: 'wrap', width: width - 20 }]}>
                     {postList.map((item, index) =>
-                        index <  (isIPad ? 3 : 4) &&
+                        index < (isIPad ? 3 : 4) &&
                         <Fragment key={index}>
                             <PostBox item={item} width={isIPad ? (width / 3) - 17 : (width / 2) - 20} navigation={props.navigation} marginfalse={true} />
                             <View style={{ width: 10, }} />
@@ -340,7 +343,7 @@ const Home = (props) => {
 }
 
 const setStateToProps = (state) => ({
-    getUpcomingEventsListResponse: state.listingstate.getUpcomingEventsListResponse,
+    // getUpcomingEventsListResponse: state.listingstate.getUpcomingEventsListResponse,
     getEventsListResponse: state.listingstate.getEventsListResponse,
     getOurSpeakersListResponse: state.listingstate.getOurSpeakersListResponse,
     getOurStaffListResponse: state.listingstate.getOurStaffListResponse,
@@ -352,7 +355,7 @@ const setStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetUpcomingEventsList: bindActionCreators(GetUpcomingEventsList, dispatch),
+        // GetUpcomingEventsList: bindActionCreators(GetUpcomingEventsList, dispatch),
         GetEventsList: bindActionCreators(GetEventsList, dispatch),
         GetOurSpeakerList: bindActionCreators(GetOurSpeakerList, dispatch),
         GetOurStaffList: bindActionCreators(GetOurStaffList, dispatch),

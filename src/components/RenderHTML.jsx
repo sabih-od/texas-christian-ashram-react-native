@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import { ActivityIndicator, Linking, Text, View } from "react-native";
 import WebView from "react-native-webview";
-import { fonts, colors } from "../theme";
+import { fonts, colors, isIPad } from "../theme";
 
-const RenderHTML = ({ htmlcontent }) => {
+const RenderHTML = ({ htmlcontent, htmlstyle }) => {
 
     const [renderLoading, setRenderLoading] = useState(true);
     const [webheight, setWebheight] = useState(webheight);
+    const webview = useRef();
 
     //         const webViewScript = `
     //             setTimeout(function () {
@@ -33,32 +34,27 @@ const RenderHTML = ({ htmlcontent }) => {
             <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Yeseva+One&display=swap" rel="stylesheet">\
             </head>\
             <style>\
-            @font-face { font-family: 'urdu'; src: url(https://www.bolnews.com/urdu/wp-content/themes/bolnews/assets/fonts/NafeesWeb.woff); font-display: swap; } 
             *{ user-select: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; }\
             body, html {margin: 0; padding: 10px 10px; line-height: 1.5; font-family: ${fontfamily};  }\
-            p{ font-family: ${fontfamily}; color: #444;font-size: 16px;margin: 0px;margin-bottom: 10px;}\
-            h1,h2,h3,h4{font-family: ${fontFamilyHeading};margin: 0px;}\
+            p{ font-family: ${fontfamily}; color: #444;font-size: ${isIPad ? '18px': '15px'};margin: 0px;margin: 10px 0;}\
+            h1,h2,h3,h4{font-family: ${fontFamilyHeading};margin: 0px;font-weight: 500;line-height:1.3}\
             h3{font-size: 24px;}\
             h4{font-size: 20px;}\
-            a{color: ${colors.primary}; text-decoration: none;}\
+            h5{font-size: 18px; margin: 0;}\
+            h6{font-size: 16px; margin: 0;}\
+            a{color: ${colors.green}; text-decoration: none;}\
             iframe{max-width: 100%;}\
             iframe[src*="https://www.facebook.com/plugins/video.php"] {width: 100%; height: 310px}\
             iframe[src*="https://www.youtube"] { width: 100% !important; height: 200px; }\
             video, .wp-video{ width: 100% !important; height: auto !important;}
             table{width: 100%;border-collapse: collapse;border-spacing: 0;}
-            table th { background:  ${colors.primary}; color: #fff; text-transform: capitalize;padding: 5px; text-align: left; font-size: 13px; border: 0;}\
+            table th { background:  ${colors.green}; color: #fff; text-transform: capitalize;padding: 5px; text-align: left; font-size: 13px; border: 0;}\
             table td { border: 1px solid #ddd; padding: 5px; font-size: 13px; }\
             ul li {color: #333;}
             ul { margin: 0px; padding: 0px; list-style: none; z-index: 0;padding-left: 18px; margin-bottom: 15px; }
             ul li:before {content: '';display: inline-block;vertical-align: middle;width: 7px;height: 7px;margin-right: 10px;background: #c72026;border-radius: 16px;margin-left: -17px;}
             figure {width: 100%;margin: 10px 0;} img {width: 100%; height: auto;} strong{font-weight: 500; color: #111;}\
-            .liveContentWrap .date-time {margin: 10px 0;text-transform: uppercase;}
-            .liveContentWrap .date-time:before {content: ''; width: 7px; height: 7px; display: inline-block; background: #c4161c; border-radius: 10px; margin-right: 10px; vertical-align: initial; }                 
-            .liveContentWrap .date-time span {font-size: 15px;}
-            .live-content {background: #f7f7f7; padding: 5px 12px; border-bottom: 1px dashed #ddd; border-radius: 5px; }
-            .live-content h4 {margin-top: 10px; margin-bottom: 0px;}
-            .live-content h4 a {color: #000; }                
-            .live-content h4 a.read-story {margin-bottom: 15px;}
+            ${htmlstyle}
             </style>\                  
             <script src="ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>\
             <script>
@@ -89,19 +85,24 @@ const RenderHTML = ({ htmlcontent }) => {
                     javaScriptEnabled={true}
                     //injectedJavaScript={webViewScript}
                     automaticallyAdjustContentInsets={false}
-                    ref={(ref) => { this.webview = ref; }}
-                    onNavigationStateChange={(event) => {
-                        //console.log('event.url => ', event.url)
-                        // if (event.url !== 'about:blank') {
-                        //     if (event.url.includes("https://www.bolnews.com")) {
-                        //         this.setState({ postLoading: true, renderLoading: true, webheight: 300 });
-                        //         this.props.GetPostByUrlHit({ url: event.url })
-                        //     } else {
-                        //         this.webview.stopLoading();
-                        //         Linking.openURL(event.url);
-                        //     }
-                        // }
+                    ref={webview}
+                    onOpenWindow={(syntheticEvent) => {
+                        const { nativeEvent } = syntheticEvent;
+                        const { targetUrl } = nativeEvent
+                        console.log('Intercepted OpenWindow for', targetUrl)
                     }}
+                // onNavigationStateChange={(event) => {
+                //     //console.log('event.url => ', event.url)
+                //     if (event.url !== 'about:blank') {
+                //         if (event.url.includes("https://www.google.com")) {
+                //             // this.setState({ postLoading: true, renderLoading: true, webheight: 300 });
+                //             // this.props.GetPostByUrlHit({ url: event.url })
+                //         } else {
+                //             // webview.stopLoading();
+                //             // Linking.openURL(event.url);
+                //         }
+                //     }
+                // }}
                 />
                 {/* {this.state.renderLoading &&
                     <View style={{ paddingVertical: 15, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
