@@ -1,6 +1,6 @@
 import apiAction from '../../api/apiAction';
-import { AboutAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetEventsAPI, GetHomeBannerAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, } from '../../api/routes';
-import { ABOUT_API_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_BOOKS_API_SUCCESS, GET_EVENTS_API_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SET_ERROR, } from '../actiontypes';
+import { AboutAPI, ContactAPI, EventPageContentAPI, GetAnnouncementAPI, GetBooksAPI, GetEventsAPI, GetHomeBannerAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, } from '../../api/routes';
+import { ABOUT_API_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, EVENTS_PAGE_CONTENT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_BOOKS_API_SUCCESS, GET_EVENTS_API_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SET_ERROR, } from '../actiontypes';
 
 const initialState = {
   getSermonsListResponse: {},
@@ -18,6 +18,7 @@ const initialState = {
   contactResponse: {},
   contactErrorResponse: {},
   aboutResponse: {},
+  eventsPageContentResponse: {},
   errorResponse: {}
 };
 
@@ -217,6 +218,21 @@ export function AboutApiCall() {
   });
 }
 
+export function EventPageContentApiCall() {
+  // console.log('params => ', params);
+  return apiAction({
+    url: EventPageContentAPI,
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: EVENTS_PAGE_CONTENT_API_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
 export function GetHomeBanner() {
   // console.log('params => ', params);
   return apiAction({
@@ -289,6 +305,10 @@ const ListingApiStateReducer = (state = initialState, action) => {
     case ABOUT_API_SUCCESS:
       return Object.assign({}, state, {
         aboutResponse: action.payload,
+      });
+    case EVENTS_PAGE_CONTENT_API_SUCCESS:
+      return Object.assign({}, state, {
+        eventsPageContentResponse: action.payload,
       });
     case HOME_BANNER_API_SUCCESS:
       return Object.assign({}, state, {

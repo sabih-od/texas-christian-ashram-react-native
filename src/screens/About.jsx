@@ -31,11 +31,11 @@ const About = (props) => {
         <ScrollView style={{ padding: 15 }}>
             {Object.values(body).map((item, index) => {
                 console.log('item => ', item);
-                if(item.key == 'h1') return <Text key={index} style={[styles.heading, {fontSize: isIPad ? 28 : 23}]}>{item.value}</Text>;
-                else if(item.key == 'image') return <Image key={index} source={{uri: item.value}} style={styles.image} />;
-                else if(item.key == 'h2') return <Text key={index} style={styles.heading}>{item.value}</Text>;
-                else if(item.key == 'p') return <Text key={index} style={styles.paragraph}>{item.value}</Text>;
-                else if(item.key == 'strong') return <Text key={index} style={styles.strong}>{item.value}</Text>;
+                if (item.key == 'h1') return <Text key={index} style={[styles.heading, { fontSize: isIPad ? 28 : 23 }]}>{item.value}</Text>;
+                else if (item.key == 'image') return <Image key={index} source={{ uri: item.value }} style={styles.image} />;
+                else if (item.key == 'h2') return <Text key={index} style={styles.heading}>{item.value}</Text>;
+                else if (item.key == 'p') return <Text key={index} style={styles.paragraph}>{item.value}</Text>;
+                else if (item.key == 'strong') return <Text key={index} style={styles.strong}>{item.value}</Text>;
             })}
             {/* <Text style={[styles.heading, {fontSize: 23}]}>What We Believe</Text>
             <Image source={require('./../../assets/images/about-image-01.jpg')} style={styles.image} />
@@ -53,7 +53,7 @@ const About = (props) => {
             <Text style={styles.heading}>What is Cristian Ashram?</Text>
             <Text style={styles.paragraph}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
             <View style={{ height: 20 }} /> */}
-            <View style={{height: 40, width: 100}} />
+            <View style={{ height: 40, width: 100 }} />
         </ScrollView>
     </SafeAreaView>
 }

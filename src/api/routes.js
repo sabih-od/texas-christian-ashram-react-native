@@ -49,3 +49,4 @@ export const DeleteMessageAPI = '/messages'
 export const RequestPrayerAPI = '/prayer-requests';
 export const ContactAPI = '/contacts';
 export const AboutAPI = '/pages/get-by-name/about';
+export const EventPageContentAPI = '/pages/get-by-name/web-events-page';
