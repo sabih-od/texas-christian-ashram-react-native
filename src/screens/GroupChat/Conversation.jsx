@@ -77,7 +77,7 @@ const Conversation = (props) => {
     const [groupMembers, setGroupMembers] = useState(props.route.params?.groupitem?.members);
 
     const userid = props?.userInfo?.id;
-
+    const textInput = useRef()
     useEffect(() => {
         console.log('useEffect groupMembers => ', groupMembers);
     }, [groupMembers])
@@ -114,6 +114,7 @@ const Conversation = (props) => {
 
     useEffect(() => {
         console.log('group?.id => ', group);
+        console.log('props.route.params?.groupitem => ', props.route.params?.groupitem)
         props.navigation.setOptions({ headerTitle: group?.name });
         props.GetMessagesApiCall({ pageno, limit, group_id: group?.id })
         return () => {
@@ -241,14 +242,18 @@ const Conversation = (props) => {
     // }, [textMsg])
 
     const onSendMessage = () => {
+        const textMsg = textInput.current.value;
         if (textMsg == '') { return; }
+        
         console.log(textMsg);
         props.SendMessageApiCall({
             group_id: group?.id,
             user_id: userid,
             message: textMsg
         });
-        setText('');
+        // setText('');
+        textInput.current.value = '';
+        textInput.current.clear();
         scrollToBottom(true)
     }
 
@@ -396,11 +401,15 @@ const Conversation = (props) => {
                     </>}
                     {groupMembers?.includes(userid) && <>
                         <TextInput
+                            ref={textInput}
                             placeholder="Write your message.."
                             defaultValue=""
                             style={styles.textinputmsg}
-                            value={textMsg}
-                            onChangeText={text => { setText(text) }}
+                            // value={textMsg}
+                            onChangeText={
+                                // text => { setText(text) }
+                                value => textInput.current.value = value
+                            }
                             onFocus={() => {
                                 console.log('input foucs');
                                 scrollToBottom(false)

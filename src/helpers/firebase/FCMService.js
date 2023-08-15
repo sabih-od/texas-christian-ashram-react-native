@@ -72,7 +72,7 @@ class FCMService {
             .onNotificationOpenedApp((notificationOpen) => {
                 console.log('onNotificationOpenedApp => ', notificationOpen)
                 if (notificationOpen) {
-                    const notification = notificationOpen.notification
+                    const notification = notificationOpen
                     onOpenNotification(notification)
                     //this.removeDelieveredNotification(notification)
                 }

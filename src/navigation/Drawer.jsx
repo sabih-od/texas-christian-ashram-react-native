@@ -61,15 +61,18 @@ const DrawerContent = (props) => {
 
     function onOpenNotification(notify) {
       console.log('onOpenNotification => ', notify);
-      if (props.isLogin && Object.keys(notify).length > 0) {
-        props.navigation.navigate('Notifications')
+      if (notify && props.isLogin && Object.keys(notify).length > 0) {
+        if (Object.keys(notify.data).length > 0 && notify?.data?.group_id) props.navigation.navigate('Conversation', { groupitem: { id: notify?.data?.group_id, name: notify?.data?.title  } })
+        else props.navigation.navigate('Notifications')
       }
     }
 
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log('A new FCM message arrived!', remoteMessage);
-      props.UpdateNotificationBadge(props.notificationBadge + 1);
-      const notify = remoteMessage
+      if (Object.keys(remoteMessage.data).length > 0 && remoteMessage?.data?.group_id) { } else {
+        props.UpdateNotificationBadge(props.notificationBadge + 1);
+      }
+      // const notify = remoteMessage
       // const options = { soundName: 'default', };
       // localNotificationService.showNotification(0, notify.notification.title, notify.notification.body, notify, options,);
       // console.log('notify.rideid => ', notify.rideid);

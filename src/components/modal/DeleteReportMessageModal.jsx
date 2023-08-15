@@ -65,12 +65,12 @@ const DeleteReportMessageModal = ({ item, visible, userid, handleDelete, setShow
                         <Image
                             source={item?.user?.profile_picture ? { uri: item?.user?.profile_picture } : require('./../../../assets/images/dummy-profile-image.png')}
                             // source={require('./../../../assets/images/dummy-profile-image.png')}
-                            defaultSource={require('./../../../assets/images/dummy-profile-image.png')}
+                            defaultSource={require('./../../../assets/images/speaker-placeholder.png')}
                             style={[styles.proficon]}
                         />
                         <View style={{ paddingHorizontal: 10 }}>
                             <View style={{ backgroundColor: colors.green, paddingVertical: 9, paddingHorizontal: 15, borderRadius: 10, borderBottomLeftRadius: 0, marginBottom: 6 }}>
-                                <Text style={{ fontFamily: fonts.latoRegular, color: colors.white, fontSize: isIPad ? 18 : 15 }}>{item.message}</Text>
+                                <Text style={{ fontFamily: fonts.latoRegular, color: colors.white, fontSize: isIPad ? 18 : 15, width: width - 157 }}>{item.message}</Text>
                             </View>
                             <Text style={{ fontFamily: fonts.latoRegular, color: colors.grey, fontSize: isIPad ? 16 : 12 }}>From <Text style={{ fontFamily: fonts.latoBold }}>{`${item?.user?.first_name} ${item?.user?.last_name}`}</Text></Text>
                         </View>
