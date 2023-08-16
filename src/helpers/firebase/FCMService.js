@@ -102,7 +102,7 @@ class FCMService {
 
 
     unRegister = () => {
-        this.messageListener();
+        // this.messageListener();
     }
 
     backgroundMessageHandler = () => {
@@ -110,7 +110,7 @@ class FCMService {
             console.log('Message handled in the background!', remoteMessage);
             // const notify = remoteMessage
             // const options = { soundName: 'default', };
-            // localNotificationService.showNotification(0, notify.notification.title, notify.notification.body, notify, options,);
+            localNotificationService.showNotification(0, notify.notification.title, notify.notification.body, notify, options,);
         });
     }
 

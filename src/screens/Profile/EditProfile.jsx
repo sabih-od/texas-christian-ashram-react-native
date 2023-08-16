@@ -330,7 +330,7 @@ const EditProfile = props => {
                 keyboardType="phone-pad"
                 {...register('phone', {
                   value: user?.phone,
-                  required: 'Phone number is required',
+                  // required: 'Phone number is required',
                   pattern: {
                     value: /[0-9+]$/i,
                     message: 'Please provide valid phone number',

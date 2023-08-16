@@ -1,6 +1,6 @@
 import { Image, Modal, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { colors, fonts } from '../../theme';
+import { colors, fonts, isIPad } from '../../theme';
 import Icon from 'react-native-vector-icons/Feather';
 import globalstyle from '../../theme/style';
 
@@ -21,7 +21,7 @@ const DeleteProfileConfirmationModal = ({ visible, handleDeleteConfirmValue, set
         >
             <View style={{ ...StyleSheet.absoluteFillObject, zIndex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => { handleDeleteConfirmValue(false) }} activeOpacity={1} style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></TouchableOpacity>
-                <View style={{ backgroundColor: '#fff', borderRadius: 7, width: '90%', }}>
+                <View style={{ backgroundColor: '#fff', borderRadius: 7, width: isIPad ? 470 : '90%', }}>
                     <Text style={globalstyle.modaltitle}>Delete Account</Text>
                     <Text style={globalstyle.modaldesc}>Are you sure you want to delete your account?</Text>
                     <View style={globalstyle.modalbtnsrow}>

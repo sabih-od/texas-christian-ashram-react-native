@@ -5,6 +5,7 @@ import { colors, fonts, isIPad, width } from "../theme";
 import moment from "moment";
 
 const NotificationItem = ({ item, navigation }) => {
+    console.log('item?.topic => ', item?.topic)
     return (<TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
@@ -12,7 +13,7 @@ const NotificationItem = ({ item, navigation }) => {
             // navigation.navigate('AnnouncementDetail', { id: 21, refresh: true })
             if (item?.topic == 'prayer-request') { navigation.navigate('RequestedPrayers') } // RequestedPrayers
             if (item?.topic == 'book') { navigation.navigate('Books') } // Books // PdfView
-            if (item?.topic == 'event') { navigation.navigate('EventDetail', { id: item?.topic_id, refresh: true }) } // Events // EventDetail
+            if (item?.topic == 'event') { navigation.navigate('Events', { id: item?.topic_id, refresh: true }) } // Events // EventDetail
             if (item?.topic == 'post') { navigation.navigate('PostDetail', { id: item?.topic_id, refresh: true }) } // Posts // PostDetail
             if (item?.topic == 'sermon') { navigation.navigate('SermonsDetail', { id: item?.topic_id, refresh: true }) } // Sermons // SermonsDetail
             if (item?.topic == 'announcement') { navigation.navigate('AnnouncementDetail', { id: item?.topic_id, refresh: true }) } // Announcements // AnnouncementDetail

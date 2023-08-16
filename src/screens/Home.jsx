@@ -222,13 +222,13 @@ const Home = (props) => {
                     style={{ width: width - 30, borderRadius: 10, overflow: 'hidden', alignItems: 'center', paddingVertical: 30, position: 'relative' }}
                 >
                     <View style={{ backgroundColor: colors.black, opacity: 0.7, width: '100%', height: 200, zIndex: 0, left: 0, top: 0, position: 'absolute', }} />
-                    <Text style={{ fontFamily: fonts.headingFont, color: colors.white, textAlign: 'center', fontSize: 22, marginBottom: 15, lineHeight: 32 }}>Submit Your Prayer Request</Text>
+                    <Text style={{ fontFamily: fonts.headingFont, color: colors.white, textAlign: 'center', fontSize: isIPad ? 28 : 22, marginBottom: 15, lineHeight: 32 }}>Submit Your Prayer Request</Text>
                     <TouchableOpacity
                         activeOpacity={0.8}
-                        style={{ padding: 8, backgroundColor: colors.orange, width: 150, borderRadius: 10, }}
+                        style={{ padding: isIPad ? 10 : 8, backgroundColor: colors.orange, width: isIPad ? 180 : 150, borderRadius: 10, }}
                         onPress={() => props.navigation.navigate('PrayerRequest')}
                     >
-                        <Text style={{ fontFamily: fonts.latoBold, color: colors.white, textAlign: 'center', textTransform: 'uppercase', fontSize: 14 }}>Submit Now</Text>
+                        <Text style={{ fontFamily: fonts.latoBold, color: colors.white, textAlign: 'center', textTransform: 'uppercase', fontSize: isIPad ? 17 : 14 }}>Submit Now</Text>
                     </TouchableOpacity>
                 </ImageBackground>
 

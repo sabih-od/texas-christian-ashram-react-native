@@ -16,7 +16,7 @@ const RenderHTML = ({ htmlcontent, htmlstyle }) => {
     //         true; // note: this is required, or you'll sometimes get silent failures
     //         `;
 
-    htmlcontent = htmlcontent.replace(/<p>&nbsp;<\/p>/gim, '');
+    htmlcontent = htmlcontent?.replace(/<p>&nbsp;<\/p>/gim, '');
 
     if (htmlcontent) {
 
@@ -28,7 +28,7 @@ const RenderHTML = ({ htmlcontent, htmlstyle }) => {
         <html>\
           <head>\
             <meta charset="utf-8">\
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\
             <link rel="preconnect" href="https://fonts.googleapis.com">\
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\
             <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Yeseva+One&display=swap" rel="stylesheet">\
@@ -51,7 +51,7 @@ const RenderHTML = ({ htmlcontent, htmlstyle }) => {
             table th { background:  ${colors.green}; color: #fff; text-transform: capitalize;padding: 5px; text-align: left; font-size: 13px; border: 0;}\
             table td { border: 1px solid #ddd; padding: 5px; font-size: 13px; }\
             ul li {color: #333;}
-            ul { margin: 0px; padding: 0px; list-style: none; z-index: 0;padding-left: 18px; margin-bottom: 15px; }
+            ul { margin: 0px; padding: 0px; list-style: none; z-index: 0;padding-left: 18px; margin-bottom: 15px; } hr {margin: 20px 0;}
             ul li:before {content: '';display: inline-block;vertical-align: middle;width: 7px;height: 7px;margin-right: 10px;background: #c72026;border-radius: 16px;margin-left: -17px;}
             figure {width: 100%;margin: 10px 0;} img {width: 100%; height: auto;} strong{font-weight: 500; color: #111;}\
             ${htmlstyle}
@@ -91,18 +91,18 @@ const RenderHTML = ({ htmlcontent, htmlstyle }) => {
                         const { targetUrl } = nativeEvent
                         console.log('Intercepted OpenWindow for', targetUrl)
                     }}
-                // onNavigationStateChange={(event) => {
-                //     //console.log('event.url => ', event.url)
-                //     if (event.url !== 'about:blank') {
-                //         if (event.url.includes("https://www.google.com")) {
-                //             // this.setState({ postLoading: true, renderLoading: true, webheight: 300 });
-                //             // this.props.GetPostByUrlHit({ url: event.url })
-                //         } else {
-                //             // webview.stopLoading();
-                //             // Linking.openURL(event.url);
-                //         }
-                //     }
-                // }}
+                onNavigationStateChange={(event) => {
+                    //console.log('event.url => ', event.url)
+                    if (event.url !== 'about:blank') {
+                        if (event.url.includes("https://www.google.com")) {
+                            // this.setState({ postLoading: true, renderLoading: true, webheight: 300 });
+                            // this.props.GetPostByUrlHit({ url: event.url })
+                        } else {
+                            webview.current.stopLoading();
+                            Linking.openURL(event.url);
+                        }
+                    }
+                }}
                 />
                 {/* {this.state.renderLoading &&
                     <View style={{ paddingVertical: 15, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>

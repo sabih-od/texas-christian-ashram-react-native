@@ -92,8 +92,6 @@ const Profile = props => {
 
   return (
     <>
-      <DeleteProfileConfirmationModal handleDeleteConfirmValue={_handleDeleteConfirmValue} visible={showConfirmationModal} setVisible={setShowConfirmationModal} />
-
       <Loader isLoading={loading} />
       <SafeAreaView style={styles.fullview}>
         <ImageBackground source={require('./../../../assets/images/background-with-img.png')}
@@ -102,6 +100,7 @@ const Profile = props => {
           <View style={styles.container}>
 
             {/* <BlockedUsers passReferenceToParent={handleChildReference} /> */}
+            <DeleteProfileConfirmationModal handleDeleteConfirmValue={_handleDeleteConfirmValue} visible={showConfirmationModal} setVisible={setShowConfirmationModal} />
             <BlockedUsersListModal visible={showBlockedUsers} setVisible={setShowBlockedUsers} />
             {/* <View style={{ backgroundColor: colors.green, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
             <View style={[{ paddingVertical: 20, paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer, { marginTop: 'auto', marginBottom: 'auto' }]}>
@@ -173,13 +172,13 @@ const Profile = props => {
             </View>
           </View>
           <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={() => {
-                setShowConfirmationModal(true)
-              }}
-              style={[globalstyle.authSubmitButton, globalstyle.authscreencontainer, { width: '100%', backgroundColor: colors.black, marginBottom: 15 }]}>
-              <Text style={[globalstyle.authSubmitButtonText, { fontSize: isIPad ? 16 : 13 }]}>Delete Account</Text>
-            </TouchableOpacity>
+            activeOpacity={0.9}
+            onPress={() => {
+              setShowConfirmationModal(true)
+            }}
+            style={[globalstyle.authSubmitButton, globalstyle.authscreencontainer, { width: '100%', backgroundColor: colors.black, marginBottom: 15 }]}>
+            <Text style={[globalstyle.authSubmitButtonText, { fontSize: isIPad ? 16 : 13 }]}>Delete Account</Text>
+          </TouchableOpacity>
           {/* </BottomSheetModalProvider> */}
         </ImageBackground>
       </SafeAreaView >
